@@ -1,15 +1,12 @@
 
 <!-- Main modal -->
 <div id="webcam-modal" tabindex="-1" aria-hidden="true"
-    class="fixed top-0 left-0 right-0 z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full ">
-    <div class="relative w-full h-full max-w-md md:h-auto mx-auto">
+    class="fixed top-0 left-0 right-0 z-50  w-50 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full bg-gray-900/75">
+    <div class="relative w-auto h-auto m-5">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-800 mx-auto" >
             <!-- Modal header -->
             <div class="flex items-start justify-between px-6 py-4 rounded-t">
-                <h3 class="text-lg font-normal text-gray-500 dark:text-gray-400">
-                    Stadium Webcam <br /><small>(Updates every 5 minutes)</small>
-                </h3>
                 <button type="button" hx-trigger="click" hx-target="#webcam-modal" hx-swap="outerHTML" hx-get="{% url 'empty_route' %}"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -22,15 +19,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <div class="px-4 space-y-4 md:px-6">
-                <img class="object-cover w-full h-full" src="https://www.fortkentoc.org/webcam/pic1024x768at50pct.jpg?ver=1698752710516" alt="Conference speaker">
-            </div>
-            <div class="flex items-center p-6 space-x-4 rounded-b dark:border-gray-600">
-                <button hx-trigger="click" hx-target="#webcam-modal" hx-swap="outerHTML" hx-get="{% url 'empty_route' %}"
-                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-700 dark:hover:bg-primary-800 dark:focus:ring-primary-800">
-                    Close
-                </button>
-            </div>
+            {% include 'website/partials/webcam_partial.html' %}
         </div>
     </div>
 </div>
