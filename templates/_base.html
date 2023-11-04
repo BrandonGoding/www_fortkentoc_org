@@ -20,15 +20,17 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+
 <header>
     <nav class="hidden border-gray-200 bg-gray-800 md:block">
         <div class="flex flex-wrap justify-between items-end mx-auto max-w-screen-xl py-2.5">
             <div class="flex" style="margin-left:auto;">
                 <a href="#" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Become A Member</a>
-                <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'webcam_modal' %}" hx-swap="afterbegin"
+                <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:webcam_modal' %}" hx-swap="afterbegin"
                    class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Webcam</a>
                 <a href="#" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Trail Maps</a>
-                <a href="#" class="text-sm font-medium sm:mr-2 text-white hover:text-gray-300">Contact us</a>
+                <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:contact_form' %}" hx-swap="afterbegin"
+                   class="text-sm font-medium sm:mr-2 text-white hover:text-gray-300">Contact us</a>
             </div>
         </div>
     </nav>
@@ -80,21 +82,20 @@
                             <ul class="py-1 text-sm font-light text-gray-500 dark:text-gray-400"
                                 aria-labelledby="about-dropdown-button">
                                 <li>
-                                    <a href="{% url 'about_us' %}"
+                                    <a href="{% url 'website:about_us' %}"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Who
                                         we are</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'facilities' %}"
+                                    <a href="{% url 'website:facilities' %}"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Facilities</a>
                                 </li>
                                 <li>
                                     <a href="#"
-                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Our
-                                        trails</a>
+                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Trails</a>
                                 </li>
                                 <li>
-                                    <a href="#"
+                                    <a href="{% url 'website:policies' %}"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Policies</a>
                                 </li>
                             </ul>
@@ -241,7 +242,7 @@
                     <a href="#" class="mr-4 hover:underline md:mr-6">Job Opportunities</a>
                 </li>
                 <li>
-                    <a href="#" class="hover:underline">Contact</a>
+                    <a href="#" class="hover:underline  hx-trigger="click" hx-target="body" hx-get="{% url 'website:contact_form' %}" hx-swap="afterbegin">Contact</a>
                 </li>
             </ul>
             <form action="#" class="flex w-full max-w-sm lg:ml-auto">

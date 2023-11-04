@@ -19,7 +19,16 @@
             <p class="mb-4">The 10th Mountain Lodge located at the Fort Kent Outdoor Center is now available to rent year-round for any of your school, non-profit, business, organization or individual event. There are two large rooms available for meetings, retreats, or parties, both exhibiting an outstanding view of a world-class recreational facility encompassed in a secluded, picturesque natural setting.</p>
             <p class="mb-4">One meeting room has a cozy fireplace perfect for a winter gathering and seats approximately 30, while the conference room seats approximately 50 and is equipped with a digital projector and screen for presentations. WiFi is accessible throughout the entire facility, and a well-stocked kitchen is also available. Most local caterers are familiar with the amenities of our lodge if you wish to hire out the food services for your event. There is a restroom upstairs as well as separate Mens and Ladies facilities in the lower level.</p>
             <p class="mb-4">Lodge rentals also include half price trail passes for rental participants, with showers and a sauna available as well. What a relaxing, healthy way to end a meeting or seminar!</p>
-            <p>If you have any questions, or would like to book a rental, email <a href="mailto:info@fortkentoc.org">info@fortkentoc.org</a>.</p>
+            <a href="#"  hx-trigger="click" hx-target="body" hx-get="{% url 'website:contact_form' %}" hx-swap="afterbegin" title=""
+          class="inline-flex items-center text-base font-medium text-primary-600 hover:underline dark:text-primary-500">
+          Inquire Today
+          <svg aria-hidden="true" class="w-5 h-5 ml-1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+            fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd" />
+          </svg>
+        </a>
         </div>
         <div class="grid grid-cols-2 gap-4 mt-8">
             <img class="w-full rounded-lg" src="{% static 'img/lodge-interior.jpg' %}" alt="office content 1">
