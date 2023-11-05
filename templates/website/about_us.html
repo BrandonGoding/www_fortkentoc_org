@@ -106,119 +106,26 @@
     </div>
 
     <div class="grid grid-cols-1 gap-4 mt-8 lg:mt-16 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-      <div class="relative overflow-hidden rounded-lg group">
-        <img class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" src="{% static 'img/board_members/board-members-35.jpg' %}" alt="">
-        <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
+      {% for board_member in board_members %}
+        <div class="relative overflow-hidden rounded-lg group">
+        {% if board_member.img_url %}
+        <img class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" src="{{ board_member.img_url }}" alt="">
+       {% endif %}
+            <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
           <div class="text-center">
             <p class="text-xl font-bold text-white">
-              Laura Audibert
+                {{ board_member.web_display_name }}
             </p>
+              {% if board_member.title %}
             <p class="text-base font-medium text-gray-300">
-              President
+                {{ board_member.title }}
             </p>
+              {% endif %}
           </div>
         </div>
       </div>
-
-      <div class="relative overflow-hidden rounded-lg group">
-        <img class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" src="{% static 'img/board_members/board-members-38.jpg' %}" alt="">
-        <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
-          <div class="text-center">
-            <p class="text-xl font-bold text-white">
-              Deb Hedeen
-            </p>
-            <p class="text-base font-medium text-gray-300">
-              Vice President
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="relative overflow-hidden rounded-lg group">
-        <img class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" src="{% static 'img/board_members/board-members-46.jpg' %}" alt="">
-        <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
-          <div class="text-center">
-            <p class="text-xl font-bold text-white">
-              Danielle Reardon
-            </p>
-            <p class="text-base font-medium text-gray-300">
-              Secretary
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="relative overflow-hidden rounded-lg group">
-        <img class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" src="{% static 'img/board_members/board-members-50.jpg' %}" alt="">
-        <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
-          <div class="text-center">
-            <p class="text-xl font-bold text-white">
-              Pat Theriault
-            </p>
-            <p class="text-base font-medium text-gray-300">
-              Treasurer
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="relative overflow-hidden rounded-lg group">
-        <img class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" src="{% static 'img/board_members/board-members-36.jpg' %}" alt="">
-        <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
-          <div class="text-center">
-            <p class="text-xl font-bold text-white">
-              Brandon Goding
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="relative overflow-hidden rounded-lg group">
-        <img class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" src="{% static 'img/board_members/board-members-43.jpg' %}" alt="">
-        <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
-          <div class="text-center">
-            <p class="text-xl font-bold text-white">
-              Jim Marquis
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="relative overflow-hidden rounded-lg group">
-        <img class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" src="{% static 'img/board_members/board-members-56.jpg' %}" alt="">
-        <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
-          <div class="text-center">
-            <p class="text-xl font-bold text-white">
-              Norman Martin
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="relative overflow-hidden rounded-lg group">
-        <img class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" src="{% static 'img/board_members/board-members-53.jpg' %}" alt="">
-        <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
-          <div class="text-center">
-            <p class="text-xl font-bold text-white">
-              Ben Paradis
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="relative overflow-hidden rounded-lg group">
-        <img class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" src="{% static 'img/board_members/board-members-47.jpg' %}" alt="">
-        <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
-          <div class="text-center">
-            <p class="text-xl font-bold text-white">
-              Carl Theriault
-            </p>
-          </div>
-        </div>
-      </div>
-
+      {% endfor %}
     </div>
-
     <div class="max-w-3xl p-4 mx-auto mt-8 rounded-md lg:mt-16 bg-gray-50 dark:bg-gray-800">
       <div class="flex flex-col justify-between gap-3 md:gap-6 md:items-center md:flex-row">
         <div class="flex items-center gap-1.5">

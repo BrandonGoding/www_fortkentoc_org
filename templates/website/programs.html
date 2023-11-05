@@ -1,0 +1,41 @@
+{% extends "_base.html" %}
+{% load static %}
+{% block content %}
+    <section class="bg-[url('https://www.fortkentoc.org/wp-content/uploads/2021/12/5D3_7677-Pano-scaled.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
+        <div class="relative py-8 px-4 mx-auto max-w-screen-xl text-white lg:py-16 xl:px-0 z-1">
+          <div class="mb-6 max-w-screen-md lg:mb-0">
+              <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">Coaching Programs</h1>
+              <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">Along with many community outings and events offered at the FKOC for our adult members, such as annual Welcome Winter evening in early December, and the Band and BBQ event in the fall, we also offer ongoing educational programming for youth.</p>
+          </div>
+      </div>
+    </section>
+
+
+
+<section class="bg-white dark:bg-gray-900">
+  <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
+      <div class="mx-auto mb-8 lg:mb-16 max-w-screen-sm md:mb-24">
+          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">The FKOC Coaching Team</h2>
+          <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Explore the whole collection of open-source web components and elements built with the utility classes from Tailwind</p>
+      </div>
+      <div class="grid gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div class="text-center text-gray-500">
+              <a href="#"  hx-trigger="click" hx-target="body" hx-get="{% url 'website:coach_modal' %}" hx-swap="afterbegin">
+              <img class="mx-auto mb-4 w-36 h-36 rounded-lg" src="{% static 'img/carlcoach.jpg' %}" alt="Bonnie Avatar">
+
+                  <h5 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Carl Theriault</h5>
+
+              <span>Program Director</span>
+                  <svg class="w-[12px] h-[12px] text-gray-800 dark:text-white inline-block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
+  </svg></a>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+
+
+
+{% endblock content %}
