@@ -13,10 +13,10 @@ urlpatterns = [
     path("about-us", website_views.WhoWeArePage.as_view(), name="about_us"),
     path("facilities", TemplateView.as_view(template_name="website/facilities.html"), name="facilities"),
     path("policies", TemplateView.as_view(template_name="website/policies.html"), name="policies"),
-    path("programs", TemplateView.as_view(template_name="website/programs.html"), name="programs"),
+    path("programs", website_views.ProgramsPage.as_view(), name="programs"),
     path("partials/empty", website_views.empty_route, name="empty_route"),
     path("partials/webcam", website_views.webcam_partial, name="webcam_modal"),
-    path("partials/coach", website_views.coach_partial, name="coach_modal"),
+    path("partials/coach/<slug:slug>/", website_views.CoachDetailView.as_view(), name="coach_modal"),
     path("partials/contact-form", website_views.contact_form, name="contact_form"),
     path("partials/contact-form/thank-you", website_views.contact_thank_you, name="contact_form_thank_you"),
 ]
