@@ -1,5 +1,6 @@
 from django.urls import path
 from django.views.generic import TemplateView
+
 import website.views as website_views
 
 app_name = "website"

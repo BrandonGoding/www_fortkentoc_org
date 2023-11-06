@@ -1,180 +1,232 @@
 {% extends "_base.html" %}
 {% load static %}
 {% block content %}
-    <section class="bg-[url('https://www.fortkentoc.org/wp-content/uploads/2021/12/5D3_7677-Pano-scaled.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
+    <section
+            class="bg-[url('https://www.fortkentoc.org/wp-content/uploads/2021/12/5D3_7677-Pano-scaled.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
         <div class="relative py-8 px-4 mx-auto max-w-screen-xl text-white lg:py-16 xl:px-0 z-1">
-          <div class="mb-6 max-w-screen-md lg:mb-0">
-              <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">Coaching Programs</h1>
-              <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">Along with many community outings and events offered at the FKOC for our adult members, such as annual Welcome Winter evening in early December, and the Band and BBQ event in the fall, we also offer ongoing educational programming for youth.</p>
-          </div>
-      </div>
+            <div class="mb-6 max-w-screen-md lg:mb-0">
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">
+                    Coaching Programs</h1>
+                <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">Along with many community outings
+                    and events offered at the FKOC for our adult members, such as annual Welcome Winter evening in early
+                    December, and the Band and BBQ event in the fall, we also offer ongoing educational programming for
+                    youth.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white dark:bg-gray-900">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
+            <div class="mx-auto mb-8 lg:mb-16 max-w-screen-sm md:mb-24">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">The FKOC Coaching
+                    Team</h2>
+                <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Explore the whole collection of
+                    open-source web components and elements built with the utility classes from Tailwind</p>
+            </div>
+            <div class="grid gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {% for coach in coaches %}
+                    <div class="text-center text-gray-500">
+                        <a href="#" hx-trigger="click" hx-target="body"
+                           hx-get="{% url 'website:coach_modal' coach.slug %}" hx-swap="afterbegin">
+                            <img class="mx-auto mb-4 w-36 h-36 rounded-lg" src="{{ coach.img_url }}"
+                                 alt="{{ coach.web_display_name }}">
+                            <h5 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ coach.web_display_name }}</h5>
+                            {% if coach.title %}
+                                <span>{{ coach.title }}</span>
+                            {% endif %}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-white dark:bg-gray-900">
+        <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-12 lg:py-12 lg:pb-16">
+            <div class="text-center">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">POST GRADUATE (PG)
+                    Training PROGRAM</h2>
+            </div>
+            <div class="grid grid-cols-1 gap-8 mt-8 lg:gap-16 lg:grid-cols-2 lg:mt-16">
+                <div>
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
+                            Description
+                        </h3>
+                        <p class="mt-2 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            The FKOC Post Graduate program is a high performance training program designed to bring high
+                            school graduated Nordic skiers and Biathletes, aged 18-23, to the next level of competitive
+                            performance with a dedicated annual full time training program.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
+                            Coaches
+                        </h3>
+                        <p class="mt-2 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            Coaching responsibilities are shared between <span style="background-color:yellow;">Carl Theriault for biathlon specific training and Hannah Streinz </span>for
+                            ski technique, strength and endurance train </p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
+                            Academics
+                        </h3>
+                        <p class="mt-2 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            <img decoding="async" loading="lazy" class="float-left mt-2 mr-3"
+                                 src="https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-168x300.png"
+                                 alt="University of Maine at Fort Kent Logo" width="62" height="110"
+                                 srcset="https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-168x300.png 168w, https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-574x1024.png 574w, https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-768x1371.png 768w, https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-861x1536.png 861w, https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-600x1071.png 600w, https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical.png 1138w"
+                                 sizes="(max-width: 62px) 100vw, 62px">We highly encourage athletes to take advantage of
+                            the <a href="https://www.umfk.edu/" target="_blank" rel="noopener">University of Maine at
+                            Fort Kent</a> to stay intellectually stimulated while training and fulfill some early
+                            collegiate course requirements. The University offers scholarship programs to all athletes
+                            training with the FKOC PG program.
+
+                    </div>
+
+                </div>
+
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
+                            Facility
+                        </h3>
+                        <p class="mt-2 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            The training will take advantage of the excellent facilities at the Fort Kent Outdoor
+                            Center. This includes a 3km paved roller skiing loop, a 30-point shooting range, and 25km of
+                            excellent Nordic trails that are FIS and IBU homologated. Fort Kent has the longest
+                            snow-covered season in the Northeast, usually starting in early November and finishing in
+                            late April.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
+                            Housing
+                        </h3>
+                        <p class="mt-2 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            We offer two housing options for out athletes, our lodge and the Jalbert Biathlon Residence.
+                            While the coaches do check in frequently, the athletes are living independently and are
+                            expected to maintain their space appropriately.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8 mt-8 ">
+                <div>
+                    <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
+                        Pricing
+                    </h3>
+                </div>
+
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
+
+                    <li class="flex items-center gap-2.5">
+                        <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                             fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-base font-normal text-gray-500 dark:text-gray-400">
+              Housing $300/Month <br/><small> Utilities and internet included. </small>
+            </span>
+                    </li>
+
+                    <li class="flex items-center gap-2.5">
+                        <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                             fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-base font-normal text-gray-500 dark:text-gray-400">
+              Couching/Training $200/Month <br/><small>Includes: Daily training, Race support, Wax supplies, and Team FKOC Uniforms.</small>
+            </span>
+                    </li>
+
+                    <li class="flex items-center gap-2.5">
+                        <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                             fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-base font-normal text-gray-500 dark:text-gray-400">
+              Ammunition $50/Month <br/><small>Biathletes only </small>
+            </span>
+                    </li>
+
+                    <li class="flex items-center gap-2.5">
+                        <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                             fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-base font-normal text-gray-500 dark:text-gray-400">
+              Training Camps/Events - In Region <br/><small>We will provide transport/housing/food. You will cover the registration costs. </small>
+            </span>
+                    </li>
+
+                    <li class="flex items-center gap-2.5">
+                        <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                             fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-base font-normal text-gray-500 dark:text-gray-400">
+              Training Camps/Events - Out of Region <br/><small>We will provide housing and food, you must cover your airfare and registration fees </small>
+            </span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
     </section>
 
 
 
-<section class="bg-white dark:bg-gray-900">
-  <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
-      <div class="mx-auto mb-8 lg:mb-16 max-w-screen-sm md:mb-24">
-          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">The FKOC Coaching Team</h2>
-          <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Explore the whole collection of open-source web components and elements built with the utility classes from Tailwind</p>
-      </div>
-      <div class="grid gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {% for coach in coaches %}
-          <div class="text-center text-gray-500">
-              <a href="#"  hx-trigger="click" hx-target="body" hx-get="{% url 'website:coach_modal' coach.slug %}" hx-swap="afterbegin">
-              <img class="mx-auto mb-4 w-36 h-36 rounded-lg" src="{{ coach.img_url }}" alt="{{ coach.web_display_name }}">
-                  <h5 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ coach.web_display_name }}</h5>
-                  {% if coach.title %}
-                    <span>{{ coach.title }}</span>
-                  {% endif %}
-              </a>
-          </div>
-          {% endfor %}
-      </div>
-  </div>
-</section>
-
-
-
-
-    <section class="bg-white dark:bg-gray-900">
-  <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-24">
-    <div class="text-center">
-        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">POST GRADUATE (PG) Training PROGRAM</h2>
-    </div>
-
-    <div class="max-w-5xl mx-auto mt-8 lg:mt-16">
-      <img class="w-full rounded-lg shadow-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/computer-dark.png"
-        alt="Content image">
-    </div>
-
-    <div class="grid grid-cols-1 gap-8 mt-8 lg:gap-16 lg:grid-cols-2 lg:mt-16">
-      <div>
-        <div>
-          <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
-            Description
-          </h3>
-          <p class="mt-2 text-lg font-normal text-gray-500 dark:text-gray-400">
-            The FKOC Post Graduate program is a high performance training program designed to bring high school graduated Nordic skiers and Biathletes, aged 18-23, to the next level of competitive performance with a dedicated annual full time training program.
-          </p>
+    <section class="bg-gray-900">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Jalbert Biathlon Residence</h2>
+            <p class="font-light sm:text-lg md:px-20 lg:px-38 xl:px-48 text-gray-400">The Post Graduate program is
+                supported by the generous help of Phyllis Jalbert, who has provided us with the “Jalbert Biathlon
+                Residence”, located within walking distance of the FKOC. There are 5 bedrooms, a spacious living
+                room/kitchen, and a common area in the basement. at the located at 42 2nd Ave, about a mile from FKOC.
+                Available to full time athletes on a first come first serve basis. </p>
+            <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">
+                <img class="hidden col-span-1 sm:block rounded-lgg"
+                     src="https://cdn.fortkentoc.org/programs/jalbert-house/jalbert-house-1.jpg"
+                     alt="Jalbert House front yard">
+                <img class="hidden col-span-1 sm:block rounded-lg"
+                     src="https://cdn.fortkentoc.org/programs/jalbert-house/jalbert-house-2.jpg"
+                     alt="Jalbert House bedroom">
+                <img class="hidden col-span-1 sm:block rounded-lg"
+                     src="https://cdn.fortkentoc.org/programs/jalbert-house/jalbert-house-3.jpg"
+                     alt="Jalbert House living space">
+                <img class="hidden col-span-1 sm:block rounded-lg"
+                     src="https://cdn.fortkentoc.org/programs/jalbert-house/jalbert-house-4.jpg"
+                     alt="Jalbert House Dinning area">
+                <img class="hidden col-span-1 sm:block rounded-lg"
+                     src="https://cdn.fortkentoc.org/programs/jalbert-house/jalbert-house-5.jpg"
+                     alt="Jalbert House Kitchen">
+                <img class="hidden col-span-1 sm:block rounded-lg"
+                     src="https://cdn.fortkentoc.org/programs/jalbert-house/jalbert-house-6.jpg"
+                     alt="content gallery 6">
+                <img class="hidden col-span-1 sm:block rounded-lg"
+                     src="https://cdn.fortkentoc.org/programs/jalbert-house/jalbert-house-7.jpg"
+                     alt="Jalbert House Sign">
+                <img class="hidden col-span-1 sm:block rounded-lg"
+                     src="https://cdn.fortkentoc.org/programs/jalbert-house/jalbert-house-8.jpg"
+                     alt="Jalbert House Parking">
+            </div>
         </div>
-          <div>
-          <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
-            Coaches
-          </h3>
-          <p class="mt-2 text-lg font-normal text-gray-500 dark:text-gray-400">
-Coaching responsibilities are shared between Carl Theriault for biathlon specific training and Hannah Streinz for ski technique, strength and endurance train          </p>
-        </div>
-          <div>
-          <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
-            Academics
-          </h3>
-          <p class="mt-2 text-lg font-normal text-gray-500 dark:text-gray-400">
-              <img decoding="async" loading="lazy" class="float-left mt-2 mr-3" src="https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-168x300.png" alt="University of Maine at Fort Kent Logo" width="62" height="110" srcset="https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-168x300.png 168w, https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-574x1024.png 574w, https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-768x1371.png 768w, https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-861x1536.png 861w, https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical-600x1071.png 600w, https://www.fortkentoc.org/wp-content/uploads/2021/06/umfk-logo-color-vertical.png 1138w" sizes="(max-width: 62px) 100vw, 62px">We highly encourage athletes to take advantage of the <a href="https://www.umfk.edu/" target="_blank" rel="noopener">University of Maine at Fort Kent</a> to stay intellectually stimulated while training and fulfill some early collegiate course requirements. The University offers scholarship programs to all athletes training with the FKOC PG program.
-
-        </div>
-
-      </div>
-
-      <div class="space-y-8">
-        <div>
-          <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
-            Facility
-          </h3>
-          <p class="mt-2 text-lg font-normal text-gray-500 dark:text-gray-400">
-            The training will take advantage of the excellent facilities at the Fort Kent Outdoor Center.  This includes a 3km paved roller skiing loop, a 30-point shooting range, and 25km of excellent Nordic trails that are FIS and IBU homologated.  Fort Kent has the longest snow-covered season in the Northeast, usually starting in early November and finishing in late April.
-          </p>
-        </div>
-
-        <div>
-          <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
-            Housing
-          </h3>
-          <p class="mt-2 text-lg font-normal text-gray-500 dark:text-gray-400">
-We offer two housing options for out athletes. Our lodge, and  While the coaches do check in frequently, the athletes are living independently and are expected to maintain their space appropriately.
-          </p>
-        </div>
-      </div>
-    </div>
-
-      <div class="grid grid-cols-1 gap-8 mt-8 ">
-        <div>
-          <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">
-            Pricing
-          </h3>
-        </div>
-
-        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
-
-          <li class="flex items-center gap-2.5">
-            <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-              fill="currentColor">
-              <path fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd" />
-            </svg>
-            <span class="text-base font-normal text-gray-500 dark:text-gray-400">
-              Housing $300/Month <br/><small> Utilities and internet included. </small>
-            </span>
-          </li>
-
-          <li class="flex items-center gap-2.5">
-            <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-              fill="currentColor">
-              <path fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd" />
-            </svg>
-            <span class="text-base font-normal text-gray-500 dark:text-gray-400">
-              Couching/Training $200/Month <br/><small>Includes: Daily training, Race support, Wax supplies, and Team FKOC Uniforms.</small>
-            </span>
-          </li>
-
-          <li class="flex items-center gap-2.5">
-            <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-              fill="currentColor">
-              <path fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd" />
-            </svg>
-            <span class="text-base font-normal text-gray-500 dark:text-gray-400">
-              Ammunition $50/Month <br /><small>Biathletes only </small>
-            </span>
-          </li>
-
-          <li class="flex items-center gap-2.5">
-            <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-              fill="currentColor">
-              <path fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd" />
-            </svg>
-            <span class="text-base font-normal text-gray-500 dark:text-gray-400">
-              Training Camps/Events - In Region <br /><small>We will provide transport/housing/food. You will cover the registration costs. </small>
-            </span>
-          </li>
-
-          <li class="flex items-center gap-2.5">
-            <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-              fill="currentColor">
-              <path fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd" />
-            </svg>
-            <span class="text-base font-normal text-gray-500 dark:text-gray-400">
-              Training Camps/Events - Out of Region <br /><small>We will provide housing and food, you must cover your airfare and registration fees </small>
-            </span>
-          </li>
-        </ul>
-      </div>
-
-  </div>
-
-
-
-
-</section>
-
+    </section>
 
 
 

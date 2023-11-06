@@ -10,23 +10,32 @@ class Migration(migrations.Migration):
 
     def populate_board_members(apps, schema_editor):
         BoardMember = apps.get_model('website', 'BoardMember')
-        laura = BoardMember(last_name="Audibert", first_name="Laura", title="President", img_url="https://cdn.fortkentoc.org/board-members/audibert_laura.jpg")
+        laura = BoardMember(last_name="Audibert", first_name="Laura", title="President",
+                            img_url="https://cdn.fortkentoc.org/board-members/audibert_laura.jpg")
         laura.save()
-        deb = BoardMember(last_name="Hedeen", first_name="Deb", title="Vice President", img_url="https://cdn.fortkentoc.org/board-members/hedeen_deb.jpg")
+        deb = BoardMember(last_name="Hedeen", first_name="Deb", title="Vice President",
+                          img_url="https://cdn.fortkentoc.org/board-members/hedeen_deb.jpg")
         deb.save()
-        danielle = BoardMember(last_name="Reardon", first_name="Danielle", title="Secretary", img_url="https://cdn.fortkentoc.org/board-members/reardon_danielle.jpg")
+        danielle = BoardMember(last_name="Reardon", first_name="Danielle", title="Secretary",
+                               img_url="https://cdn.fortkentoc.org/board-members/reardon_danielle.jpg")
         danielle.save()
-        pat = BoardMember(last_name="Theriault", first_name="Pat", title="Treasurer", img_url="https://cdn.fortkentoc.org/board-members/theriault_pat.jpg")
+        pat = BoardMember(last_name="Theriault", first_name="Pat", title="Treasurer",
+                          img_url="https://cdn.fortkentoc.org/board-members/theriault_pat.jpg")
         pat.save()
-        brandon = BoardMember(last_name="Goding", first_name="Brandon", img_url="https://cdn.fortkentoc.org/board-members/goding_brandon.jpg")
+        brandon = BoardMember(last_name="Goding", first_name="Brandon",
+                              img_url="https://cdn.fortkentoc.org/board-members/goding_brandon.jpg")
         brandon.save()
-        jim = BoardMember(last_name="Marquis", first_name="Jim", img_url="https://cdn.fortkentoc.org/board-members/marquis_jim.jpg")
+        jim = BoardMember(last_name="Marquis", first_name="Jim",
+                          img_url="https://cdn.fortkentoc.org/board-members/marquis_jim.jpg")
         jim.save()
-        norman = BoardMember(last_name="Martin", first_name="Norm", img_url="https://cdn.fortkentoc.org/board-members/martin_norm.jpg")
+        norman = BoardMember(last_name="Martin", first_name="Norm",
+                             img_url="https://cdn.fortkentoc.org/board-members/martin_norm.jpg")
         norman.save()
-        ben = BoardMember(last_name="Paradis", first_name="Ben", img_url="https://cdn.fortkentoc.org/board-members/paradis_ben.jpg")
+        ben = BoardMember(last_name="Paradis", first_name="Ben",
+                          img_url="https://cdn.fortkentoc.org/board-members/paradis_ben.jpg")
         ben.save()
-        carl = BoardMember(last_name="Theriault", first_name="Carl", img_url="https://cdn.fortkentoc.org/board-members/theriault_carl.jpg")
+        carl = BoardMember(last_name="Theriault", first_name="Carl",
+                           img_url="https://cdn.fortkentoc.org/board-members/theriault_carl.jpg")
         carl.save()
         mike = BoardMember(last_name="Tanguay", first_name="Mike")
         mike.save()
