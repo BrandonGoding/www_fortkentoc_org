@@ -56,3 +56,11 @@ class CoachDetailView(DetailView):
         context["next_coach"] = Coach.objects.filter(pk__gt=self.object.pk).order_by('id').first()
         context["prev_coach"] = Coach.objects.filter(pk__lt=self.object.pk).order_by('-id').first()
         return context
+
+
+class MembershipsPage(TemplateView):
+    template_name = "website/memberships.html"
+
+
+class DayPassesPage(TemplateView):
+    template_name = "website/day_passes.html"
