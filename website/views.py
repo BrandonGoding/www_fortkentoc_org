@@ -66,6 +66,18 @@ class CoachDetailView(DetailView):
         return context
 
 
+class EventDetailView(DetailView):
+    model = Event
+    template_name = "website/event_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(EventDetailView, self).get_context_data(**kwargs)
+        current_event = self.get_object()
+        context['upcoming_events'] = Event.objects.exclude(pk=current_event.pk).order_by('date')
+        return context
+
+
+
 class MembershipsPage(TemplateView):
     template_name = "website/memberships.html"
 

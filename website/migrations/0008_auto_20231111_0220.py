@@ -22,6 +22,7 @@ class Migration(migrations.Migration):
             teaser="Gear up for winter fun with our Seasonal Ski Rentals!",
             description=season_ski_rental_pickup,
             img_url="",
+            slug="season-ski-rental-pickup-1",
         )
         Event.objects.create(
             title="Season Ski Rental Pickup",
@@ -32,6 +33,7 @@ class Migration(migrations.Migration):
             teaser="Gear up for winter fun with our Seasonal Ski Rentals!",
             description=season_ski_rental_pickup,
             img_url="",
+            slug="season-ski-rental-pickup-2",
         )
 
         welcome_winter = "<header><h1>Embrace Winter Magic at Our Welcome Winter Celebration!</h1></header><section><p>Join us on December 2nd, from 5:00 to 8:00 PM, for a heartwarming Welcome Winter Celebration. This special eventmarks the beginning of the winter season, filled with community spirit and festive joy.</p></section><section><h2>Event Highlights:</h2><ol><li><strong>Board Member Elections:</strong> Be a part of our community's future by participating in the election of new board members. Your vote shapes the direction of our center and the experiences we offer.</li><li><strong>Membership Opportunities:</strong> Elevate your connection with the Fort Kent Outdoor Center bysecuring your 2024 membership. While there are no discounts, your membership ensures a year of outdooradventures and shared moments with fellow enthusiasts.</li><li><strong>Casual Refreshments:</strong> Enjoy a relaxed atmosphere with simple and comforting refreshments.A casual cash bar will be available for your beverage preferences, adding a touch of warmth to thecelebration.</li></ol></section><section><h2>Save the Date:</h2><p><strong>Date:</strong> December 2nd<br><strong>Time:</strong> 5:00 PM – 8:00 PM</p></section><section><p>Come together with friends and family to celebrate the season, share stories, and embrace the winter spirit.We look forward to welcoming winter with you at [Your Center's Name].</p></section>"
@@ -45,6 +47,7 @@ class Migration(migrations.Migration):
             teaser="As the winter winds start to whisper, we invite you to our enchanting Welcome Winter Celebration on December 2nd, from 5:00 to 8:00 PM. ",
             description=welcome_winter,
             img_url="",
+            slug="welcome-winter-celebration",
         )
 
     operations = [

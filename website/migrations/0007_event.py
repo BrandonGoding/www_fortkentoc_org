@@ -29,6 +29,7 @@ class Migration(migrations.Migration):
                 ("teaser", models.CharField(max_length=100)),
                 ("description", models.TextField()),
                 ("img_url", models.URLField(blank=True)),
+                ("slug", models.SlugField(null=True)),
             ],
         ),
     ]
