@@ -8,7 +8,7 @@ app_name = "website"
 urlpatterns = [
     path(
         "",
-        TemplateView.as_view(template_name="website/home_page.html"),
+        website_views.HomePage.as_view(),
         name="home_page",
     ),
     path("about-us", website_views.WhoWeArePage.as_view(), name="about_us"),

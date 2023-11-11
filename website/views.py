@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, DetailView
 
 from website.forms import ContactForm
-from website.models import BoardMember, Coach, Testimonial
+from website.models import BoardMember, Coach, Testimonial, Event
 
 
 def empty_route(request):
@@ -27,6 +27,14 @@ def contact_form(request):
     else:
         form = ContactForm()
     return render(request, "website/partials/contact_form.html", {"form": form})
+
+class HomePage(TemplateView):
+    template_name = "website/home_page.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(HomePage, self).get_context_data(**kwargs)
+        context['events'] = Event.objects.all().order_by('date')
+        return context
 
 
 class WhoWeArePage(TemplateView):
