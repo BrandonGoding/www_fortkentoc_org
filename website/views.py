@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, DetailView
 
 from website.forms import ContactForm
-from website.models import BoardMember, Coach
+from website.models import BoardMember, Coach, Testimonial
 
 
 def empty_route(request):
@@ -60,6 +60,11 @@ class CoachDetailView(DetailView):
 
 class MembershipsPage(TemplateView):
     template_name = "website/memberships.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(MembershipsPage, self).get_context_data(**kwargs)
+        context["testimonials"] = Testimonial.objects.all()
+        return context
 
 
 class DayPassesPage(TemplateView):

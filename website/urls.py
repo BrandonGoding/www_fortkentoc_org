@@ -14,6 +14,7 @@ urlpatterns = [
     path("about-us", website_views.WhoWeArePage.as_view(), name="about_us"),
     path("day-passes", website_views.DayPassesPage.as_view(), name="day_passes"),
     path("facilities", TemplateView.as_view(template_name="website/facilities.html"), name="facilities"),
+    path("location", TemplateView.as_view(template_name="website/location.html"), name="location"),
     path("memberships", website_views.MembershipsPage.as_view(), name="memberships"),
     path("policies", TemplateView.as_view(template_name="website/policies.html"), name="policies"),
     path("partials/empty", website_views.empty_route, name="empty_route"),

@@ -1,0 +1,49 @@
+{% extends "_base.html" %}
+
+{% block content %}
+    <section
+            class="bg-[url('https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
+        <div class="relative py-8 px-4 mx-auto max-w-screen-xl text-white lg:py-16 xl:px-0 z-1">
+            <div class="mb-6 max-w-screen-md lg:mb-0">
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">
+                    Location</h1>
+                <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">Fort Kent is situated on the northern border of Maine in the Saint John River valley. The area is known for its ideal winter conditions with ample snow from December through April. Rolling hills, lakes, rivers, forests, farms are all scenes you experience as you drive over the hills into the valley.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white dark:bg-gray-900">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+            <div class="max-w-screen-md">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Fort Kent, Maine</h2>
+                <p class="mb-8 font-light text-gray-500 sm:text-xl dark:text-gray-400">Moose, bears, white-tail deer, raccoons, and multiple species of birds are abundant. Nordic and alpine skiing, snowmobiling, ice fishing, and snowshoeing are all popular forms of winter recreation. In the summer, golfing, canoeing, fishing, boating, swimming, hiking, and biking occupy the residents’ free time. Fort Kent and the St John Valley region have the small town atmosphere full of fun-loving, hard-working people who have embraced outdoor sports.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-gray-900">
+        <div class="py-8 px-4 flex mx-auto max-w-screen-xl sm:py-16 lg:px-6 justify-center items-center flex-col">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white text-center">Map and Directions</h2>
+            <p class="mb-4 font-light text-gray-400 md:text-lg text-center">33 Paradis Circle, Fort Kent, Maine 04743</p>
+
+            <a href="https://maps.google.com/maps/dir/Fort+Kent+Outdoor+Center+33+Paradis+Cir+Fort+Kent,+ME+04743/@47.2327378,-68.593596,12z/data=!4m5!4m4!1m0!1m2!1m1!1s0x4cbc5199cfab02e1:0xdfb886e78074d8df"
+                               target="_blank" class="mb-6 mx-auto w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                    <div class="text-left">
+                        <div class="mb-1 text-xs">Get Directions on</div>
+                        <div class="-mt-1 font-sans text-sm font-semibold">Google Maps</div>
+                    </div>
+                </a>
+
+                <div class="relative w-full h-96">
+    <iframe class="absolute top-0 left-0 w-full h-full"
+        src="https://maps.google.com/maps?q=Fort%20Kent%20Outdoor%20Center&#038;t=m&#038;z=13&#038;output=embed&#038;iwloc=near"
+        frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+    </iframe>
+</div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock content %}

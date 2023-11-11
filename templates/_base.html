@@ -186,44 +186,44 @@
                             </ul>
                         </div>
                     </li>
+{#                    <li>#}
+{#                        <a href="#"#}
+{#                           class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Activities</a>#}
+{#                    </li>#}
+{#                    <li>#}
+{#                        <button id="events-dropdown-button" data-dropdown-toggle="events-dropdown" type="button"#}
+{#                                class="flex justify-center items-center py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"#}
+{#                        >Events#}
+{#                            <svg class="ml-1 w-5 h-5 lg:w-4 lg:h-4" fill="currentColor" viewBox="0 0 20 20"#}
+{#                                 xmlns="http://www.w3.org/2000/svg">#}
+{#                                <path fill-rule="evenodd"#}
+{#                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"#}
+{#                                      clip-rule="evenodd"></path>#}
+{#                            </svg>#}
+{#                        </button>#}
+{#                        <div id="events-dropdown"#}
+{#                             class="hidden z-10 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">#}
+{#                            <ul class="py-1 text-sm font-light text-gray-500 dark:text-gray-400"#}
+{#                                aria-labelledby="events-dropdown-button">#}
+{#                                <li>#}
+{#                                    <a href="#"#}
+{#                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Events#}
+{#                                        Calendar</a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a href="#"#}
+{#                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Scores/Results</a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a href="#"#}
+{#                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Image#}
+{#                                        Gallery</a>#}
+{#                                </li>#}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </li>#}
                     <li>
-                        <a href="#"
-                           class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Activities</a>
-                    </li>
-                    <li>
-                        <button id="events-dropdown-button" data-dropdown-toggle="events-dropdown" type="button"
-                                class="flex justify-center items-center py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                        >Events
-                            <svg class="ml-1 w-5 h-5 lg:w-4 lg:h-4" fill="currentColor" viewBox="0 0 20 20"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                      clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-                        <div id="events-dropdown"
-                             class="hidden z-10 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
-                            <ul class="py-1 text-sm font-light text-gray-500 dark:text-gray-400"
-                                aria-labelledby="events-dropdown-button">
-                                <li>
-                                    <a href="#"
-                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Events
-                                        Calendar</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Scores/Results</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Image
-                                        Gallery</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#"
+                        <a href="{% url 'website:location' %}"
                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Location</a>
                     </li>
                 </ul>
@@ -247,7 +247,7 @@
                     <a href="#" class="mr-4 hover:underline md:mr-6 ">Home</a>
                 </li>
                 <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6">Policies & Safety</a>
+                    <a href="{% url 'website:policies' %}" class="mr-4 hover:underline md:mr-6">Policies & Safety</a>
                 </li>
                 <li>
                     <a href="#" class="mr-4 hover:underline md:mr-6">Job Opportunities</a>

@@ -27,3 +27,13 @@ class Coach(models.Model):
 
     def web_display_name(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Testimonial(models.Model):
+    author = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
+    testimonial = models.TextField()
+    img_url = models.URLField(blank=True)
+
+    def __str__(self):
+        return f"{self.author}"
