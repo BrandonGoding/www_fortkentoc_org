@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, DetailView
 
 from website.forms import ContactForm
-from website.models import Coach, Testimonial, EventPage
+from website.models import  EventPage
 
 
 def empty_route(request):
@@ -36,25 +36,19 @@ def contact_form(request):
 class ProgramsPage(TemplateView):
     template_name = "website/programs.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(ProgramsPage, self).get_context_data(**kwargs)
-        context["coaches"] = Coach.objects.all()
-        return context
-
-
-class CoachDetailView(DetailView):
-    model = Coach
-    template_name = "website/partials/coach_bio.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(CoachDetailView, self).get_context_data(**kwargs)
-        context["next_coach"] = (
-            Coach.objects.filter(pk__gt=self.object.pk).order_by("id").first()
-        )
-        context["prev_coach"] = (
-            Coach.objects.filter(pk__lt=self.object.pk).order_by("-id").first()
-        )
-        return context
+# class CoachDetailView(DetailView):
+#     model = Coach
+#     template_name = "website/partials/coach_bio.html"
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(CoachDetailView, self).get_context_data(**kwargs)
+#         context["next_coach"] = (
+#             Coach.objects.filter(pk__gt=self.object.pk).order_by("id").first()
+#         )
+#         context["prev_coach"] = (
+#             Coach.objects.filter(pk__lt=self.object.pk).order_by("-id").first()
+#         )
+#         return context
 
 
 class EventDetailView(DetailView):
@@ -72,11 +66,6 @@ class EventDetailView(DetailView):
 
 class MembershipsPage(TemplateView):
     template_name = "website/memberships.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(MembershipsPage, self).get_context_data(**kwargs)
-        context["testimonials"] = Testimonial.objects.all()
-        return context
 
 
 class DayPassesPage(TemplateView):

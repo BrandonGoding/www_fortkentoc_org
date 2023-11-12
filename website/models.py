@@ -33,6 +33,23 @@ class WhoWeArePage(Page):
     ]
 
 
+class FacilitiesPage(Page):
+    max_count = 1
+
+
+class PoliciesPage(Page):
+    max_count = 1
+
+
+class EventListingPage(Page):
+    max_count = 1
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["events"] = EventPage.objects.live().order_by("event_date")
+        return context
+
+
 class EventPage(Page):
     banner_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
     event_date = models.DateField()
@@ -56,6 +73,8 @@ class EventPage(Page):
         FieldPanel('location'),
         FieldPanel('banner_image'),
     ]
+
+    parent_page_types = ['website.EventListingPage']
 
     def __str__(self):
         return f"{self.title}"
