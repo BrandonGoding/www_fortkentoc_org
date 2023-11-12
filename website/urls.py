@@ -7,7 +7,7 @@ import website.views as website_views
 
 app_name = "website"
 
-urlpatterns = [
+urlpatterns = ([
     path(
         "day-passes", website_views.DayPassesPage.as_view(), name="day_passes"
     ),
@@ -39,4 +39,4 @@ urlpatterns = [
         TemplateView.as_view(template_name="website/rentals.html"),
         name="rentals",
     ),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]) #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))

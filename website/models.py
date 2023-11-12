@@ -18,7 +18,8 @@ class HomePage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context["upcoming_events"] = EventPage.objects.live().order_by("event_date")
+        context["event_listings"] = EventPage.objects.live().order_by("event_date")
+        return context
 
 
 class WhoWeArePage(Page):

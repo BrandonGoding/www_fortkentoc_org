@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "taggit",
     "website.apps.WebsiteConfig",
     "compressor",
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -153,10 +154,23 @@ COMPRESS_ROOT = BASE_DIR / "static"
 
 COMPRESS_ENABLED = True
 
+AWS_S3_FILE_OVERWRITE = False
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_URL = "/media/"
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_S3_CUSTOM_DOMAIN = '%s' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+# AWS_STATIC_LOCATION = 'static'
+# STATICFILES_STORAGE = 'www_fortkentoc_org.storage_backends.StaticStorage'
+
+AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
+DEFAULT_FILE_STORAGE = 'www_fortkentoc_org.storage_backends.PublicMediaStorage'
+
+AWS_PRIVATE_MEDIA_LOCATION = 'media/private'
+PRIVATE_FILE_STORAGE = 'www_fortkentoc_org.storage_backends.PrivateMediaStorage'
 
 STATICFILES_FINDERS = [
     "compressor.finders.CompressorFinder",
