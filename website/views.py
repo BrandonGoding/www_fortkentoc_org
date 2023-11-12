@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.generic import TemplateView, DetailView
 
 from website.forms import ContactForm
-from website.models import BoardMember, Coach, Testimonial, Event
+from website.models import Coach, Testimonial, EventPage
 
 
 def empty_route(request):
@@ -23,27 +23,14 @@ def contact_form(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            return HttpResponseRedirect(reverse("website:contact_form_thank_you"))
+            return HttpResponseRedirect(
+                reverse("website:contact_form_thank_you")
+            )
     else:
         form = ContactForm()
-    return render(request, "website/partials/contact_form.html", {"form": form})
-
-class HomePage(TemplateView):
-    template_name = "website/home_page.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(HomePage, self).get_context_data(**kwargs)
-        context['events'] = Event.objects.all().order_by('date')
-        return context
-
-
-class WhoWeArePage(TemplateView):
-    template_name = "website/about_us.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(WhoWeArePage, self).get_context_data(**kwargs)
-        context['board_members'] = BoardMember.objects.all()
-        return context
+    return render(
+        request, "website/partials/contact_form.html", {"form": form}
+    )
 
 
 class ProgramsPage(TemplateView):
@@ -51,7 +38,7 @@ class ProgramsPage(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ProgramsPage, self).get_context_data(**kwargs)
-        context['coaches'] = Coach.objects.all()
+        context["coaches"] = Coach.objects.all()
         return context
 
 
@@ -61,21 +48,26 @@ class CoachDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CoachDetailView, self).get_context_data(**kwargs)
-        context["next_coach"] = Coach.objects.filter(pk__gt=self.object.pk).order_by('id').first()
-        context["prev_coach"] = Coach.objects.filter(pk__lt=self.object.pk).order_by('-id').first()
+        context["next_coach"] = (
+            Coach.objects.filter(pk__gt=self.object.pk).order_by("id").first()
+        )
+        context["prev_coach"] = (
+            Coach.objects.filter(pk__lt=self.object.pk).order_by("-id").first()
+        )
         return context
 
 
 class EventDetailView(DetailView):
-    model = Event
-    template_name = "website/event_detail.html"
+    model = EventPage
+    template_name = "website/event_page.html"
 
     def get_context_data(self, **kwargs):
         context = super(EventDetailView, self).get_context_data(**kwargs)
         current_event = self.get_object()
-        context['upcoming_events'] = Event.objects.exclude(pk=current_event.pk).order_by('date')
+        context["upcoming_events"] = EventPage.objects.exclude(
+            pk=current_event.pk
+        ).order_by("date")
         return context
-
 
 
 class MembershipsPage(TemplateView):

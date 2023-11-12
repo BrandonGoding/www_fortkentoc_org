@@ -1,54 +1,61 @@
 from django.db import models
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
+from wagtail.models import Page
+from wagtail.search import index
+from wagtail import blocks
+from website.blocks import ImagesWithHeadingAndDescription, BoardMemberBlock
 
 
-class BoardMember(models.Model):
-    last_name = models.CharField(max_length=26)
-    first_name = models.CharField(max_length=26)
-    title = models.CharField(max_length=16, blank=True)
-    img_url = models.URLField(blank=True)
-
-    def __str__(self):
-        return f"{self.last_name}, {self.first_name}"
-
-    def web_display_name(self):
-        return f"{self.first_name} {self.last_name}"
+class EventLocationChoices(models.TextChoices):
+    FKOC_ARENA = 'fkoc_arena', 'FKOC Arena'
+    FKOC_LODGE = 'fkoc_lodge', 'FKOC Lodge'
+    FKOC_WAX_BUILDING = 'fkoc_wax_building', 'FKOC Wax Building'
 
 
-class Coach(models.Model):
-    last_name = models.CharField(max_length=26)
-    first_name = models.CharField(max_length=26)
-    profile = models.TextField()
-    title = models.CharField(max_length=16, blank=True)
-    img_url = models.URLField(blank=True)
-    slug = models.SlugField(max_length=50, null=True)
+class HomePage(Page):
+    max_count = 1
 
-    def __str__(self):
-        return f"{self.last_name}, {self.first_name}"
-
-    def web_display_name(self):
-        return f"{self.first_name} {self.last_name}"
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["upcoming_events"] = EventPage.objects.live().order_by("event_date")
 
 
-class Testimonial(models.Model):
-    author = models.CharField(max_length=50)
-    title = models.CharField(max_length=50)
-    testimonial = models.TextField()
-    img_url = models.URLField(blank=True)
+class WhoWeArePage(Page):
+    max_count = 1
 
-    def __str__(self):
-        return f"{self.author}"
+    body = StreamField([
+        ('board_members', blocks.ListBlock(BoardMemberBlock()))
+    ], use_json_field=True, null=True, blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('body'),
+    ]
 
 
-class Event(models.Model):
-    title = models.CharField(max_length=50)
-    date = models.DateField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    teaser = models.CharField(max_length=100)
-    location = models.CharField(max_length=50)
-    description = models.TextField()
-    img_url = models.URLField(blank=True)
-    slug = models.SlugField(null=True)
+class EventPage(Page):
+    banner_image = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    event_date = models.DateField()
+    start_time = models.TimeField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
+    location = models.CharField(max_length=17, choices=EventLocationChoices.choices, default=EventLocationChoices.FKOC_LODGE)
+    body = StreamField([
+        ('images_with_heading_and_description', ImagesWithHeadingAndDescription()),
+    ], use_json_field=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField('body'),
+        index.SearchField('event_date'),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel('body', classname="full"),
+        FieldPanel('event_date'),
+        FieldPanel('start_time'),
+        FieldPanel('end_time'),
+        FieldPanel('location'),
+        FieldPanel('banner_image'),
+    ]
 
     def __str__(self):
         return f"{self.title}"
