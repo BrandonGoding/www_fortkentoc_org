@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load static %}
+{% load static wagtailimages_tags %}
 {% block content %}
     <section
             class="bg-[url('https://www.fortkentoc.org/wp-content/uploads/2021/12/5D3_7677-Pano-scaled.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
@@ -28,8 +28,7 @@
                     <div class="text-center text-gray-500">
                         <a href="#" hx-trigger="click" hx-target="body"
                            hx-get="{% url 'website:coach_modal' coach.slug %}" hx-swap="afterbegin">
-                            <img class="mx-auto mb-4 w-36 h-36 rounded-lg" src="{{ coach.img_url }}"
-                                 alt="{{ coach.web_display_name }}">
+                            {% image coach.img fill-144x144 class="mx-auto mb-4 w-36 h-36 rounded-lg" %}
                             <h5 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ coach.web_display_name }}</h5>
                             {% if coach.title %}
                                 <span>{{ coach.title }}</span>

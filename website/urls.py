@@ -1,6 +1,7 @@
 from django.urls import path
 from django.views.generic import TemplateView
 
+
 import website.views as website_views
 
 app_name = "website"
@@ -11,9 +12,9 @@ urlpatterns = [
         website_views.HomePage.as_view(),
         name="home_page",
     ),
-    path("about-us", website_views.WhoWeArePage.as_view(), name="about_us"),
-    path("day-passes", website_views.DayPassesPage.as_view(), name="day_passes"),
-    path("events/<slug:slug>/", website_views.EventDetailView.as_view(), name="event_detail"),
+    path("about-us/", website_views.WhoWeArePage.as_view(), name="about_us"),
+    path("day-passes/", website_views.DayPassesPage.as_view(), name="day_passes"),
+#    path("events/<slug:slug>/", website_views.EventDetailView.as_view(), name="event_detail"),
     path("facilities", TemplateView.as_view(template_name="website/facilities.html"), name="facilities"),
     path("location", TemplateView.as_view(template_name="website/location.html"), name="location"),
     path("memberships", website_views.MembershipsPage.as_view(), name="memberships"),
