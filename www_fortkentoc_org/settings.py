@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "website.apps.WebsiteConfig",
     "compressor",
     'storages',
-    'wagtail.contrib.modeladmin',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -59,6 +58,7 @@ INSTALLED_APPS = [
     'wagtail',
     'modelcluster',
     'taggit',
+    "wagtail_modeladmin",
 ]
 
 MIDDLEWARE = [

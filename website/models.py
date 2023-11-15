@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel, FieldRowPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
+from django import forms
 
 
 class BoardMember(models.Model):
@@ -40,11 +41,37 @@ class Coach(models.Model):
     first_name = models.CharField(max_length=26)
     profile = models.TextField()
     title = models.CharField(max_length=32, blank=True)
-    slug = models.SlugField(max_length=50, null=True)
-    img = models.ImageField(upload_to='coaches', blank=True)
+    slug = models.SlugField(max_length=50, null=True, blank=True, help_text="Leave blank to auto-generate slug.")
+    photo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    panels = [
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('last_name'),
+                FieldPanel('first_name'),
+            ]),
+            FieldPanel('title'),
+        ], heading="Name & Title"),
+        MultiFieldPanel([
+            FieldPanel('slug'),
+            FieldPanel('photo'),
+            FieldPanel('profile'),
+        ], heading="Profile"),
+    ]
 
     def __str__(self):
         return f"{self.last_name}, {self.first_name}"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(f"coach-{self.first_name}-{self.last_name}")
+        super(Coach, self).save(*args, **kwargs)
 
     def web_display_name(self):
         return f"{self.first_name} {self.last_name}"
@@ -62,6 +89,32 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return f"{self.author}"
+
+
+class EventCategory(models.Model):
+    category = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50)
+
+    def __str__(self):
+        return f"{self.category}"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.category)
+        super(EventCategory, self).save(*args, **kwargs)
+
+
+class EventTags(models.Model):
+    tag = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50)
+
+    def __str__(self):
+        return f"{self.tag}"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.tag)
+        super(EventTags, self).save(*args, **kwargs)
 
 
 class EventPage(Page):
@@ -84,6 +137,8 @@ class EventPage(Page):
         related_name='+',
         verbose_name="Banner Image"
     )
+    category = models.ForeignKey(EventCategory, on_delete=models.SET_NULL, null=True, blank=True)
+    tags = models.ManyToManyField(EventTags, blank=True)
 
     def __str__(self):
         return f"{self.title}"
@@ -103,7 +158,12 @@ class EventPage(Page):
             FieldPanel('teaser'),
             FieldPanel('body'),
         ], heading="Event Description"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('category'),
+                FieldPanel('tags'),
+            ])
+        ], heading="Event Metadata"),
     ]
-
     parent_page_types = ['wagtailcore.Page']
     subpage_types = []
