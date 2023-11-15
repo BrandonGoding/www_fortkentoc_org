@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block content %}
     <section
             class="bg-[url('https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
@@ -22,7 +22,7 @@
     <section class="bg-white dark:bg-gray-900">
         <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
             <img class="w-full dark:hidden"
-                 src="https://cdn.fortkentoc.org/about_us_page/fort-kent-outdoor-center-mass-start-race.jpg"
+                 src="{% static 'website/img/about_us_page/fort-kent-outdoor-center-mass-start-race.jpg' %}"
                  alt="dashboard image">
             <div class="mt-4 md:mt-0">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Mission</h2>
@@ -42,29 +42,29 @@
                 Biathlon athletes, and the host of multiple National and International Nordic and Biathlon events.</p>
             <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
                 <article class="max-w-xs p-4">
-                    <img src="https://cdn.fortkentoc.org/about_us_page/construction-1.jpg" class="mb-5 rounded-lg"
-                         alt="Image 1">
+                    <img src="{% static 'website/img/about_us_page/construction-1.jpg' %}" class="mb-5 rounded-lg"
+                         alt="Clearing the lot for the original building site">
                     <h2 class="mb-2 text-xl font-bold leading-tight text-white">
                         <a href="#">Original Build Site</a>
                     </h2>
                 </article>
                 <article class="max-w-xs p-4">
-                    <img src="https://cdn.fortkentoc.org/about_us_page/construction-2.jpg" class="mb-5 rounded-lg"
-                         alt="Image 2">
+                    <img src="{% static 'website/img/about_us_page/construction-2.jpg' %}" class="mb-5 rounded-lg"
+                         alt="Framing the lodge walls">
                     <h2 class="mb-2 text-xl font-bold leading-tight text-white">
                         <a href="#">Building the FKOC walls</a>
                     </h2>
                 </article>
                 <article class="max-w-xs p-4">
-                    <img src="https://cdn.fortkentoc.org/about_us_page/construction-4.jpg" class="mb-5 rounded-lg"
-                         alt="Image 3">
+                    <img src="{% static 'website/img/about_us_page/construction-4.jpg' %}" class="mb-5 rounded-lg"
+                         alt="laying the trusses for the roof">
                     <h2 class="mb-2 text-xl font-bold leading-tight text-white">
-                        <a href="#">Adding the FKOC walls</a>
+                        <a href="#">Adding the FKOC roof</a>
                     </h2>
                 </article>
                 <article class="max-w-xs p-4">
-                    <img src="https://cdn.fortkentoc.org/about_us_page/construction-5.jpg" class="mb-5 rounded-lg"
-                         alt="Image 4">
+                    <img src="{% static 'website/img/about_us_page/construction-5.jpg' %}" class="mb-5 rounded-lg"
+                         alt="Adding siding to the building">
                     <h2 class="mb-2 text-xl font-bold leading-tight text-white">
                         <a href="#">Adding the FKOC siding</a>
                     </h2>
@@ -162,7 +162,8 @@
             <div class="grid grid-cols-1 gap-4 mt-8 lg:mt-16 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                 {% for board_member in board_members %}
                     <div class="relative overflow-hidden rounded-lg group">
-                    {% image board_member.img fill-296x444 class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" %}
+
+                        {% image board_member.photo fill-296x369 class="object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" %}
                         <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
                             <div class="text-center">
                                 <p class="text-xl font-bold text-white">

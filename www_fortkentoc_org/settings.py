@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "website.apps.WebsiteConfig",
-    'wagtail.contrib.modeladmin',
+    "compressor",
+    'storages',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -58,8 +59,6 @@ INSTALLED_APPS = [
     'wagtail',
     'modelcluster',
     'taggit',
-    "compressor",
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -179,5 +178,6 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-WAGTAIL_SITE_NAME = "Fort Kent Outdoor Center"
+
+WAGTAIL_SITE_NAME = "The Fort Kent Outdoor Center"
 WAGTAILADMIN_BASE_URL = "https://www.fortkentoc.org"

@@ -1,14 +1,29 @@
 from django.db import models
 from django.utils.text import slugify
-from wagtail.models import Page
+from wagtail.admin.panels import FieldPanel
 from wagtail.snippets.models import register_snippet
+
 
 
 class BoardMember(models.Model):
     last_name = models.CharField(max_length=26)
     first_name = models.CharField(max_length=26)
     title = models.CharField(max_length=16, blank=True)
-    img = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    photo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+
+    panels = [
+        FieldPanel('last_name'),
+        FieldPanel('first_name'),
+        FieldPanel('title'),
+        FieldPanel('photo'),
+    ]
 
     def __str__(self):
         return f"{self.last_name}, {self.first_name}"
@@ -27,7 +42,7 @@ class Coach(models.Model):
     profile = models.TextField()
     title = models.CharField(max_length=32, blank=True)
     slug = models.SlugField(max_length=50, null=True)
-    img = models.ForeignKey('wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+    img = models.ImageField(upload_to='coaches', blank=True)
 
     def __str__(self):
         return f"{self.last_name}, {self.first_name}"
@@ -44,13 +59,14 @@ class Testimonial(models.Model):
     author = models.CharField(max_length=50)
     title = models.CharField(max_length=50)
     testimonial = models.TextField()
-    img_url = models.URLField(blank=True)
+    img = models.ImageField(upload_to='testimonials', blank=True)
 
     def __str__(self):
         return f"{self.author}"
 
 
-class Event(Page):
+class Event(models.Model):
+    title = models.CharField(max_length=50)
     date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()

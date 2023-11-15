@@ -2,10 +2,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import TemplateView, DetailView
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 
 from website.forms import ContactForm
-from website.models import BoardMember, Coach, Testimonial
-
+from website.models import BoardMember, Coach, Testimonial, Event
+from wagtail.admin.viewsets.model import ModelViewSet
+from website.models import BoardMember, Coach
 
 def empty_route(request):
     return HttpResponse("")
@@ -38,7 +41,7 @@ class HomePage(TemplateView):
 
 
 class WhoWeArePage(TemplateView):
-    template_name = "website/about_us.html"
+    template_name = "website/who_we_are_page.html"
 
     def get_context_data(self, **kwargs):
         context = super(WhoWeArePage, self).get_context_data(**kwargs)
@@ -89,9 +92,3 @@ class MembershipsPage(TemplateView):
 
 class DayPassesPage(TemplateView):
     template_name = "website/day_passes.html"
-
-
-
-
-
-
