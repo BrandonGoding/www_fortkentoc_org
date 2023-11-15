@@ -41,7 +41,9 @@ class EventModelAdmin(ModelAdmin):
     exclude_from_explorer = True
     add_to_admin_menu = True
     menu_order = 3
-
+    list_display = ('title', 'date', 'start_time', 'end_time', 'location')
+    list_filter = ('title', 'date',)
+    search_fields = ('title', 'date')
 
 
 class TestimonialViewSet(SnippetViewSet):
