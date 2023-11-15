@@ -6,8 +6,8 @@ from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
 
 from website.forms import ContactForm
-from website.models import BoardMember, Coach, Testimonial, Event
-from wagtail.admin.viewsets.model import ModelViewSet
+from website.models import BoardMember, Coach, Testimonial
+
 from website.models import BoardMember, Coach
 
 def empty_route(request):
