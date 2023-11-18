@@ -18,8 +18,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from wagtail.admin import urls as wagtailadmin_urls
+from wagtail import urls as wagtail_urls
+from django.contrib import admin
 
 urlpatterns = [
     path("", include("website.urls")),
     path('carl/', include(wagtailadmin_urls)),
+    path('events/', include(wagtail_urls)),
+    path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
