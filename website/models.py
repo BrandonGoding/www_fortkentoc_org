@@ -1,11 +1,15 @@
+import datetime
+
 from django import forms
 from django.db import models
 from django.utils.text import slugify
-from modelcluster.fields import ParentalManyToManyField
-from wagtail.admin.panels import FieldPanel, FieldRowPanel, MultiFieldPanel
-from wagtail.fields import RichTextField
-from wagtail.models import Page
+from modelcluster.fields import ParentalManyToManyField, ParentalKey
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel, FieldRowPanel, MultiFieldPanel, InlinePanel
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Page, Orderable
 
+from website.blocks import ImagesWithHeadingAndDescription, DefaultCTA
 
 COLOR_CODES = {
         "gray": {
@@ -143,7 +147,10 @@ class EventListingPage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['events'] = EventPage.objects.live().child_of(self)
+        # NEED TO INCORPORATE live().child_of(self) TO FILTER OUT PAST EVENTS
+        context['events'] = EventDate.objects.filter(date__gte=datetime.date.today(), page__live=True).order_by('date')
+        context['categories'] = EventCategory.objects.all().order_by('name')
+        context['tags'] = EventTag.objects.all().order_by('name')
         return context
 
 
@@ -192,12 +199,13 @@ class EventPage(Page):
         WAX_BUILDING = 'wax_building', 'Fort Kent Outdoor Center Wax Building'
         STADIUM = 'stadium', 'Fort Kent Outdoor Center Stadium'
 
-    date = models.DateField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    teaser = models.CharField(max_length=100)
+    teaser = models.CharField(max_length=200)
     location = models.CharField(max_length=50, choices=EventLocationChoices.choices)
-    body = RichTextField(blank=True)
+    body = StreamField([
+        ('paragraph', blocks.RichTextBlock()),
+        ('default_cta', DefaultCTA()),
+        ('left_header_paragraph_two_image_right', ImagesWithHeadingAndDescription()),
+    ], use_json_field=True, blank=True, null=True)
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -215,11 +223,7 @@ class EventPage(Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel([
             FieldPanel('location'),
-            FieldRowPanel([
-                FieldPanel('date'),
-                FieldPanel('start_time'),
-                FieldPanel('end_time'),
-            ]),
+            InlinePanel("dates", max_num=20, min_num=1, label="Event Date"),
         ], heading="Event Information"
         ),
         MultiFieldPanel([
@@ -239,6 +243,18 @@ class EventPage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        print(self)
-        context['upcoming_events'] = EventPage.objects.exclude(pk=self.pk).order_by('date')
+        context['upcoming_events'] = EventDate.objects.filter(date__gte=datetime.date.today(), page__live=True).exclude(page_id=self.pk).order_by('date')
         return context
+
+
+class EventDate(Orderable):
+    page = ParentalKey(EventPage, on_delete=models.CASCADE, null=True, related_name='dates')
+    date = models.DateField("Event Date")
+    start_time = models.TimeField("Start Time")
+    end_time = models.TimeField("End Time", blank=True, null=True)
+
+    panels = [
+        FieldPanel('date'),
+        FieldPanel('start_time'),
+        FieldPanel('end_time'),
+    ]

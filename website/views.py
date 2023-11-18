@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -31,13 +33,14 @@ def contact_form(request):
         form = ContactForm()
     return render(request, "website/partials/contact_form.html", {"form": form})
 
+
 class HomePage(TemplateView):
     template_name = "website/home_page.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(HomePage, self).get_context_data(**kwargs)
-        context['events'] = EventPage.objects.all().order_by('date')
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(HomePage, self).get_context_data(**kwargs)
+    #     context['events'] = EventPage.objects.filter(date__gte=datetime.date.today()).order_by('date')
+    #     return context
 
 
 class WhoWeArePage(TemplateView):
@@ -67,18 +70,6 @@ class CoachDetailView(DetailView):
         context["next_coach"] = Coach.objects.filter(pk__gt=self.object.pk).order_by('id').first()
         context["prev_coach"] = Coach.objects.filter(pk__lt=self.object.pk).order_by('-id').first()
         return context
-
-
-# class EventDetailView(DetailView):
-#     model = Event
-#     template_name = "website/event_detail.html"
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(EventDetailView, self).get_context_data(**kwargs)
-#         current_event = self.get_object()
-#         context['upcoming_events'] = Event.objects.exclude(pk=current_event.pk).order_by('date')
-#         return context
-
 
 
 class MembershipsPage(TemplateView):
