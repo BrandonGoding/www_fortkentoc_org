@@ -6,7 +6,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
 
 from website.forms import ContactForm
-from website.models import BoardMember, Coach, Testimonial
+from website.models import BoardMember, Coach, Testimonial, EventPage
 
 from website.models import BoardMember, Coach
 
@@ -34,10 +34,10 @@ def contact_form(request):
 class HomePage(TemplateView):
     template_name = "website/home_page.html"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(HomePage, self).get_context_data(**kwargs)
-    #     context['events'] = Event.objects.all().order_by('date')
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(HomePage, self).get_context_data(**kwargs)
+        context['events'] = EventPage.objects.all().order_by('date')
+        return context
 
 
 class WhoWeArePage(TemplateView):

@@ -7,14 +7,12 @@ from wagtail.snippets.views.snippets import SnippetViewSet
 from website.models import BoardMember, Coach, Testimonial, EventPage
 
 
-@hooks.register('construct_main_menu')
-def hide_page_explorer_menu_item(request, menu_items):
-    menu_items[:] = [item for item in menu_items if item.name != 'explorer']
-
-
-@hooks.register('construct_homepage_summary_items', order=1)
-def remove_pages_summary_item(request, summary_items):
-    summary_items[:] = [i for i in summary_items if not isinstance(i, PagesSummaryItem)]
+@hooks.register('construct_main_menu', order=1)
+def construct_main_menu(request, menu_items):
+    # Find the "Pages" menu item and change its name to "Events"
+    for item in menu_items:
+        if item.name == 'explorer':
+            item.label = 'Events'
 
 
 class BoardMemberViewSet(SnippetViewSet):
@@ -38,8 +36,8 @@ class EventModelAdmin(ModelAdmin):
     menu_label = "Events"
     menu_icon = "date"
     add_to_settings_menu = False
-    exclude_from_explorer = True
-    add_to_admin_menu = True
+    exclude_from_explorer = False
+    add_to_admin_menu = False
     menu_order = 3
     list_display = ('title', 'date', 'start_time', 'end_time', 'location')
     list_filter = ('title', 'date',)
@@ -52,6 +50,7 @@ class TestimonialViewSet(SnippetViewSet):
     inspect_view_enabled = True
     add_to_admin_menu = True
     menu_order = 100
+
 
 register_snippet(BoardMemberViewSet)
 register_snippet(CoachViewSet)
