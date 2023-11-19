@@ -7,14 +7,6 @@ from wagtail.snippets.views.snippets import SnippetViewSet
 from website.models import BoardMember, Coach, Testimonial, EventPage
 
 
-@hooks.register('construct_main_menu', order=1)
-def construct_main_menu(request, menu_items):
-    # Find the "Pages" menu item and change its name to "Events"
-    for item in menu_items:
-        if item.name == 'explorer':
-            item.label = 'Events'
-
-
 class BoardMemberViewSet(SnippetViewSet):
     model = BoardMember
     icon = "group"

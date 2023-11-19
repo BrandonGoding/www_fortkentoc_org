@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-
+{% load wagtailcore_tags %}
 {% block content %}
     <section
             class="bg-[url('https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
@@ -10,11 +10,11 @@
                 <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">The Fort Kent Outdoor Center
                     promotes healthy outdoor lifestyles by providing a first-rate facility, outdoor trail system, and
                     recreational activities for members, athletes, and visitors.</p>
-                <a href="/about-us/"
+                <a href="{% slugurl 'about-us' %}"
                    class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                     Learn More
                 </a>
-                <a href="{% url 'website:memberships' %}"
+                <a href="{% slugurl 'memberships' %}"
                    class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                     Become a Member
                 </a>
@@ -115,7 +115,7 @@
                        class="inline-flex items-center justify-center px-4 py-2.5 text-base font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-900">
                         Purchase a day pass
                     </a>
-                    <a href="{% url 'website:memberships' %}"
+                    <a href="{% slugurl 'memberships' %}"
                        class="inline-flex items-center justify-center px-4 py-2.5 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 text-white border-gray-600 hover:bg-gray-700 focus:ring-gray-600">
                         <svg class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg">

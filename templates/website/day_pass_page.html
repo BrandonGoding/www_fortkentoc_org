@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-
+{% load wagtailcore_tags %}
 {% block content %}
     <section
             class="bg-[url('https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
@@ -45,7 +45,7 @@
         <div class="mx-auto max-w-screen-sm text-center">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-white">Need Equipment?</h2>
             <p class="mb-6 font-light text-gray-400 md:text-lg">We can provide you with the equipment you need to enjoy all that The Fort Kent Outdoor Center has to offer. Try some of our Cross Country Skis, or toss on a pair of Snowshoes and enjoy our winter walking trails. </p>
-            <a href="{% url 'website:day_passes' %}" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Rental Info</a>
+            <a href="{% slugurl 'day-passes' %}" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Rental Info</a>
         </div>
     </div>
 </section>

@@ -44,7 +44,7 @@ class HomePage(TemplateView):
 
 
 class WhoWeArePage(TemplateView):
-    template_name = "website/who_we_are_page.html"
+    template_name = "website/about_page.html"
 
     def get_context_data(self, **kwargs):
         context = super(WhoWeArePage, self).get_context_data(**kwargs)
@@ -53,7 +53,7 @@ class WhoWeArePage(TemplateView):
 
 
 class ProgramsPage(TemplateView):
-    template_name = "website/programs.html"
+    template_name = "website/program_page.html"
 
     def get_context_data(self, **kwargs):
         context = super(ProgramsPage, self).get_context_data(**kwargs)
@@ -73,7 +73,7 @@ class CoachDetailView(DetailView):
 
 
 class MembershipsPage(TemplateView):
-    template_name = "website/memberships.html"
+    template_name = "website/membership_page.html"
 
     def get_context_data(self, **kwargs):
         context = super(MembershipsPage, self).get_context_data(**kwargs)
@@ -82,4 +82,4 @@ class MembershipsPage(TemplateView):
 
 
 class DayPassesPage(TemplateView):
-    template_name = "website/day_passes.html"
+    template_name = "website/day_pass_page.html"

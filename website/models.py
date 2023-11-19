@@ -57,6 +57,51 @@ COLOR_CODES = {
     }
 
 
+class HomePage(Page):
+    template = 'website/home_page.html'
+    max_count = 1
+
+
+class AboutPage(Page):
+    template = 'website/about_page.html'
+    max_count = 1
+
+
+class DayPassPage(Page):
+    template = 'website/day_pass_page.html'
+    max_count = 1
+
+
+class FacilityPage(Page):
+    template = 'website/facility_page.html'
+    max_count = 1
+
+
+class LocationPage(Page):
+    template = 'website/location_page.html'
+    max_count = 1
+
+
+class MembershipPage(Page):
+    template = 'website/membership_page.html'
+    max_count = 1
+
+
+class PoliciesPage(Page):
+    template = 'website/policies_page.html'
+    max_count = 1
+
+
+class ProgramPage(Page):
+    template = 'website/program_page.html'
+    max_count = 1
+
+
+class RentalsPage(Page):
+    template = 'website/rentals_page.html'
+    max_count = 1
+
+
 class BoardMember(models.Model):
     last_name = models.CharField(max_length=26)
     first_name = models.CharField(max_length=26)

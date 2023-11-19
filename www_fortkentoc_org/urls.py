@@ -24,6 +24,6 @@ from django.contrib import admin
 urlpatterns = [
     path("", include("website.urls")),
     path('carl/', include(wagtailadmin_urls)),
-    path('events/', include(wagtail_urls)),
     path('admin/', admin.site.urls),
+    path('', include(wagtail_urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
