@@ -3,14 +3,13 @@ import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import TemplateView, DetailView
-from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import SnippetViewSet
+from django.views.generic import DetailView
+
 
 from website.forms import ContactForm
-from website.models import BoardMember, Coach, Testimonial, EventPage
 
-from website.models import BoardMember, Coach
+
+from website.models import Coach
 
 def empty_route(request):
     return HttpResponse("")
@@ -34,33 +33,6 @@ def contact_form(request):
     return render(request, "website/partials/contact_form.html", {"form": form})
 
 
-class HomePage(TemplateView):
-    template_name = "website/home_page.html"
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(HomePage, self).get_context_data(**kwargs)
-    #     context['events'] = EventPage.objects.filter(date__gte=datetime.date.today()).order_by('date')
-    #     return context
-
-
-class WhoWeArePage(TemplateView):
-    template_name = "website/about_page.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(WhoWeArePage, self).get_context_data(**kwargs)
-        context['board_members'] = BoardMember.objects.all()
-        return context
-
-
-class ProgramsPage(TemplateView):
-    template_name = "website/program_page.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(ProgramsPage, self).get_context_data(**kwargs)
-        context['coaches'] = Coach.objects.all()
-        return context
-
-
 class CoachDetailView(DetailView):
     model = Coach
     template_name = "website/partials/coach_bio.html"
@@ -70,16 +42,3 @@ class CoachDetailView(DetailView):
         context["next_coach"] = Coach.objects.filter(pk__gt=self.object.pk).order_by('id').first()
         context["prev_coach"] = Coach.objects.filter(pk__lt=self.object.pk).order_by('-id').first()
         return context
-
-
-class MembershipsPage(TemplateView):
-    template_name = "website/membership_page.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(MembershipsPage, self).get_context_data(**kwargs)
-        context["testimonials"] = Testimonial.objects.all()
-        return context
-
-
-class DayPassesPage(TemplateView):
-    template_name = "website/day_pass_page.html"

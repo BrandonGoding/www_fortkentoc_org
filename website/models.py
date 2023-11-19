@@ -61,10 +61,51 @@ class HomePage(Page):
     template = 'website/home_page.html'
     max_count = 1
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['events'] = EventDate.objects.filter(date__gte=datetime.date.today(), page__live=True).order_by('date')[:3]
+        return context
+
+
+class BoardMember(Orderable):
+    page = ParentalKey('website.AboutPage', on_delete=models.CASCADE, null=True, related_name='board_members')
+    last_name = models.CharField(max_length=26)
+    first_name = models.CharField(max_length=26)
+    title = models.CharField(max_length=16, blank=True)
+    photo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    panels = [
+        FieldPanel('last_name'),
+        FieldPanel('first_name'),
+        FieldPanel('title'),
+        FieldPanel('photo'),
+    ]
+
+    def __str__(self):
+        return f"{self.last_name}, {self.first_name}"
+
+    def web_display_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = "Board Member"
+        verbose_name_plural = "Board Members"
+
 
 class AboutPage(Page):
     template = 'website/about_page.html'
     max_count = 1
+
+    content_panels = Page.content_panels + [
+        InlinePanel('board_members', label="Board Members"),
+    ]
 
 
 class DayPassPage(Page):
@@ -100,36 +141,6 @@ class ProgramPage(Page):
 class RentalsPage(Page):
     template = 'website/rentals_page.html'
     max_count = 1
-
-
-class BoardMember(models.Model):
-    last_name = models.CharField(max_length=26)
-    first_name = models.CharField(max_length=26)
-    title = models.CharField(max_length=16, blank=True)
-    photo = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    panels = [
-        FieldPanel('last_name'),
-        FieldPanel('first_name'),
-        FieldPanel('title'),
-        FieldPanel('photo'),
-    ]
-
-    def __str__(self):
-        return f"{self.last_name}, {self.first_name}"
-
-    def web_display_name(self):
-        return f"{self.first_name} {self.last_name}"
-
-    class Meta:
-        verbose_name = "Board Member"
-        verbose_name_plural = "Board Members"
 
 
 class Coach(models.Model):
