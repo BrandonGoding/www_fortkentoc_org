@@ -10,6 +10,8 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, Orderable
 
 from website.blocks import ImagesWithHeadingAndDescription, DefaultCTA
+from website.forms import SimpleSubscribeForm
+
 
 COLOR_CODES = {
         "gray": {
@@ -63,12 +65,13 @@ class HomePage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
+        context['form'] = SimpleSubscribeForm()
         context['events'] = EventDate.objects.filter(date__gte=datetime.date.today(), page__live=True).order_by('date')[:3]
         return context
 
 
 class BoardMember(Orderable):
-    page = ParentalKey('website.AboutPage', on_delete=models.CASCADE, null=True, related_name='board_members')
+    page = ParentalKey('website.AboutPage', on_delete=models.CASCADE, null=True, related_name='board_members', default=9)
     last_name = models.CharField(max_length=26)
     first_name = models.CharField(max_length=26)
     title = models.CharField(max_length=16, blank=True)
@@ -137,17 +140,22 @@ class ProgramPage(Page):
     template = 'website/program_page.html'
     max_count = 1
 
+    content_panels = Page.content_panels + [
+        InlinePanel('coaches', label="Coaches"),
+    ]
+
 
 class RentalsPage(Page):
     template = 'website/rentals_page.html'
     max_count = 1
 
 
-class Coach(models.Model):
+class Coach(Orderable):
+    page = ParentalKey('website.ProgramPage', on_delete=models.CASCADE, null=True, related_name='coaches', default=11)
     last_name = models.CharField(max_length=26)
     first_name = models.CharField(max_length=26)
     profile = models.TextField()
-    title = models.CharField(max_length=32, blank=True)
+    title = models.CharField(max_length=32)
     slug = models.SlugField(max_length=50, null=True, blank=True, help_text="Leave blank to auto-generate slug.")
     photo = models.ForeignKey(
         'wagtailimages.Image',
@@ -184,6 +192,7 @@ class Coach(models.Model):
         return f"{self.first_name} {self.last_name}"
 
     class Meta:
+        ordering = ['sort_order']
         verbose_name = "Coach"
         verbose_name_plural = "Coaches"
 

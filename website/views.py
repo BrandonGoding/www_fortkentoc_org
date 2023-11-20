@@ -6,8 +6,7 @@ from django.urls import reverse
 from django.views.generic import DetailView
 
 
-from website.forms import ContactForm
-
+from website.forms import ContactForm, SimpleSubscribeForm
 
 from website.models import Coach
 
@@ -31,6 +30,16 @@ def contact_form(request):
     else:
         form = ContactForm()
     return render(request, "website/partials/contact_form.html", {"form": form})
+
+
+def process_subscribe_form(request):
+    if request.method == "POST":
+        form = SimpleSubscribeForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect(reverse("website:subscribe_thank_you"))
+    else:
+        form = SimpleSubscribeForm()
+    return render(request, "website/cta/email_list.html", {"form": form})
 
 
 class CoachDetailView(DetailView):
