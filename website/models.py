@@ -70,6 +70,65 @@ class HomePage(Page):
         return context
 
 
+class ActivitiesPage(Page):
+    template = 'website/activities_page.html'
+    max_count = 1
+
+    content_panels = Page.content_panels + [
+        InlinePanel('winter_activities', label="Winter Activities"),
+        InlinePanel('three_season_activities', label="Three Season Activities"),
+    ]
+
+
+class ActivityPage(Orderable):
+    name = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50, null=True, blank=True, help_text="Leave blank to auto-generate slug.")
+    description = RichTextField()
+    col_span = models.PositiveIntegerField(default=1)
+    card_image = models.ForeignKey(
+        'wagtailimages.Image',
+        on_delete=models.RESTRICT,
+        related_name='+', verbose_name="Display Image"
+    )
+    banner_image = models.ForeignKey(
+        'wagtailimages.Image',
+        on_delete=models.RESTRICT,
+        related_name='+', verbose_name="Banner Image"
+    )
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('slug'),
+        FieldPanel('banner_image'),
+        FieldPanel('description'),
+        MultiFieldPanel([
+            FieldPanel('card_image'),
+        ], heading="Card Images"),
+        FieldPanel('col_span'),
+    ]
+
+    def __str__(self):
+        return f"{self.name}"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(ActivityPage, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = "Activity"
+        verbose_name_plural = "Activities"
+
+
+class WinterActivity(ActivityPage):
+    page = ParentalKey('website.ActivitiesPage', on_delete=models.CASCADE, null=True, related_name='winter_activities')
+
+
+class ThreeSeasonActivity(ActivityPage):
+    page = ParentalKey('website.ActivitiesPage', on_delete=models.CASCADE, null=True, related_name='three_season_activities')
+
+
 class BoardMember(Orderable):
     page = ParentalKey('website.AboutPage', on_delete=models.CASCADE, null=True, related_name='board_members', default=9)
     last_name = models.CharField(max_length=26)
@@ -147,6 +206,11 @@ class ProgramPage(Page):
 
 class RentalsPage(Page):
     template = 'website/rentals_page.html'
+    max_count = 1
+
+
+class TrailsPage(Page):
+    template = 'website/trails_page.html'
     max_count = 1
 
 

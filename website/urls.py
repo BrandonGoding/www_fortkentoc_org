@@ -7,6 +7,7 @@ import website.views as website_views
 app_name = "website"
 
 urlpatterns = [
+    path("partials/activity/<slug:slug>/", website_views.ActivityDetailView.as_view(), name="activity_partial"),
     path("paritals/subscribe/", website_views.process_subscribe_form, name="subscribe"),
     path("partials/subscribe/thank-you/", TemplateView.as_view(template_name="website/cta/email_list_thank_you.html"), name="subscribe_thank_you"),
     path("partials/empty/", website_views.empty_route, name="empty_route"),

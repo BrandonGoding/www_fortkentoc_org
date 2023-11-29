@@ -1,0 +1,79 @@
+{% extends "_base.html" %}
+{% load wagtailcore_tags %}
+{% block content %}
+    <section
+            class="bg-[url('https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
+        <div class="relative py-8 px-4 mx-auto max-w-screen-xl text-white lg:py-16 xl:px-0 z-1">
+            <div class="mb-6 max-w-screen-md lg:mb-0">
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">
+                    Trails at Fort Kent Outdoor Center</h1>
+                <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">Welcome to Fort Kent's Outdoor Center, where adventure awaits on our Nordic ski, snowshoe, mountain biking, and hiking trails. Explore the beauty of each season, from the thrill of winter sports to the tranquility of forested paths. Embrace the outdoors and discover the extraordinary landscapes that make our trails unforgettable.</p>
+                <a href="#interactive"
+                   class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    Interactive Nordic Map
+                </a>
+                <a href=""
+                   class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    Downloadable Trail Maps
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-white dark:bg-gray-900">
+    <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+        <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Embark on a journey through Fort Kent's premier Outdoor Center, where every trail unveils a unique adventure</h2>
+            <p class="mb-4">Welcome to the breathtaking outdoor trails of Fort Kent's premier Outdoor Center! Nestled in the heart of nature's splendor, our diverse trail system offers an adventure for every season and enthusiast. Whether you're an avid Nordic skier seeking the thrill of gliding through pristine snow, a snowshoer craving the tranquility of winter landscapes, a mountain biker ready to conquer challenging terrain, or a hiker yearning to explore the wonders of the great outdoors, our trails are your gateway to unforgettable experiences. With meticulously maintained paths winding through forests and meadows, each trail promises a unique journey that immerses you in the natural beauty of Fort Kent. Discover the joy of outdoor exploration at our Outdoor Center – where every step, pedal, or glide is a celebration of the extraordinary landscapes that define our region.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-8">
+            <img class="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1">
+            <img class="mt-4 w-full lg:mt-10 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" alt="office content 2">
+        </div>
+    </div>
+</section>
+
+
+
+
+        <section class="bg-white">
+        <div class="py-8 px-4 flex mx-auto max-w-screen-xl sm:py-16 lg:px-6 justify-center items-center flex-col">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 text-center">Trail Conditions</h2>
+                <div class="relative w-full h-[calc(100vh-5rem)]">
+    <iframe class="absolute top-0 left-0 w-full h-full"
+        src="https://nordic-pulse.com/ski-areas/US/ME/Fort-Kent-Outdoor-Center/trails?embed=true&header=false&footer=false&tab=abc"
+        frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+    </iframe>
+</div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+        <section class="bg-gray-900" id="interactive">
+        <div class="py-8 px-4 flex mx-auto max-w-screen-xl sm:py-16 lg:px-6 justify-center items-center flex-col">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white text-center">Interactive Nordic Map</h2>
+                <div class="relative w-full h-[calc(100vh-5rem)]">
+    <iframe class="absolute top-0 left-0 w-full h-full"
+        src="https://nordic-pulse.com/ski-areas/US/ME/Fort-Kent-Outdoor-Center/map?embed=true&header=false&footer=false"
+        style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+    </iframe>
+</div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock content %}

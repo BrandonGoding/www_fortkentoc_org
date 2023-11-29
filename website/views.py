@@ -8,7 +8,8 @@ from django.views.generic import DetailView
 
 from website.forms import ContactForm, SimpleSubscribeForm
 
-from website.models import Coach
+from website.models import Coach, ActivityPage
+
 
 def empty_route(request):
     return HttpResponse("")
@@ -51,3 +52,8 @@ class CoachDetailView(DetailView):
         context["next_coach"] = Coach.objects.filter(pk__gt=self.object.pk).order_by('id').first()
         context["prev_coach"] = Coach.objects.filter(pk__lt=self.object.pk).order_by('-id').first()
         return context
+
+
+class ActivityDetailView(DetailView):
+    model = ActivityPage
+    template_name = "website/partials/activity_partial.html"
