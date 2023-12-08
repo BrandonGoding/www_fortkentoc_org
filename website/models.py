@@ -189,6 +189,12 @@ class MembershipPage(Page):
     template = 'website/membership_page.html'
     max_count = 1
 
+    membership_pdf = models.ForeignKey('wagtaildocs.Document', null=True, blank=True, on_delete=models.SET_NULL, related_name='+')
+
+    content_panels = Page.content_panels + [
+        FieldPanel('membership_pdf'),
+    ]
+
 
 class PoliciesPage(Page):
     template = 'website/policies_page.html'
