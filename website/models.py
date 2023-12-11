@@ -170,9 +170,58 @@ class AboutPage(Page):
     ]
 
 
+class DayPassSquareLink(Orderable):
+    page = ParentalKey('website.DayPassPage', on_delete=models.CASCADE, null=True, related_name='square_links')
+    name = models.CharField(max_length=50)
+    fee = models.IntegerField(null=True, blank=True)
+    link = models.URLField()
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+', verbose_name="Display Image"
+    )
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('fee'),
+        FieldPanel('link'),
+        FieldPanel('image'),
+    ]
+
+    def __str__(self):
+        return f"{self.name}"
+
+    class Meta:
+        ordering = ['sort_order']
+        verbose_name = "Square Link"
+        verbose_name_plural = "Square Links"
+
+
 class DayPassPage(Page):
     template = 'website/day_pass_page.html'
     max_count = 1
+    show_support_image_1 = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+', verbose_name="Support Image 1"
+    )
+    show_support_image_2 = models.ForeignKey(
+'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+', verbose_name="Support Image 2"
+    )
+
+    content_panels = Page.content_panels + [
+        InlinePanel('square_links', label="Day Pass Links"),
+        FieldPanel('show_support_image_1'),
+        FieldPanel('show_support_image_2'),
+    ]
 
 
 class FacilityPage(Page):
