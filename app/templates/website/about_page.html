@@ -1,0 +1,238 @@
+{% extends "../_base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+    <section
+            class="bg-[url('https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
+        <div class="relative py-8 px-4 mx-auto max-w-screen-xl text-white lg:py-16 xl:px-0 z-1">
+            <div class="mb-6 max-w-screen-md lg:mb-0">
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">
+                    Who We Are</h1>
+                <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">We are a community non-profit
+                    organization promoting year-round, outdoor recreational trail activities in the beautiful <a
+                            href="https://visitaroostook.com/story/st-john-valley" target="_blank" rel="noopener">St.
+                        John Valley</a>. Located close to downtown <a href="https://fortkentchamber.com/"
+                                                                      target="_blank" rel="noopener">Fort Kent</a> and
+                    <a href="https://www.facebook.com/pages/category/Ski-Resort/Lonesome-Pine-Trails-167467303283851/"
+                       target="_blank" rel="noopener">Lonesome Pine Trails</a> alpine ski area, you are minutes away
+                    from scenic vistas, friendly people, and good, clean, healthy FUN!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white dark:bg-gray-900">
+        <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+            <img class="w-full dark:hidden"
+                 src="{% static 'website/img/about_us_page/fort-kent-outdoor-center-mass-start-race.jpg' %}"
+                 alt="dashboard image">
+            <div class="mt-4 md:mt-0">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Our Mission</h2>
+                <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">Our mission at the Fort Kent
+                    Outdoor Center is to promote healthy outdoor lifestyles by providing a first-rate facility, trail
+                    system, and recreational activities for members, athletes, and visitors.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <aside aria-label="Related articles" class="py-8 lg:py-24 bg-gray-900 antialiased">
+        <div class="px-4 mx-auto max-w-screen-xl">
+            <h2 class="mb-8 text-2xl font-bold text-white">ESTABLISHED IN 1999</h2>
+            <p class="m-6 font-light text-gray-500 md:text-lg dark:text-gray-400">With primary funding from the Libra
+                Foundation, the Outdoor Center was established in 1999 as a training center for aspiring Nordic and
+                Biathlon athletes, and the host of multiple National and International Nordic and Biathlon events.</p>
+            <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+                <article class="max-w-xs p-4">
+                    <img src="{% static 'website/img/about_us_page/construction-1.jpg' %}" class="mb-5 rounded-lg"
+                         alt="Clearing the lot for the original building site">
+                    <h2 class="mb-2 text-xl font-bold leading-tight text-white">
+                        <a href="#">Original Build Site</a>
+                    </h2>
+                </article>
+                <article class="max-w-xs p-4">
+                    <img src="{% static 'website/img/about_us_page/construction-2.jpg' %}" class="mb-5 rounded-lg"
+                         alt="Framing the lodge walls">
+                    <h2 class="mb-2 text-xl font-bold leading-tight text-white">
+                        <a href="#">Building the FKOC walls</a>
+                    </h2>
+                </article>
+                <article class="max-w-xs p-4">
+                    <img src="{% static 'website/img/about_us_page/construction-4.jpg' %}" class="mb-5 rounded-lg"
+                         alt="laying the trusses for the roof">
+                    <h2 class="mb-2 text-xl font-bold leading-tight text-white">
+                        <a href="#">Adding the FKOC roof</a>
+                    </h2>
+                </article>
+                <article class="max-w-xs p-4">
+                    <img src="{% static 'website/img/about_us_page/construction-5.jpg' %}" class="mb-5 rounded-lg"
+                         alt="Adding siding to the building">
+                    <h2 class="mb-2 text-xl font-bold leading-tight text-white">
+                        <a href="#">Adding the FKOC siding</a>
+                    </h2>
+                </article>
+            </div>
+        </div>
+    </aside>
+
+
+
+    <section class="bg-white dark:bg-gray-900">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 ">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Diverse Trails For All
+                Your Outdoor Needs</h2>
+            <p class="mb-3 font-light text-gray-500 dark:text-gray-400 sm:text-xl">What began as solely a Nordic Ski
+                facility has now evolved into a year round trail system with the addition of several miles of snowshoe,
+                hiking and mountain bike trails. We are pleased members and visitors can now enjoy the beauty of the
+                Maine outdoors all year long.</p>
+            <div class="grid gap-8 lg:grid-cols-2">
+                <a href="#"
+                   class="inline-flex justify-center items-center p-5 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <span class="w-full">View and/or print our PDF maps.</span>
+                    <svg class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+                <a href="#"
+                   class="inline-flex justify-center items-center p-5 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <span class="w-full">See our online trail map with live grooming updates</span>
+                    <svg class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+                <a href="#"
+                   class="inline-flex justify-center items-center p-5 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <span class="w-full">Review our latest Trail Report</span>
+                    <svg class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+                <a href="#"
+                   class="inline-flex justify-center items-center p-5 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <span class="w-full">Purchase a day pass or FKOC membership</span>
+                    <svg class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="bg-gray-900">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+            <div class="mx-auto max-w-screen-sm text-center">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-white">Lots of outdoor
+                    Fun</h2>
+                <p class="mb-6 font-light text-gray-400 md:text-lg">From climbing Mike's Mountain, single track biking
+                    on the Ridge Runner, skiing down Ben's Incline, snowshoeing the Warrior Trail, learning to shoot and
+                    ski, throwing a disc to a basket at the top of Lonesome Pine Trails, watch a toddler learn to ski
+                    with the Jalbert program, to a simple walk through the beautiful woods, there is truly something for
+                    everyone! </p>
+                <a href="#"
+                   class="text-white  focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-primary-800">View
+                    Activities</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white dark:bg-gray-900 antialiased">
+        <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-24">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-4xl dark:text-white">
+                    Board of Directors
+                </h2>
+                <p class="mt-4 text-base font-normal text-gray-500 sm:text-xl dark:text-gray-400">
+                    Board members are elected to a three-year term by the membership. When a members term expires
+                    elections take place at our annual Welcome Winter Celebration.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 mt-8 lg:mt-16 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+                {% for board_member in page.board_members.all %}
+                    <div class="relative overflow-hidden rounded-lg group">
+
+                        {% image board_member.photo fill-296x369 class="object-cover object-top w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125 top-0" %}
+                        <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
+                            <div class="text-center">
+                                <p class="text-xl font-bold text-white">
+                                    {{ board_member.web_display_name }}
+                                </p>
+                                {% if board_member.title %}
+                                    <p class="text-base font-medium text-gray-300">
+                                        {{ board_member.title }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+{#            <div class="max-w-3xl p-4 mx-auto mt-8 rounded-md lg:mt-16 bg-gray-50 dark:bg-gray-800">#}
+{#                <div class="flex flex-col justify-between gap-3 md:gap-6 md:items-center md:flex-row">#}
+{#                    <div class="flex items-center gap-1.5">#}
+{#                        <svg aria-hidden="true"#}
+{#                             class="hidden w-5 h-5 text-gray-800 dark:text-gray-400 md:block shrink-0"#}
+{#                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">#}
+{#                            <path#}
+{#                                    d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"/>#}
+{#                        </svg>#}
+{#                        <span class="text-base font-normal text-gray-700 dark:text-gray-400">#}
+{#            <span class="font-semibold">#}
+{#              Interested in serving as a FKOC board Member?#}
+{#            </span>#}
+{#          </span>#}
+{#                    </div>#}
+{##}
+{#                    <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:contact_form' %}"#}
+{#                       hx-swap="afterbegin" title=""#}
+{#                       class="inline-flex items-center text-base font-medium text-primary-600 hover:underline dark:text-primary-500">#}
+{#                        Inquire Today#}
+{#                        <svg aria-hidden="true" class="w-5 h-5 ml-1.5" xmlns="http://www.w3.org/2000/svg"#}
+{#                             viewBox="0 0 20 20"#}
+{#                             fill="currentColor">#}
+{#                            <path fill-rule="evenodd"#}
+{#                                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"#}
+{#                                  clip-rule="evenodd"/>#}
+{#                        </svg>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+    </section>
+
+
+
+
+    <section class="bg-gray-900 pb-5">
+        <div class="max-w-screen-xl px-4 pt-8 mx-auto text-center lg:pt-16 lg:px-12">
+            <h2 class="mb-4 text-4xl font-extrabold tracking-tight leading-none t md:text-5xl lg:text-6xl text-white">
+                Support</h2>
+            <p class="mb-8 font-light md:text-lg lg:text-xl sm:px-16 xl:px-48 text-gray-400">With a huge boost from the
+                Libra Foundation, the Fort Kent Outdoor Center was built primarily for training skiers for Biathlon and
+                recreation. With many thanks to uncountable volunteer hours, sponsorships from local businesses, various
+                donations large and small, and continued support from Pineland Farms we have introduced many other ways
+                for people near and far to embrace the outdoors such as Disc Golf, single track biking, extended
+                snowshoe trails, Nature Series events, Jalbert Ski Program expansion, and many other enhancements to our
+                marvelous gem in the St. John Valley. We are thankful for all donations, large and small! They help us
+                continue to serve as a recreation hub for the Greater Fort Kent Area. </p>
+            <img class="mx-auto mb-5 lg:mb-8 border border-gray-200 rounded-lg shadow-xl dark:border-gray-600 z-1 dark:hidden"
+                 src="https://cdn.fortkentoc.org/banner_images/fort-kent-outdoor-center-lodge-fall-image.jpg"
+                 alt="dashboard overview">
+        </div>
+    </section>
+
+
+
+{% endblock content %}

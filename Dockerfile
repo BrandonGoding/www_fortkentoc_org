@@ -1,0 +1,18 @@
+
+FROM python:3.11-slim
+
+WORKDIR /usr/src/app
+
+
+COPY ./app /usr/src/app
+COPY ./requirements.txt /usr/src/app/requirements.txt
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+EXPOSE 8000
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "www_fortkentoc_org.wsgi:application"]

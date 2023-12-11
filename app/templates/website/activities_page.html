@@ -1,0 +1,45 @@
+{% extends "../_base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    <section
+            class="bg-[url('https://www.fortkentoc.org/wp-content/uploads/2020/09/fkoc-fall-image-e1604460966429.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
+        <div class="relative py-8 px-4 mx-auto max-w-screen-xl text-white lg:py-16 xl:px-0 z-1">
+            <div class="mb-6 max-w-screen-md lg:mb-0">
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">Year Round Outdoor Activities</h1>
+                <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">Maine enjoys four full seasons, each beautiful and fun-filled in their own way. In the spring, summer, and fall, visitors and members of the Fort Kent Outdoor Center can enjoy mountain biking, disc golfing, and hiking through a deciduous forest. In the winter months, FKOC boasts some of the best-groomed trails in New England for nordic skiing and snowshoeing. Our sledding hill is always a draw for families looking to get outside as well. </p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-white dark:bg-gray-90">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Winter Activities</h2>
+            <p class="font-light text-gray-500 sm:text-lg md:px-20 lg:px-38 xl:px-48 dark:text-gray-400">We are strategists, designers and developers. Innovators and problem solvers. Small enough to be simple and quick, but big enough to deliver the scope you want at the pace you need.</p>
+            <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">
+
+                {% for activity in page.winter_activities.all %}
+                <button  hx-trigger="click" hx-target="body" hx-get="{% url 'website:activity_partial' activity.slug %}" hx-swap="afterbegin" class="relative overflow-hidden hover:outline hover:outline-2 hover:outline-blue-900 rounded-lg group flex justify-center items-center bg-white col-span-{{ activity.col_span }} mb-4 sm:mb-0 rounded-lg bg-cover activity-button">
+                    <h3 class="absolute z-10 mb-2 text-xl font-bold text-blue-900 outline-1 p-5 learn-title">{{ activity.name }}</h3>
+                    <h3 class="hidden absolute z-10 mb-2 text-xl font-bold text-blue-900 outline-1 p-5 learn-more">Learn More...</h3>
+                    {% if activity.col_span == 2 %}
+                    {% image activity.card_image fill-584x238 class="z-0 object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125 opacity-40" %}
+                    {% elif activity.col_span == 1 %}
+                    {% image activity.card_image fill-284x238 class="z-0 object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125 opacity-40" %}
+                    {% endif %}
+                </button>
+                {% endfor %}
+
+{#                <img class="hidden col-span-1 sm:block rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-2.png" alt="content gallery 2">#}
+{#                <img class="hidden col-span-1 sm:block rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png" alt="content gallery 3">#}
+{#                <img class="hidden col-span-1 sm:block rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-4.png" alt="content gallery 4">#}
+{#                <img class="col-span-2 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-5.png" alt="content gallery 5">#}
+{#                <img class="hidden col-span-1 sm:block rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-6.png" alt="content gallery 6">#}
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock content %}

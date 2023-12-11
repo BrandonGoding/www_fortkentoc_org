@@ -1,0 +1,120 @@
+{% extends "../_base.html" %}
+{% load static %}
+
+{% block content %}
+    <section
+            class="bg-[url('https://www.fortkentoc.org/wp-content/uploads/2020/09/fkoc-fall-image-e1604460966429.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
+        <div class="relative py-8 px-4 mx-auto max-w-screen-xl text-white lg:py-16 xl:px-0 z-1">
+            <div class="mb-6 max-w-screen-md lg:mb-0">
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">
+                    Facility</h1>
+                <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">The Fort Kent Outdoor Center is a
+                    community managed recreational facility promoting outdoor trail based activities year round in the
+                    beauty of the St John Valley. Located right next door to downtown Fort Kent and Lonesome Pines
+                    Trails Alpine ski area, you are just minutes from getting away from it all.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-white dark:bg-gray-900">
+        <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+            <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Facility
+                    Rentals</h2>
+                <p class="mb-4">The 10th Mountain Lodge located at the Fort Kent Outdoor Center is now available to rent
+                    year-round for any of your school, non-profit, business, organization or individual event. There are
+                    two large rooms available for meetings, retreats, or parties, both exhibiting an outstanding view of
+                    a world-class recreational facility encompassed in a secluded, picturesque natural setting.</p>
+                <p class="mb-4">One meeting room has a cozy fireplace perfect for a winter gathering and seats
+                    approximately 30, while the conference room seats approximately 50 and is equipped with a digital
+                    projector and screen for presentations. WiFi is accessible throughout the entire facility, and a
+                    well-stocked kitchen is also available. Most local caterers are familiar with the amenities of our
+                    lodge if you wish to hire out the food services for your event. There is a restroom upstairs as well
+                    as separate Mens and Ladies facilities in the lower level.</p>
+                <p class="mb-4">Lodge rentals also include half price trail passes for rental participants, with showers
+                    and a sauna available as well. What a relaxing, healthy way to end a meeting or seminar!</p>
+                <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:contact_form' %}"
+                   hx-swap="afterbegin" title=""
+                   class="inline-flex items-center text-base font-medium text-primary-600 hover:underline dark:text-primary-500">
+                    Inquire Today
+                    <svg aria-hidden="true" class="w-5 h-5 ml-1.5" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 20 20"
+                         fill="currentColor">
+                        <path fill-rule="evenodd"
+                              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-8">
+                <img class="w-full rounded-lg" src="{% static 'website/img/lodge-interior.jpg' %}" alt="office content 1">
+                <img class="mt-4 w-full lg:mt-10 rounded-lg" src="{% static 'website/img/lodge-bunks.jpg' %}"
+                     alt="office content 2">
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-gray-900">
+        <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+            <img class="w-full" src="{% static 'website/img/10th-mtn-lodge.jpg' %}" alt="dashboard image">
+            <div class="mt-4 md:mt-0">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">10th Mountain Lodge</h2>
+                <p class="mb-6 font-light md:text-lg text-gray-400">The beautiful Tenth Mountain lodge includes a
+                    great-room, sauna, kitchen, competition office, a fieldstone fireplace, and a unique perspective of
+                    the biathlon stadium. On the lower level with access to the stadium is the Rental Shop where no-wax
+                    and skating skis as well as snowshoes are available for rental. Day or season passes can be
+                    purchased there as well as online.<br/>The Rental Shop is open 12:00 – 3:00 on Saturdays and Sundays
+                    during the ski/snowshoe season and during some events.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-white dark:bg-gray-900">
+        <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+            <div class="mt-4 md:mt-0">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Wax Building</h2>
+                <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">A 27-room wax building was built
+                    in 2003 and first used during the IBU World Cup in March 2004. The lower level is open to the public
+                    seven days a week for waxing. Restroom facilities are also available here during competitions.</p>
+            </div>
+            <img class="w-full dark:hidden" src="{% static 'website/img/wax-building.jpg' %}" alt="dashboard image">
+        </div>
+    </section>
+
+
+
+
+    <section class="bg-gray-900">
+        <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+            <img class="w-full dark:hidden" src="{% static 'website/img/stadium-and-timing-building.jpg' %}"
+                 alt="dashboard image">
+            <div class="mt-4 md:mt-0">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Stadium and Timing Building</h2>
+                <p class="mb-6 font-light md:text-lg text-gray-400">The original Timing Building was moved in 2003 when
+                    the Stadium Production room was built. A two-story addition was added during fall 2007 in
+                    anticipation of the upcoming World cup. This building is situated in front of the competition finish
+                    area.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-white dark:bg-gray-900">
+        <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+            <div class="mt-4 md:mt-0">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Shooting
+                    Range</h2>
+                <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">The shooting range is located in
+                    the stadium with 30 lanes with mechanical targets with night lighting on 10 targets. The site was
+                    awarded the International Biathlon Union Class B license in November 2002.</p>
+            </div>
+            <img class="w-full dark:hidden" src="{% static 'website/img/10th-aerial.jpg' %}" alt="dashboard image">
+        </div>
+    </section>
+
+    {% include 'website/cta/email_list.html' %}
+
+{% endblock content %}
