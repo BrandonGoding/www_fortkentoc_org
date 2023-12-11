@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 {% block content %}
     <section
             class="bg-[url('https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
@@ -11,41 +11,32 @@
             </div>
         </div>
     </section>
-
-
-
-    <section class="bg-white dark:bg-gray-900">
-    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
-        <div>
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Get Trail-Ready!</h2>
-            <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">Skip the hassle and go from parking lot to trail with ease. Purchase your day pass online for a contactless, quick, and convenient experience. Choose your pass option below and hit the trails in no time!</p>
-            <div class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-                <a href="#" class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-800">
-                    <div class="text-left">
-                        <div class="mb-1 text-xs">Pass Options:</div>
-                        <div class="-mt-1 font-sans text-sm font-semibold">Ski Trail Day Pass</div>
-                    </div>
-                </a>
-                <a href="#" class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-800">
-                    <div class="text-left">
-                        <div class="mb-1 text-xs">Pass Options:</div>
-                        <div class="-mt-1 font-sans text-sm font-semibold">Snowshoe Trail Day Pass</div>
-                    </div>
-                </a>
-            </div>
+    <script src="https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=61670215255e2&webpl_title=Sign%20our%20waiver&webpl_align=Right&webpl_fontsize=20&webpl_background=%23E2FF3E&webpl_fontcolor=%23000000&webpl_font=Verdana" type="text/javascript"></script>
+ <section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
+        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Get Trail Ready!</h2>
+        <p class="mb-8 font-light text-gray-500 sm:text-lg md:px-20 lg:px-38 xl:px-48 dark:text-gray-400">Purchase your day pass online to go from the parking lot to the trails. <strong>Alternatively</strong> you can place your day pass fee in our donation box found at each of our trailheads.</p>
+        <a href="https://waiver.smartwaiver.com/w/61670215255e2/web/" target="_blank" class="mt-8 p-2.5 font-extrabold text-gray-800 bg-yellow-300 hover:bg-yellow-200" target="_blank">Before purchasing a day pass please sign our E-Waiver HERE!</a href="" >
+        <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">
+            {% for trail_pass in page.square_links.all %}
+               <a href="{{ trail_pass.link }}" target="_blank" class="relative group bg-gray-900 col-span-1 sm:block rounded-lg hover:outline hover:outline-blue-500 hover:outline-offset-2">
+                   <div class="flex justify-center items-center text-white z-10 absolute top-0 bottom-0 left-0 right-0">
+                       <h3>{{ trail_pass.name }}<br /><strong>${{ trail_pass.fee }}/day</strong><br/><span class="opacity-0 group-hover:opacity-100 font-bold text-blue-500">PURCHASE</span></h3>
+                   </div>
+                   {% image trail_pass.image fill-284x237 class="z-0 col-span-1 sm:block rounded-lg opacity-20" %}
+               </a>
+            {% endfor %}
         </div>
-        <img class="hidden mx-auto w-64 md:flex" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/iphone-mockup.png" alt="mobile app">
     </div>
 </section>
-
 
 
     <section class="bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
         <div class="mx-auto max-w-screen-sm text-center">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-white">Need Equipment?</h2>
-            <p class="mb-6 font-light text-gray-400 md:text-lg">We can provide you with the equipment you need to enjoy all that The Fort Kent Outdoor Center has to offer. Try some of our Cross Country Skis, or toss on a pair of Snowshoes and enjoy our winter walking trails. </p>
-            <a href="{% slugurl 'day-passes' %}" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Rental Info</a>
+            <p class="mb-6 font-light text-gray-400 md:text-lg">We can provide you with the equipment you need to enjoy all that The Fort Kent Outdoor Center has to offer. Try some of our Cross Country Skis, or toss on a pair of Snowshoes and enjoy our winter walking trails.</p>
+            <a href="{% slugurl 'rentals' %}" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Rental Info</a>
         </div>
     </div>
 </section>
@@ -56,8 +47,8 @@
             <p class="mb-4">We are a non-profit 501-C organization and will put every penny to good use. Our beautiful Lodge, Timing Building, Wax Building, groomed trails (paved and carved out for different activities) all need volunteer labor as well as funding from memberships, sponsorships, and donations large and small. Please consider us for one time as well as continuous support. Many thanks to all of our past, present, and future sponsors! </p>
         </div>
         <div class="grid grid-cols-2 gap-4 mt-8">
-            <img class="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1">
-            <img class="mt-4 w-full lg:mt-10 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" alt="office content 2">
+            {% image page.show_support_image_1 fill-284x394 class="w-full rounded-lg" %}
+            {% image page.show_support_image_2 fill-284x394 class="mt-4 w-full lg:mt-10 rounded-lg" %}
         </div>
     </div>
 </section>

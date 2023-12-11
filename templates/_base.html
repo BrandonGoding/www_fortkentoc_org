@@ -43,7 +43,7 @@
                 <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:webcam_modal' %}"
                    hx-swap="afterbegin"
                    class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Webcam</a>
-                <a href="#" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Trail Maps</a>
+                <a href="{% slugurl 'trails' %}" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Trail Maps</a>
                 <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:contact_form' %}"
                    hx-swap="afterbegin"
                    class="text-sm font-medium sm:mr-2 text-white hover:text-gray-300">Contact us</a>
@@ -57,10 +57,10 @@
                 <span class="sr-only">Fort Kent Outdoor Center</span>
             </a>
             <div class="flex items-center lg:order-2">
-                <a href="#"
-                   class="hidden text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 lg:block">Log
-                    in</a>
-                <a href="#"
+{#                <a href="#"#}
+{#                   class="hidden text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 lg:block">Log#}
+{#                    in</a>#}
+                <a href="{% slugurl 'memberships' %}"
                    class="hidden text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 lg:block">Join
                     Today</a>
                 <button data-collapse-toggle="mobile-menu-2" type="button"
@@ -155,11 +155,11 @@
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Jalbert
                                         Biathlon Program</a>
                                 </li>
-                                <li>
-                                    <a href="#"
-                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Team
-                                        FKOC Application</a>
-                                </li>
+{#                                <li>#}
+{#                                    <a href="#"#}
+{#                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Team#}
+{#                                        FKOC Application</a>#}
+{#                                </li>#}
                             </ul>
                         </div>
                     </li>
@@ -221,18 +221,17 @@
                                 aria-labelledby="events-dropdown-button">
                                 <li>
                                     <a href="/events/"
-                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Events
-                                        Calendar</a>
+                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Upcoming Events</a>
                                 </li>
-                                <li>
-                                    <a href="#"
-                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Scores/Results</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Image
-                                        Gallery</a>
-                                </li>
+{#                                <li>#}
+{#                                    <a href="#"#}
+{#                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Scores/Results</a>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <a href="#"#}
+{#                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Image#}
+{#                                        Gallery</a>#}
+{#                                </li>#}
                             </ul>
                         </div>
                     </li>
@@ -258,39 +257,39 @@
             </a>
             <ul class="flex flex-wrap items-center mb-4 text-sm text-gray-500 lg:mb-0 dark:text-gray-400">
                 <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">Home</a>
+                    <a href="/home/" class="mr-4 hover:underline md:mr-6 ">Home</a>
                 </li>
                 <li>
                     <a href="/policies/" class="mr-4 hover:underline md:mr-6">Policies & Safety</a>
                 </li>
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6">Job Opportunities</a>
-                </li>
+{#                <li>#}
+{#                    <a href="#" class="mr-4 hover:underline md:mr-6">Job Opportunities</a>#}
+{#                </li>#}
                 <li>
                     <a href="#" class="hover:underline"  hx-trigger="click" hx-target="body"
                     hx-get="{% url 'website:contact_form' %}" hx-swap="afterbegin">Contact</a>
                 </li>
             </ul>
-            <form action="#" class="flex w-full max-w-sm lg:ml-auto">
-                <div class="relative w-full">
-                    <label for="email" class="hidden mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email
-                        address</label>
-                    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                        </svg>
-                    </div>
-                    <input type="email" id="email"
-                           class="block p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-l-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                           placeholder="Your email" required>
-                </div>
-                <button type="submit"
-                        class="py-3 px-5 text-sm text-center text-white rounded-r-lg border cursor-pointer bg-primary-600 border-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                    Subscribe
-                </button>
-            </form>
+{#            <form action="#" class="flex w-full max-w-sm lg:ml-auto">#}
+{#                <div class="relative w-full">#}
+{#                    <label for="email" class="hidden mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email#}
+{#                        address</label>#}
+{#                    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">#}
+{#                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"#}
+{#                             xmlns="http://www.w3.org/2000/svg">#}
+{#                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>#}
+{#                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>#}
+{#                        </svg>#}
+{#                    </div>#}
+{#                    <input type="email" id="email"#}
+{#                           class="block p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-l-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"#}
+{#                           placeholder="Your email" required>#}
+{#                </div>#}
+{#                <button type="submit"#}
+{#                        class="py-3 px-5 text-sm text-center text-white rounded-r-lg border cursor-pointer bg-primary-600 border-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">#}
+{#                    Subscribe#}
+{#                </button>#}
+{#            </form>#}
         </div>
         <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
         <div class="sm:items-center sm:justify-between sm:flex">
