@@ -1,14 +1,15 @@
+{% load static %}
 <section id="contact-modal"
          class="fixed top-0 right-0 left-0 bottom-0 z-40 bg-gray-900 flex justify-center items-center bg-opacity-50">
     <div class="py-4 px-4 mx-auto max-w-2xl lg:py-8 bg-white">
         <section class="bg-white dark:bg-gray-900">
             <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
                 <img class="w-full dark:hidden"
-                     src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup.svg"
-                     alt="dashboard image">
+                     src="{% static 'website/img/mail_success.png' %}"
+                     alt="skiing mail delivery">
                 <img class="w-full hidden dark:block"
-                     src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup-dark.svg"
-                     alt="dashboard image">
+                     src="{% static 'website/img/mail_success.png' %}"
+                     alt="skiing mail delivery">
                 <div class="mt-4 md:mt-0">
                     <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Thank
                         You!</h2>

@@ -427,7 +427,7 @@ class EventPage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['upcoming_events'] = EventDate.objects.filter(date__gte=datetime.date.today(), page__live=True).exclude(page_id=self.pk).order_by('date')
+        context['upcoming_events'] = EventDate.objects.filter(date__gte=datetime.date.today(), page__live=True).exclude(page_id=self.pk).order_by('date')[:3]
         return context
 
 

@@ -1,3 +1,4 @@
+from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -25,6 +26,19 @@ def contact_form(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
+            # The form is valid, so send an email.
+            subject = "FKOC Contact Form"
+            body = {
+                'name': form.cleaned_data['name'],
+                'email': form.cleaned_data['email'],
+                'message': form.cleaned_data['message'],
+            }
+            message = "\n".join(body.values())
+
+            try:
+                send_mail(subject, message, 'info@fortkentoc.org', ['brandon.h.goding@gmail.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
             return HttpResponseRedirect(reverse("website:contact_form_thank_you"))
     else:
         form = ContactForm()
@@ -38,7 +52,7 @@ def process_subscribe_form(request):
             return HttpResponseRedirect(reverse("website:subscribe_thank_you"))
     else:
         form = SimpleSubscribeForm()
-    return render(request, "website/cta/../templates/website/cta/email_list.html", {"form": form})
+    return render(request, "website/cta/email_list.html", {"form": form})
 
 
 class CoachDetailView(DetailView):
