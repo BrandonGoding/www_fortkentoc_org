@@ -480,6 +480,14 @@ class EventPage(Page):
         related_name="+",
         verbose_name="Banner Image",
     )
+    flyer = models.ForeignKey(
+        "wagtaildocs.Document",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Flyer",
+    )
     category = models.ForeignKey(
         EventCategory, on_delete=models.SET_NULL, null=True
     )
@@ -503,6 +511,7 @@ class EventPage(Page):
                 FieldPanel("banner_image"),
                 FieldPanel("teaser"),
                 FieldPanel("body"),
+                FieldPanel("flyer"),
             ],
             heading="Event Description",
         ),
