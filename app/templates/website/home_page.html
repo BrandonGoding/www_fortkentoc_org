@@ -35,7 +35,7 @@
                                         class="p-4 mx-auto max-w-sm bg-white rounded-lg shadow-md border border-gray-200 dark:border-gray-800 dark:bg-gray-800 dark:border-gray-700">
                                     <a href="{{ event.page.url }}">
                                         {% if event.page.banner_image %}
-                                          {% image event.page.banner_image fill-355x132 crop="center" class="mb-5 rounded-lg" %}
+                                          {% image event.page.banner_image fill-355x132-c100 class="mb-5 rounded-lg" %}
                                           {% else %}
                                           <img class="mb-5 rounded-lg" src="https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg" alt="Fort Kent Outdoor Center During biathlon event">
                                           {% endif %}
@@ -88,7 +88,6 @@
 
 
 
-
     <section class="bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
             <div class="max-w-screen-md">
@@ -96,7 +95,7 @@
                     trails today?</h2>
                 <p class="mb-8 font-light sm:text-xl text-gray-400">We have a dedicated group of volunteers who work on
                     keeping our trails in great condition all year round. So when planning your visit to the Fort Kent
-                    Outdoor center, don’t forget to checkout our regularly updated trail maps and trail conditions.</p>
+                    Outdoor center, don’t forget to check out our regularly updated trail maps and trail conditions.</p>
                 <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
                     <a href="{% slugurl 'day-passes' %}"
                        class="inline-flex items-center justify-center px-4 py-2.5 text-base font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-900">

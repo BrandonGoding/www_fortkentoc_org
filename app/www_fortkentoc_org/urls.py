@@ -22,7 +22,7 @@ from django.contrib import admin
 
 urlpatterns = [
     path("", include("website.urls")),
-    path('carl/', include(wagtailadmin_urls)),
-    path('documents/', include(wagtaildocs_urls)),
-    path('', include(wagtail_urls)),
+    path("carl/", include(wagtailadmin_urls)),
+    path("documents/", include(wagtaildocs_urls)),
+    path("", include(wagtail_urls)),
 ]

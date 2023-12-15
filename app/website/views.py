@@ -29,26 +29,51 @@ def contact_form(request):
             # The form is valid, so send an email.
             subject = "FKOC Contact Form"
             body = {
-                'name': form.cleaned_data['name'],
-                'email': form.cleaned_data['email'],
-                'message': form.cleaned_data['message'],
+                "name": form.cleaned_data["name"],
+                "email": form.cleaned_data["email"],
+                "message": form.cleaned_data["message"],
             }
             message = "\n".join(body.values())
 
             try:
-                send_mail(subject, message, 'info@fortkentoc.org', ['brandon.h.goding@gmail.com'])
+                send_mail(
+                    subject,
+                    message,
+                    "info@fortkentoc.org",
+                    ["brandon.h.goding@gmail.com"],
+                )
             except BadHeaderError:
-                return HttpResponse('Invalid header found.')
-            return HttpResponseRedirect(reverse("website:contact_form_thank_you"))
+                return HttpResponse("Invalid header found.")
+            return HttpResponseRedirect(
+                reverse("website:contact_form_thank_you")
+            )
     else:
         form = ContactForm()
-    return render(request, "website/partials/contact_form.html", {"form": form})
+    return render(
+        request, "website/partials/contact_form.html", {"form": form}
+    )
 
 
 def process_subscribe_form(request):
     if request.method == "POST":
         form = SimpleSubscribeForm(request.POST)
         if form.is_valid():
+            # The form is valid, so send an email.
+            subject = "ADD ME TO THE EMAIL LIST"
+            body = {
+                "email": form.cleaned_data["email"],
+            }
+            message = "\n".join(body.values())
+
+            try:
+                send_mail(
+                    subject,
+                    message,
+                    "info@fortkentoc.org",
+                    ["brandon.h.goding@gmail.com"],
+                )
+            except BadHeaderError:
+                return HttpResponse("Invalid header found.")
             return HttpResponseRedirect(reverse("website:subscribe_thank_you"))
     else:
         form = SimpleSubscribeForm()
@@ -61,8 +86,12 @@ class CoachDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CoachDetailView, self).get_context_data(**kwargs)
-        context["next_coach"] = Coach.objects.filter(pk__gt=self.object.pk).order_by('id').first()
-        context["prev_coach"] = Coach.objects.filter(pk__lt=self.object.pk).order_by('-id').first()
+        context["next_coach"] = (
+            Coach.objects.filter(pk__gt=self.object.pk).order_by("id").first()
+        )
+        context["prev_coach"] = (
+            Coach.objects.filter(pk__lt=self.object.pk).order_by("-id").first()
+        )
         return context
 
 

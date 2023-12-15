@@ -12,13 +12,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =config("SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
-ALLOWED_CIDR_NETS = config('ALLOWED_CIDR_NETS', cast=lambda v: [s.strip() for s in v.split(',')])
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
+)
+ALLOWED_CIDR_NETS = config(
+    "ALLOWED_CIDR_NETS", cast=lambda v: [s.strip() for s in v.split(",")]
+)
 
 # Application definition
 
@@ -31,26 +35,26 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "website.apps.WebsiteConfig",
     "compressor",
-    'storages',
-    'wagtail.contrib.forms',
-    'wagtail.contrib.redirects',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
-    'wagtail',
-    'modelcluster',
-    'taggit',
+    "storages",
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.search",
+    "wagtail.admin",
+    "wagtail",
+    "modelcluster",
+    "taggit",
     "wagtail_modeladmin",
 ]
 
 MIDDLEWARE = [
     "website.middleware.HealthCheckMiddleware",
-    'allow_cidr.middleware.AllowCIDRMiddleware',
+    "allow_cidr.middleware.AllowCIDRMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -58,7 +62,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 ROOT_URLCONF = "www_fortkentoc_org.urls"
@@ -86,13 +90,13 @@ WSGI_APPLICATION = "www_fortkentoc_org.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('MYSQL_DB'),
-        'USER': config('MYSQL_USER'),
-        'PASSWORD': config('MYSQL_PASSWORD'),
-        'HOST': config('MYSQL_HOST'),
-        'PORT': config('MYSQL_PORT'),
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": config("MYSQL_DB"),
+        "USER": config("MYSQL_USER"),
+        "PASSWORD": config("MYSQL_PASSWORD"),
+        "HOST": config("MYSQL_HOST"),
+        "PORT": config("MYSQL_PORT"),
     }
 }
 
@@ -142,23 +146,26 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 COMPRESS_ROOT = BASE_DIR / "static"
 
 COMPRESS_ENABLED = False
+
 AWS_S3_FILE_OVERWRITE = False
 
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_S3_CUSTOM_DOMAIN = '%s' % AWS_STORAGE_BUCKET_NAME
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+AWS_S3_CUSTOM_DOMAIN = "%s" % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
+    "CacheControl": "max-age=86400",
 }
-AWS_STATIC_LOCATION = 'static'
+AWS_STATIC_LOCATION = "static"
 
 
-AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
-DEFAULT_FILE_STORAGE = 'www_fortkentoc_org.storage_backends.PublicMediaStorage'
+AWS_PUBLIC_MEDIA_LOCATION = "media/public"
+DEFAULT_FILE_STORAGE = "www_fortkentoc_org.storage_backends.PublicMediaStorage"
 
-AWS_PRIVATE_MEDIA_LOCATION = 'media/private'
-PRIVATE_FILE_STORAGE = 'www_fortkentoc_org.storage_backends.PrivateMediaStorage'
+AWS_PRIVATE_MEDIA_LOCATION = "media/private"
+PRIVATE_FILE_STORAGE = (
+    "www_fortkentoc_org.storage_backends.PrivateMediaStorage"
+)
 
 STATICFILES_FINDERS = [
     "compressor.finders.CompressorFinder",
@@ -169,12 +176,12 @@ STATICFILES_FINDERS = [
 
 WAGTAIL_SITE_NAME = "The Fort Kent Outdoor Center"
 WAGTAILADMIN_BASE_URL = "https://www.fortkentoc.org"
-
-
-EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
+EMAIL_BACKEND = config(
+    "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
+)
 
 if not DEBUG:
-    STATICFILES_STORAGE = 'www_fortkentoc_org.storage_backends.StaticStorage'
+    STATICFILES_STORAGE = "www_fortkentoc_org.storage_backends.StaticStorage"
     EMAIL_HOST = config("EMAIL_HOST", default="")
     EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
     EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
