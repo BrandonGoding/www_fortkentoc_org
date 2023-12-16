@@ -147,25 +147,25 @@ COMPRESS_ROOT = BASE_DIR / "static"
 
 COMPRESS_ENABLED = False
 
-AWS_S3_FILE_OVERWRITE = False
+if not DEBUG:
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
+    AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+    AWS_S3_CUSTOM_DOMAIN = "%s" % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+        "CacheControl": "max-age=86400",
+    }
+    AWS_STATIC_LOCATION = "static"
 
-AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
-AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
-AWS_S3_CUSTOM_DOMAIN = "%s" % AWS_STORAGE_BUCKET_NAME
-AWS_S3_OBJECT_PARAMETERS = {
-    "CacheControl": "max-age=86400",
-}
-AWS_STATIC_LOCATION = "static"
 
+    AWS_PUBLIC_MEDIA_LOCATION = "media/public"
+    DEFAULT_FILE_STORAGE = "www_fortkentoc_org.storage_backends.PublicMediaStorage"
 
-AWS_PUBLIC_MEDIA_LOCATION = "media/public"
-DEFAULT_FILE_STORAGE = "www_fortkentoc_org.storage_backends.PublicMediaStorage"
-
-AWS_PRIVATE_MEDIA_LOCATION = "media/private"
-PRIVATE_FILE_STORAGE = (
-    "www_fortkentoc_org.storage_backends.PrivateMediaStorage"
-)
+    AWS_PRIVATE_MEDIA_LOCATION = "media/private"
+    PRIVATE_FILE_STORAGE = (
+        "www_fortkentoc_org.storage_backends.PrivateMediaStorage"
+    )
 
 STATICFILES_FINDERS = [
     "compressor.finders.CompressorFinder",

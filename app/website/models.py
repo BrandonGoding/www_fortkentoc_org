@@ -14,7 +14,7 @@ from wagtail.admin.panels import (
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, Orderable
 
-from website.blocks import ImagesWithHeadingAndDescription, DefaultCTA
+from website.blocks import ImagesWithHeadingAndDescription, DefaultCTA, VisualImageWithHeader
 from website.forms import SimpleSubscribeForm
 
 
@@ -67,6 +67,25 @@ COLOR_CODES = {
 class HomePage(Page):
     template = "website/home_page.html"
     max_count = 1
+
+    body = StreamField(
+        [
+            ("paragraph", blocks.RichTextBlock()),
+            ("default_cta", DefaultCTA()),
+            (
+                "left_header_paragraph_two_image_right",
+                ImagesWithHeadingAndDescription(),
+            ),
+            ("visual_image_with_header", VisualImageWithHeader()),
+        ],
+        use_json_field=True,
+        blank=True,
+        null=True,
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("body"),
+    ]
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -467,6 +486,7 @@ class EventPage(Page):
                 "left_header_paragraph_two_image_right",
                 ImagesWithHeadingAndDescription(),
             ),
+            ("visual_image_with_header", VisualImageWithHeader()),
         ],
         use_json_field=True,
         blank=True,
