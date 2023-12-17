@@ -1,30 +1,21 @@
+import os
 from pathlib import Path
 from decouple import config
 import pymysql
 
+
+ENVIRONMENT = config("ENVIRONMENT", default="development")
+
 pymysql.install_as_MySQLdb()
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
-
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
 )
 ALLOWED_CIDR_NETS = config(
     "ALLOWED_CIDR_NETS", cast=lambda v: [s.strip() for s in v.split(",")]
 )
-
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -85,10 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "www_fortkentoc_org.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
@@ -99,10 +86,6 @@ DATABASES = {
         "PORT": config("MYSQL_PORT"),
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -119,10 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -131,23 +110,27 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = "static/"
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+STATICFILES_FINDERS = [
+    "compressor.finders.CompressorFinder",
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
+
 
 COMPRESS_ROOT = BASE_DIR / "static"
+COMPRESS_ENABLED = config("COMPRESS_ENABLED", default=False, cast=bool)
+WAGTAIL_SITE_NAME = "The Fort Kent Outdoor Center"
+WAGTAILADMIN_BASE_URL = "https://www.fortkentoc.org"
+EMAIL_BACKEND = config(
+    "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
+)
 
-COMPRESS_ENABLED = False
 
-if not DEBUG:
+if ENVIRONMENT == "production":
     AWS_S3_FILE_OVERWRITE = False
     AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
     AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
@@ -157,30 +140,12 @@ if not DEBUG:
         "CacheControl": "max-age=86400",
     }
     AWS_STATIC_LOCATION = "static"
-
-
     AWS_PUBLIC_MEDIA_LOCATION = "media/public"
     DEFAULT_FILE_STORAGE = "www_fortkentoc_org.storage_backends.PublicMediaStorage"
-
     AWS_PRIVATE_MEDIA_LOCATION = "media/private"
     PRIVATE_FILE_STORAGE = (
         "www_fortkentoc_org.storage_backends.PrivateMediaStorage"
     )
-
-STATICFILES_FINDERS = [
-    "compressor.finders.CompressorFinder",
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-]
-
-
-WAGTAIL_SITE_NAME = "The Fort Kent Outdoor Center"
-WAGTAILADMIN_BASE_URL = "https://www.fortkentoc.org"
-EMAIL_BACKEND = config(
-    "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
-)
-
-if not DEBUG:
     STATICFILES_STORAGE = "www_fortkentoc_org.storage_backends.StaticStorage"
     EMAIL_HOST = config("EMAIL_HOST", default="")
     EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
@@ -188,7 +153,10 @@ if not DEBUG:
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
     EMAIL_USE_SSL = False
-
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
+
+if ENVIRONMENT == "development":
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
