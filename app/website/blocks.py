@@ -10,7 +10,7 @@ class VisualImageWithHeader(blocks.StructBlock):
         [
             ("text", blocks.CharBlock(label="Text", required=False)),
             ("page", blocks.PageChooserBlock(label="Link", required=False)),
-            ("external_link", blocks.URLBlock(label="URL", required=False))
+            ("external_link", blocks.URLBlock(label="URL", required=False)),
         ],
         label="CTA 1",
         required=False,
@@ -19,17 +19,16 @@ class VisualImageWithHeader(blocks.StructBlock):
         [
             ("text", blocks.CharBlock(label="Text", required=False)),
             ("page", blocks.PageChooserBlock(label="Link", required=False)),
-            ("external_link", blocks.URLBlock(label="URL", required=False))
+            ("external_link", blocks.URLBlock(label="URL", required=False)),
         ],
         label="CTA 2",
         required=False,
     )
 
-
-
     class Meta:
         icon = "user"
         template = "blocks/visual_image_with_header.html"
+
 
 class ImagesWithHeadingAndDescription(blocks.StructBlock):
     heading = blocks.CharBlock(label="Heading", required=True)

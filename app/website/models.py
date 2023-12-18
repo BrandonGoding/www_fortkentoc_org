@@ -14,7 +14,11 @@ from wagtail.admin.panels import (
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, Orderable
 
-from website.blocks import ImagesWithHeadingAndDescription, DefaultCTA, VisualImageWithHeader
+from website.blocks import (
+    ImagesWithHeadingAndDescription,
+    DefaultCTA,
+    VisualImageWithHeader,
+)
 from website.forms import SimpleSubscribeForm
 
 

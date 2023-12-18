@@ -141,7 +141,9 @@ if ENVIRONMENT == "production":
     }
     AWS_STATIC_LOCATION = "static"
     AWS_PUBLIC_MEDIA_LOCATION = "media/public"
-    DEFAULT_FILE_STORAGE = "www_fortkentoc_org.storage_backends.PublicMediaStorage"
+    DEFAULT_FILE_STORAGE = (
+        "www_fortkentoc_org.storage_backends.PublicMediaStorage"
+    )
     AWS_PRIVATE_MEDIA_LOCATION = "media/private"
     PRIVATE_FILE_STORAGE = (
         "www_fortkentoc_org.storage_backends.PrivateMediaStorage"
@@ -158,5 +160,5 @@ if ENVIRONMENT == "production":
     SESSION_COOKIE_SECURE = True
 
 if ENVIRONMENT == "development":
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+    MEDIA_URL = "/media/"
