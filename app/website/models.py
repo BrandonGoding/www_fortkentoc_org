@@ -2,6 +2,7 @@ import datetime
 
 from django import forms
 from django.db import models
+from django.http import HttpResponseRedirect
 from django.utils.text import slugify
 from modelcluster.fields import ParentalManyToManyField, ParentalKey
 from wagtail import blocks
@@ -94,8 +95,9 @@ class HomePage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["form"] = SimpleSubscribeForm()
-        context["events"] = EventDate.objects.filter(
-            date__gte=datetime.date.today(), page__live=True
+        context["events"] = EventDatePage.objects.filter(
+            date__gte=datetime.date.today(),
+            live=True
         ).order_by("date")[:3]
         return context
 
@@ -423,8 +425,8 @@ class EventListingPage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         # NEED TO INCORPORATE live().child_of(self) TO FILTER OUT PAST EVENTS
-        context["events"] = EventDate.objects.filter(
-            date__gte=datetime.date.today(), page__live=True
+        context["events"] = EventDatePage.objects.filter(
+            date__gte=datetime.date.today(), live=True
         ).order_by("date")
         context["categories"] = EventCategory.objects.all().order_by("name")
         context["tags"] = EventTag.objects.all().order_by("name")
@@ -477,6 +479,7 @@ class EventPage(Page):
         LODGE = "fkoc_lodge", "Fort Kent Outdoor Center Lodge"
         WAX_BUILDING = "wax_building", "Fort Kent Outdoor Center Wax Building"
         STADIUM = "stadium", "Fort Kent Outdoor Center Stadium"
+        PARKING_LOT = "parking_lot", "Fort Kent Outdoor Center Parking Lot"
 
     teaser = models.CharField(max_length=200)
     location = models.CharField(
@@ -524,9 +527,9 @@ class EventPage(Page):
         MultiFieldPanel(
             [
                 FieldPanel("location"),
-                InlinePanel(
-                    "dates", max_num=20, min_num=1, label="Event Date"
-                ),
+                # InlinePanel(
+                #     "dates", max_num=20, min_num=1, label="Event Date"
+                # ),
             ],
             heading="Event Information",
         ),
@@ -554,30 +557,49 @@ class EventPage(Page):
         ),
     ]
     parent_page_types = ["website.EventListingPage"]
-    subpage_types = []
+    subpage_types = ["website.EventDatePage"]
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
+        context["banner_image"] = self.banner_image
         context["upcoming_events"] = (
-            EventDate.objects.filter(
-                date__gte=datetime.date.today(), page__live=True
+            EventDatePage.objects.filter(
+                date__gte=datetime.date.today(), live=True
             )
-            .exclude(page_id=self.pk)
+            .exclude(id=self.pk)
             .order_by("date")[:3]
         )
         return context
 
 
-class EventDate(Orderable):
-    page = ParentalKey(
-        EventPage, on_delete=models.CASCADE, null=True, related_name="dates"
-    )
+class EventDatePage(Page):
+    template = "website/event_page.html"
+
     date = models.DateField("Event Date")
     start_time = models.TimeField("Start Time")
     end_time = models.TimeField("End Time", blank=True, null=True)
 
-    panels = [
+    content_panels = Page.content_panels + [
         FieldPanel("date"),
         FieldPanel("start_time"),
         FieldPanel("end_time"),
     ]
+
+    def serve(self, request, *args, **kwargs):
+        # If the parent object only has one child, redirect to the parent, otherwise show the page.
+        if self.get_parent().get_children().count() == 1:
+            return HttpResponseRedirect(self.get_parent().url)
+        return super().serve(request, *args, **kwargs)
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["banner_image"] = self.get_parent().specific.banner_image
+        context["show_parent_content"] = True
+        context["upcoming_events"] = (
+            EventDatePage.objects.filter(
+                date__gte=datetime.date.today(), live=True
+            )
+            .exclude(id=self.pk)
+            .order_by("date")[:3]
+        )
+        return context
