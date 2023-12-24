@@ -4,6 +4,7 @@
   },
   "dependencies": {
     "flowbite": "^2.0.0",
+    "fullcalendar": "^6.1.10",
     "htmx.org": "^1.9.6"
   }
 }

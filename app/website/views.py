@@ -1,5 +1,5 @@
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import DetailView
@@ -7,7 +7,7 @@ from django.views.generic import DetailView
 
 from website.forms import ContactForm, SimpleSubscribeForm
 
-from website.models import Coach, ActivityPage
+from website.models import Coach, ActivityPage, EventDatePage
 
 
 def empty_route(request):
@@ -16,6 +16,20 @@ def empty_route(request):
 
 def webcam_partial(request):
     return render(request, "website/partials/webcam_modal_partial.html")
+
+
+def calendar_events(request):
+    events = []
+    for event in EventDatePage.objects.all():
+        events.append(
+            {
+                "title": event.get_parent().title,
+                "start": event.date.strftime("%Y-%m-%d"),
+                "color": "rgb(119 29 29)" if event.cancelled else None,
+                "url": event.get_url(),
+            }
+        )
+    return JsonResponse(events, safe=False)
 
 
 def contact_thank_you(request):
