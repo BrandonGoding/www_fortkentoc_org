@@ -96,8 +96,7 @@ class HomePage(Page):
         context = super().get_context(request, *args, **kwargs)
         context["form"] = SimpleSubscribeForm()
         context["events"] = EventDatePage.objects.filter(
-            date__gte=datetime.date.today(),
-            live=True
+            date__gte=datetime.date.today(), live=True
         ).order_by("date")[:3]
         return context
 
@@ -584,7 +583,7 @@ class EventDatePage(Page):
         FieldPanel("date"),
         FieldPanel("start_time"),
         FieldPanel("end_time"),
-        FieldPanel("cancelled")
+        FieldPanel("cancelled"),
     ]
 
     def serve(self, request, *args, **kwargs):

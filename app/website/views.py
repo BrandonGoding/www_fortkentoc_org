@@ -1,7 +1,12 @@
 from datetime import datetime
 
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, HttpResponseBadRequest
+from django.http import (
+    HttpResponse,
+    HttpResponseRedirect,
+    JsonResponse,
+    HttpResponseBadRequest,
+)
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import DetailView
@@ -22,12 +27,18 @@ def webcam_partial(request):
 
 def calendar_events(request):
     try:
-        start_date_str = request.GET.get('start', '')
-        end_date_str = request.GET.get('end', '')
-        start_date = datetime.fromisoformat(start_date_str) if start_date_str else None
-        end_date = datetime.fromisoformat(end_date_str) if end_date_str else None
+        start_date_str = request.GET.get("start", "")
+        end_date_str = request.GET.get("end", "")
+        start_date = (
+            datetime.fromisoformat(start_date_str) if start_date_str else None
+        )
+        end_date = (
+            datetime.fromisoformat(end_date_str) if end_date_str else None
+        )
         events = []
-        for event in EventDatePage.objects.filter(date__range=[start_date.date(), end_date.date()]):
+        for event in EventDatePage.objects.filter(
+            date__range=[start_date.date(), end_date.date()]
+        ):
             print(event)
             events.append(
                 {

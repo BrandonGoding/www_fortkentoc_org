@@ -29,7 +29,9 @@ class Migration(migrations.Migration):
                 ("start_time", models.TimeField(verbose_name="Start Time")),
                 (
                     "end_time",
-                    models.TimeField(blank=True, null=True, verbose_name="End Time"),
+                    models.TimeField(
+                        blank=True, null=True, verbose_name="End Time"
+                    ),
                 ),
             ],
             options={
