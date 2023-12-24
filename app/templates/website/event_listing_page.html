@@ -20,30 +20,35 @@
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {% for event in events %}
           <article class="p-4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-              <a href="{{ event.page.url }}">
-                  {% if event.page.banner_image %}
-                  {% image event.page.banner_image fill-355x132 crop="center" class="mb-5 rounded-lg" %}
+            {% if event.cancelled %}
+            <div class="absolute top-0 bottom-0 left-0 right-0 bg-red-900 flex justify-center items-center opacity-40 rounded-lg">
+                <span class="text-white text-5xl font-bold rotate-45">CANCELLED</span>
+            </div>
+            {% endif %}
+              <a href="{{ event.url }}">
+                  {% if event.get_parent.specific.banner_image %}
+                  {% image event.get_parent.specific.banner_image fill-355x132 crop="center" class="mb-5 rounded-lg" %}
                   {% else %}
                   <img class="mb-5 rounded-lg" src="https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg" alt="Fort Kent Outdoor Center During biathlon event">
                   {% endif %}
               </a>
-                {% if not event.page.tags.all %}
+                {% if not event.get_parent.specific.tags.all %}
                     <span class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded ">&nbsp;</span>
                 {% endif %}
-              {% for tag in event.page.tags.all %}
+              {% for tag in event.get_parent.specific.tags.all %}
               <span class="text-xs font-semibold mr-0.5 px-5 py-0.5 rounded" style="background-color:{{ tag.color_code.100 }};color:{{ tag.color_code.800 }};">{{ tag.name }}</span>
               {% endfor %}
               <h2 class="my-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  <a href="{{ event.page.url }}">{{ event.page.title }}</a>
+                  <a href="{{ event.url }}">{{ event.get_parent.specific.title }}</a>
               </h2>
-              <p class="mb-4 font-light text-gray-500 dark:text-gray-400">{{ event.page.teaser }}</p>
+              <p class="mb-4 font-light text-gray-500 dark:text-gray-400">{{ event.get_parent.specific.teaser }}</p>
               <div class="flex items-center space-x-4">
                   <img class="w-10 h-10 rounded-full" src="https://cdn.fortkentoc.org/fkoc-logo.jpeg" alt="FKOC LOGO">
                   <div class="font-medium dark:text-white">
                       <div>Fort Kent Outdoor Center</div>
                       <div class="text-sm font-normal text-gray-500 dark:text-gray-400"><strong>Event Date:</strong> {{ event.date }}</div>
-                  {% if event.page.category %}
-                       <span class="text-xs font-semibold mr-0.5 px-5 py-0.5 rounded" style="background-color:{{ event.page.category.color_code.200 }};color:{{ event.page.category.color_code.900 }};">{{ event.page.category.name }}</span>
+                  {% if event.get_parent.specific.category %}
+                       <span class="text-xs font-semibold mr-0.5 px-5 py-0.5 rounded" style="background-color:{{ event.get_parent.specific.category.color_code.200 }};color:{{ event.get_parent.specific.category.color_code.900 }};">{{ event.get_parent.specific.category.name }}</span>
                   {% endif %}
                   </div>
               </div>

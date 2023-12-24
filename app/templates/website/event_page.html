@@ -9,12 +9,12 @@ URL: https://flowbite.com/docs/components/typography/
 -->
 
 <main class="pb-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
-    {% image page.banner_image original as tmp_photo %}
+    {% image banner_image original as tmp_photo %}
 
-  <header style="background-image:url('{% if page.banner_image %}{{ tmp_photo.url }}{% else %}https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg{% endif %}');" class="w-full h-[460px] xl:h-[537px] bg-no-repeat< bg-cover bg-center  bg-gray-700 bg-blend-multiply relative">
+  <header style="background-image:url('{% if banner_image %}{{ tmp_photo.url }}{% else %}https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg{% endif %}');" class="w-full h-[460px] xl:h-[537px] bg-no-repeat< bg-cover bg-center  bg-gray-700 bg-blend-multiply relative">
       <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50"></div>
       <div class="absolute top-20 left-1/2 px-4 mx-auto w-full max-w-screen-xl -translate-x-1/2 xl:top-1/2 xl:-translate-y-1/2 xl:px-0">
-          <h1 class="mb-4 max-w-4xl text-2xl font-extrabold leading-none text-white sm:text-3xl lg:text-4xl">{{ page.title }}{% if page.dates.all|length == 1  %}<br/><strong class="">Event Date:</strong> {{ page.dates.first.date }}{% endif %}</h1>
+          <h1 class="mb-4 max-w-4xl text-2xl font-extrabold leading-none text-white sm:text-3xl lg:text-4xl">{% if show_parent_content %}{{  page.get_parent.specific.title }}<br /><small>{{ page.date }}</small>{% else %}{{ page.title }}{% endif %}</h1>
       </div>
   </header>
   <div class="flex relative z-20 justify-between p-6 -m-36 mx-4 max-w-screen-xl bg-white dark:bg-gray-800 rounded xl:-m-32 xl:p-9 xl:mx-auto">
@@ -28,8 +28,14 @@ URL: https://flowbite.com/docs/components/typography/
               <span><strong class="text-gray-900 dark:text-white hover:underline no-underline font-semibold">Time:</strong> {{ page.start_time }}{% if page.end_time %} - {{ page.end_time }}{% endif %}</span>{% endif %}
               </div>
           </div>
+
+        {% if show_parent_content %}
+        {{ page.get_parent.specific.body|safe }}
+        {% endif %}
         {{ page.body|safe }}
-        {% if page.flyer %}
+
+
+        {% if page.flyer  %}
         <section class="bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
                 <div class="mx-auto max-w-screen-sm text-center">
@@ -49,9 +55,9 @@ URL: https://flowbite.com/docs/components/typography/
                   {% for event in upcoming_events %}
                   <div class="mb-6 flex items-center">
                       <div>
-                          <h5 class="mb-2 text-lg font-bold leading-tight dark:text-white text-gray-900">{{ event.page.title }}</h5>
-                          <p class="mb-2 text-gray-500 dark:text-gray-400">{{  event.page.teaser }}</p>
-                          <a href="{{ event.page.url }}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-primary-500 hover:no-underline">
+                          <h5 class="mb-2 text-lg font-bold leading-tight dark:text-white text-gray-900">{{ event.get_parent.specific.title }}</h5>
+                          <p class="mb-2 text-gray-500 dark:text-gray-400">{{  event.get_parent.specific.teaser }}</p>
+                          <a href="{{ event.url }}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-primary-500 hover:no-underline">
                               More Info
                           </a>
                       </div>

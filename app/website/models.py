@@ -578,11 +578,13 @@ class EventDatePage(Page):
     date = models.DateField("Event Date")
     start_time = models.TimeField("Start Time")
     end_time = models.TimeField("End Time", blank=True, null=True)
+    cancelled = models.BooleanField(default=False)
 
     content_panels = Page.content_panels + [
         FieldPanel("date"),
         FieldPanel("start_time"),
         FieldPanel("end_time"),
+        FieldPanel("cancelled")
     ]
 
     def serve(self, request, *args, **kwargs):
@@ -597,7 +599,7 @@ class EventDatePage(Page):
         context["show_parent_content"] = True
         context["upcoming_events"] = (
             EventDatePage.objects.filter(
-                date__gte=datetime.date.today(), live=True
+                date__gte=datetime.date.today(), live=True, cancelled=False
             )
             .exclude(id=self.pk)
             .order_by("date")[:3]
