@@ -9,7 +9,7 @@ app_name = "website"
 
 urlpatterns = [
     path('api/calendar-events/', website_views.calendar_events, name='calendar-events'),
-    path("calendar", TemplateView.as_view(template_name="website/event_calendar.html"), name="calendar"),
+    path("calendar/", TemplateView.as_view(template_name="website/event_calendar.html"), name="calendar"),
     path(
         "partials/activity/<slug:slug>/",
         website_views.ActivityDetailView.as_view(),

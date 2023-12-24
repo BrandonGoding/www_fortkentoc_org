@@ -1,5 +1,7 @@
+from datetime import datetime
+
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import DetailView
@@ -19,17 +21,26 @@ def webcam_partial(request):
 
 
 def calendar_events(request):
-    events = []
-    for event in EventDatePage.objects.all():
-        events.append(
-            {
-                "title": event.get_parent().title,
-                "start": event.date.strftime("%Y-%m-%d"),
-                "color": "rgb(119 29 29)" if event.cancelled else None,
-                "url": event.get_url(),
-            }
-        )
-    return JsonResponse(events, safe=False)
+    try:
+        start_date_str = request.GET.get('start', '')
+        end_date_str = request.GET.get('end', '')
+        start_date = datetime.fromisoformat(start_date_str) if start_date_str else None
+        end_date = datetime.fromisoformat(end_date_str) if end_date_str else None
+        events = []
+        for event in EventDatePage.objects.filter(date__range=[start_date.date(), end_date.date()]):
+            print(event)
+            events.append(
+                {
+                    "title": event.get_parent().title,
+                    "start": event.date.strftime("%Y-%m-%d"),
+                    "color": "rgb(119 29 29)" if event.cancelled else None,
+                    "url": event.get_url(),
+                }
+            )
+        return JsonResponse(events, safe=False)
+    except ValueError:
+        # Handle invalid date format
+        return HttpResponseBadRequest("Invalid date format")
 
 
 def contact_thank_you(request):
