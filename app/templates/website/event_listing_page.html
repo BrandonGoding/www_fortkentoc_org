@@ -19,7 +19,7 @@
 {#  {% include 'website/partials/event_filters.html' %}#}
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {% for event in events %}
-          <article class="p-4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+          <article class="relative p-4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
             {% if event.cancelled %}
             <div class="absolute top-0 bottom-0 left-0 right-0 bg-red-900 flex justify-center items-center opacity-40 rounded-lg">
                 <span class="text-white text-5xl font-bold rotate-45">CANCELLED</span>

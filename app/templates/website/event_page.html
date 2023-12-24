@@ -35,13 +35,13 @@ URL: https://flowbite.com/docs/components/typography/
         {{ page.body|safe }}
 
 
-        {% if page.flyer  %}
+        {% if page.get_parent.specific.flyer  %}
         <section class="bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
                 <div class="mx-auto max-w-screen-sm text-center">
                     <h2 class="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-white">Help Spread the Word!</h2>
                     <p class="mb-6 font-light text-gray-400 md:text-lg">You can help us promote this event by printing the event flyer and sharing in your office, or anywhere else it may be seen.<br/> Thanks for helping  make The Fort Kent Outdoor Center successful.</p>
-                    <a href="{{ page.flyer.url }}" target="_blank" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Download Event Flyer</a>
+                    <a href="{{ page.get_parent.specific.flyer.url }}" target="_blank" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Download Event Flyer</a>
                 </div>
             </div>
         </section>
@@ -50,6 +50,18 @@ URL: https://flowbite.com/docs/components/typography/
       <aside class="hidden xl:block" aria-labelledby="sidebar-label">
           <div class="xl:w-[336px] sticky top-6">
               <h3 id="sidebar-label" class="sr-only">Sidebar</h3>
+                {% if siblings %}
+                    <div class="mb-12">
+                      <h4 class="mb-4 text-sm font-bold text-gray-900 dark:text-white uppercase">Program Dates:</h4>
+                      {% for date_page in siblings  %}
+                      <div class="mb-3 flex items-center">
+                          <div>
+                              <h5 class="leading-tight dark:text-white text-gray-900"><strong>{{ date_page.specific.date }}</strong><br/>{{ date_page.specific.start_time }} - {{ date_page.specific.end_time }}</h5>
+                          </div>
+                      </div>
+                      {% endfor %}
+                  </div>
+                {% endif %}
               <div class="mb-12">
                   <h4 class="mb-4 text-sm font-bold text-gray-900 dark:text-white uppercase">Upcoming Events</h4>
                   {% for event in upcoming_events %}

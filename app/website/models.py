@@ -575,9 +575,9 @@ class EventPage(Page):
 class EventDatePage(Page):
     template = "website/event_page.html"
 
-    date = models.DateField("Event Date")
-    start_time = models.TimeField("Start Time")
-    end_time = models.TimeField("End Time", blank=True, null=True)
+    date = models.DateField(verbose_name="Event Date")
+    start_time = models.TimeField(verbose_name="Start Time")
+    end_time = models.TimeField(verbose_name="End Time", blank=True, null=True)
     cancelled = models.BooleanField(default=False)
 
     content_panels = Page.content_panels + [
@@ -596,6 +596,7 @@ class EventDatePage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["banner_image"] = self.get_parent().specific.banner_image
+        context["siblings"] = self.get_siblings()
         context["show_parent_content"] = True
         context["upcoming_events"] = (
             EventDatePage.objects.filter(
@@ -605,3 +606,6 @@ class EventDatePage(Page):
             .order_by("date")[:3]
         )
         return context
+
+    def __str__(self):
+        return f"HELLO WORLD"
