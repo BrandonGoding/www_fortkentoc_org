@@ -526,9 +526,6 @@ class EventPage(Page):
         MultiFieldPanel(
             [
                 FieldPanel("location"),
-                # InlinePanel(
-                #     "dates", max_num=20, min_num=1, label="Event Date"
-                # ),
             ],
             heading="Event Information",
         ),
@@ -570,6 +567,13 @@ class EventPage(Page):
         )
         return context
 
+    def serve(self, request, *args, **kwargs):
+        child_page = self.get_children().live().first()
+        if child_page:
+            return HttpResponseRedirect(child_page.url)
+        else:
+            return super().serve(request, *args, **kwargs)
+
 
 class EventDatePage(Page):
     template = "website/event_page.html"
@@ -586,16 +590,12 @@ class EventDatePage(Page):
         FieldPanel("cancelled"),
     ]
 
-    def serve(self, request, *args, **kwargs):
-        # If the parent object only has one child, redirect to the parent, otherwise show the page.
-        if self.get_parent().get_children().count() == 1:
-            return HttpResponseRedirect(self.get_parent().url)
-        return super().serve(request, *args, **kwargs)
-
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["banner_image"] = self.get_parent().specific.banner_image
-        context["siblings"] = self.get_siblings().order_by("eventdatepage__date")
+        context["siblings"] = self.get_siblings().order_by(
+            "eventdatepage__date"
+        )
         context["show_parent_content"] = True
         context["upcoming_events"] = (
             EventDatePage.objects.filter(
@@ -606,5 +606,5 @@ class EventDatePage(Page):
         )
         return context
 
-    def __str__(self):
-        return f"HELLO WORLD"
+    parent_page_types = ["website.EventPage"]
+    subpage_types = []
