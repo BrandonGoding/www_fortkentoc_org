@@ -595,7 +595,7 @@ class EventDatePage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["banner_image"] = self.get_parent().specific.banner_image
-        context["siblings"] = self.get_siblings()
+        context["siblings"] = self.get_siblings().order_by("eventdatepage__date")
         context["show_parent_content"] = True
         context["upcoming_events"] = (
             EventDatePage.objects.filter(
