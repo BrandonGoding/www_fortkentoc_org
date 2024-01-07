@@ -1,13 +1,15 @@
 {% extends "../_base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block content %}
+    <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0" nonce="xPkSZksn"></script>
     <section
             class="bg-[url('https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
         <div class="relative py-8 px-4 mx-auto max-w-screen-xl text-white lg:py-16 xl:px-0 z-1">
             <div class="mb-6 max-w-screen-md lg:mb-0">
                 <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">
                     Fort Kent Outdoor Center</h1>
-                <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">The Fort Kent Outdoor Center
+                                <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">The Fort Kent Outdoor Center
                     promotes healthy outdoor lifestyles by providing a first-rate facility, outdoor trail system, and
                     recreational activities for members, athletes, and visitors.</p>
                 <a href="{% slugurl 'about-us' %}"
@@ -23,7 +25,29 @@
     </section>
 
 
-    {{ page.body|safe }}
+        {{ page.body|safe }}
+
+    <section class="bg-gray-900">
+    <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
+        <div class="mb-5">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Follow us on social media for the most up to date news and conditions.</h2>
+{#            <p class="mb-6 font-light md:text-lg text-gray-400">Flowbite helps you connect with friends and communities of people who share your interests. Connecting with your friends and family as well as discovering new ones is easy with features like Groups.</p>#}
+                        <div class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
+                <a href="https://www.facebook.com/FortKentOutdoorCenter/" class="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-800">
+                    <svg class="mr-3 w-7 h-7" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 19">
+    <path fill-rule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clip-rule="evenodd"/>
+  </svg>
+                    <div class="text-left">
+                        <div class="mb-1 text-xs">Visit Us on:</div>
+                        <div class="-mt-1 font-sans text-sm font-semibold">Facebook</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div>
+<div class="fb-page" data-href="https://www.facebook.com/FortKentOutdoorCenter/" data-tabs="timeline" data-width="343" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/FortKentOutdoorCenter/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/FortKentOutdoorCenter/">Fort Kent Outdoor Center</a></blockquote></div>        </div>
+    </div>
+</section>
     
 {#    <section class="bg-white dark:bg-gray-900">#}
 {#    <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">#}

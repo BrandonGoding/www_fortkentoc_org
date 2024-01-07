@@ -1,7 +1,8 @@
+from datetime import timezone
+
 from django.db import models
 
 
-# Create your models here.
 class MembershipTypeChoices(models.TextChoices):
     ADULT = "AD", "Adult"
     YOUTH = "YH", "Youth"

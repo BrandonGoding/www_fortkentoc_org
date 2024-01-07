@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "membership.apps.MembershipConfig",
     "website.apps.WebsiteConfig",
     "compressor",
     "storages",
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     "modelcluster",
     "taggit",
     "wagtail_modeladmin",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -162,3 +164,6 @@ if ENVIRONMENT == "production":
 if ENVIRONMENT == "development":
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
     MEDIA_URL = "/media/"
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
