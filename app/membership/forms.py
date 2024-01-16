@@ -1,20 +1,21 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+
+from membership.models import Membership
 
 
-class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=50, required=True)
-    last_name = forms.CharField(max_length=50, required=True)
-    email = forms.EmailField(max_length=254, required=True)
-
+class MembershipFormStep1(forms.ModelForm):
     class Meta:
-        model = User
-        fields = [
-            "username",
-            "first_name",
-            "last_name",
-            "email",
-            "password1",
-            "password2",
-        ]
+        model = Membership
+        fields = ['type']
+
+
+class MembershipFormStep2(forms.ModelForm):
+    class Meta:
+        model = Membership
+        fields = ['type']
+
+
+class MembershipFormStep3(forms.ModelForm):
+    class Meta:
+        model = Membership
+        fields = ['type']

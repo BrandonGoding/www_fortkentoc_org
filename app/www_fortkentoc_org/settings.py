@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "membership.apps.MembershipConfig",
     "website.apps.WebsiteConfig",
     "compressor",
+    "rest_framework",
     "storages",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -165,5 +166,7 @@ if ENVIRONMENT == "development":
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
     MEDIA_URL = "/media/"
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/login/"
+
+CART_SESSION_ID = "fkoc_cart"
