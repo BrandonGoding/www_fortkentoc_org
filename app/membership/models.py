@@ -18,7 +18,10 @@ class MembershipTypeChoices(models.TextChoices):
     def get_membership_price(membership_type):
         if membership_type == MembershipTypeChoices.ADULT:
             return Decimal(75)
-        if membership_type == MembershipTypeChoices.YOUTH or membership_type == MembershipTypeChoices.UMFK:
+        if (
+            membership_type == MembershipTypeChoices.YOUTH
+            or membership_type == MembershipTypeChoices.UMFK
+        ):
             return Decimal(40)
         if membership_type == MembershipTypeChoices.FAMILY:
             return Decimal(185)
@@ -38,12 +41,16 @@ class MembershipSeason(models.Model):
 
     def save(self, *args, **kwargs):
         if self.current:
-            MembershipSeason.objects.filter(current=True).exclude(pk=self.pk).update(current=False)
+            MembershipSeason.objects.filter(current=True).exclude(
+                pk=self.pk
+            ).update(current=False)
         super().save(*args, **kwargs)
 
 
 class Membership(models.Model):
-    session_key = models.CharField(max_length=255, unique=True, null=True, blank=True)
+    session_key = models.CharField(
+        max_length=255, unique=True, null=True, blank=True
+    )
     type = models.CharField(
         max_length=2, choices=MembershipTypeChoices.choices
     )

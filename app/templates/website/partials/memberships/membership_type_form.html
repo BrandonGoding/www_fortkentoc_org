@@ -30,10 +30,10 @@
                   <ul class="mb-6 space-y-4 sm:space-y-6">
                   <li>
                       <select id="membership_types" name="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="AD">Adult Membership (Ages 19+)</option>
-                        <option value="YH">Junior Membership (Ages 6-18)</option>
-                        <option value="FM">Family Membership (Living in same household)</option>
-                        <option value="UM">UMFK Student Membership</option>
+                        <option value="AD" {% if membership_type == "AD" %}selected{% endif %}>Adult Membership (Ages 19+)</option>
+                        <option value="YH" {% if membership_type == "YH" %}selected{% endif %}>Junior Membership (Ages 6-18)</option>
+                        <option value="FM" {% if membership_type == "FM" %}selected{% endif %}>Family Membership (Living in same household)</option>
+                        <option value="UM" {% if membership_type == "UM" %}selected{% endif %}>UMFK Student Membership</option>
                       </select>
                   </li>
               </ul>
