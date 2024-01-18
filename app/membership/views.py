@@ -9,7 +9,7 @@ from django.views.generic import TemplateView
 from membership.models import (
     Membership,
     MembershipSeason,
-    MembershipTypeChoices,
+    MembershipTypeChoices, Member,
 )
 from membership.forms import (
     MembershipFormStep1,
@@ -69,7 +69,31 @@ def membership_form_step_2(request):
     if request.method == "POST":
         form = MembershipFormStep2(request.POST)
         if form.is_valid():
-            # TODO:  LOGIC TO PROCESS MEMBERS
+            new_member = form.save(commit=False)
+            new_member.membership_id = membership.id
+            new_member.save()
+            address = form.cleaned_data["address"]
+            city = form.cleaned_data["city"]
+            state = form.cleaned_data["state"]
+            zip_code = form.cleaned_data["zip_code"]
+            phone = form.cleaned_data["phone"]
+            email = form.cleaned_data["email"]
+            additional_first_names = request.POST.getlist('first_name_additional')
+            additional_last_names = request.POST.getlist('last_name_additional')
+
+            for first_name, last_name in zip(additional_first_names, additional_last_names):
+                Member.objects.create(
+                    first_name=first_name,
+                    last_name=last_name,
+                    address=address,
+                    city=city,
+                    state=state,
+                    zip_code=zip_code,
+                    phone=phone,
+                    email=email,
+                    membership_id=membership.id
+                )
+
             return redirect(
                 reverse("memberships:onboarding_activities_enjoyed_partial")
             )
