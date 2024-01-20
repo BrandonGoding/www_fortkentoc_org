@@ -1,6 +1,6 @@
 from django import forms
 from localflavor.us.forms import USStateSelect
-from membership.models import Membership, Member
+from membership.models import Membership, Member, ActivitiesEnjoyed
 
 
 class MembershipFormStep1(forms.ModelForm):
@@ -27,4 +27,12 @@ class MembershipFormStep2(forms.ModelForm):
 class MembershipFormStep3(forms.ModelForm):
     class Meta:
         model = Membership
-        fields = ["type"]
+        fields = ['activities_enjoyed']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Customize the activities_enjoyed field to use checkboxes
+        self.fields['activities_enjoyed'].widget = forms.CheckboxSelectMultiple()
+
+        # You can also customize the queryset for the activities_enjoyed field
+        self.fields['activities_enjoyed'].queryset = ActivitiesEnjoyed.objects.all()

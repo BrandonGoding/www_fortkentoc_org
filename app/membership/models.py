@@ -28,6 +28,13 @@ class MembershipTypeChoices(models.TextChoices):
         raise ValueError(f"Unknown membership type {membership_type}")
 
 
+class ActivitiesEnjoyed(models.Model):
+    name = models.CharField(max_length=25)
+
+    def __str__(self):
+        return self.name.capitalize()
+
+
 class MembershipSeason(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
@@ -56,9 +63,7 @@ class Membership(models.Model):
     )
     season = models.ForeignKey("MembershipSeason", on_delete=models.CASCADE)
     price = models.DecimalField(decimal_places=0, max_digits=3)
-
-    def __str__(self):
-        return f"{self.member} - {self.type} - {self.season}"
+    activities_enjoyed = models.ManyToManyField(to=ActivitiesEnjoyed, null=True, blank=True)
 
 
 class Member(models.Model):

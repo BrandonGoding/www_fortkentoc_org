@@ -1,3 +1,5 @@
+from enum import member
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 
@@ -63,12 +65,14 @@ def membership_form_step_1(request):
 
 
 def membership_form_step_2(request):
+    members = None
     membership = Membership.objects.get(
         session_key=request.session.session_key
     )
     if request.method == "POST":
         form = MembershipFormStep2(request.POST)
         if form.is_valid():
+            membership.member_set.all().delete()
             new_member = form.save(commit=False)
             new_member.membership_id = membership.id
             new_member.save()
@@ -98,18 +102,23 @@ def membership_form_step_2(request):
                 reverse("memberships:onboarding_activities_enjoyed_partial")
             )
     else:
-        form = MembershipFormStep2()
+        members = membership.member_set.all()
+        form = MembershipFormStep2(instance=membership.member_set.first() if membership.member_set.exists() else None)
     return render(
         request,
         "website/partials/memberships/membership_member_form.html",
-        {"form": form, "membership": membership},
+        {"form": form, "membership": membership, "members": members[1:] if members else None},
     )
 
 
 def membership_form_step_3(request):
+    membership = Membership.objects.get(
+        session_key=request.session.session_key
+    )
     if request.method == "POST":
-        form = MembershipFormStep3(request.POST)
+        form = MembershipFormStep3(request.POST, instance=membership)
         if form.is_valid():
+            form.save()
             return redirect(
                 reverse("memberships:onboarding_confirmation_partial")
             )
