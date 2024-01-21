@@ -1,0 +1,70 @@
+
+<div class="w-full">
+  <ol class="flex items-center mb-6 text-sm font-medium text-center text-gray-500 dark:text-gray-400 lg:mb-12 sm:text-base">
+      <li class="flex items-center after:content-[''] after:w-12 after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
+          <div class="flex items-center sm:block after:content-['/'] sm:after:hidden after:mx-2 after:font-light after:text-gray-200 dark:after:text-gray-500">
+              <div class="mr-2 sm:mb-2 sm:mx-auto">1</div>
+              Membership <span class="hidden sm:inline-flex">Type</span>
+          </div>
+      </li>
+      <li class="flex items-center after:content-[''] after:w-12 after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
+          <div class="flex items-center sm:block after:content-['/'] sm:after:hidden after:mx-2 after:font-light after:text-gray-200 dark:after:text-gray-500">
+              <div class="mr-2 sm:mb-2 sm:mx-auto">2</div>
+              Member(s) <span class="hidden sm:inline-flex">Info</span>
+          </div>
+      </li>
+      <li class="flex items-center after:content-[''] after:w-12 after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
+          <div class="flex items-center sm:block after:content-['/'] sm:after:hidden after:mx-2 after:font-light after:text-gray-200 dark:after:text-gray-500">
+              <div class="mr-2 sm:mb-2 sm:mx-auto">3</div>
+              Activities <span class="hidden sm:inline-flex">Enjoyed</span>
+          </div>
+      </li>
+      <li class="flex items-center sm:block">
+          <div class="mr-2 sm:mb-2 sm:mx-auto font-extrabold text-blue-700">4</div>
+          Confirmation
+      </li>
+  </ol>
+  <h1 class="mb-4 text-2xl font-extrabold leading-tight tracking-tight text-gray-900 sm:mb-6 dark:text-white">Confirmation Page</h1>
+  <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">Please Review & Checkout</p>
+  <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400"><span class="p-2" style="background-color:yellow !important; color: black !important;">IMPORTANT:</span> To finalize your membership, we kindly request that a signed waiver be submitted for each member before utilizing our facilities. After completing the checkout process, you will receive an email containing a link to SmartWaiver. Please take a moment to fill out a waiver for each member of your group.<br />Once the waivers are successfully submitted, you can expect to receive your welcome letter and vehicle decals by mail.</p> 
+
+
+    <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-4 py-3">Membership Type</th>
+                            <th scope="col" class="px-4 py-3">Last Name</th>
+                            <th scope="col" class="px-4 py-3">First Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for member in members %}
+                        <tr class="border-b dark:border-gray-700">
+                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {% if membership.type == "AD" %}Adult{% endif %}
+                            {% if membership.type == "FM" %}Family{% endif %}
+                            {% if membership.type == "YH" %}Youth{% endif %}
+                            {% if membership.type == "UM" %}UMFK{% endif %}
+                            </th>
+                            <td class="px-4 py-3">{{ member.last_name }}</td>
+                            <td class="px-4 py-3">{{ member.first_name }}</td>
+                        </tr>
+                    {% endfor %}
+                        <tr class="border-b dark:border-gray-700">
+                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Total Membership Price:</th>
+                            <td class="px-4 py-3">&nbsp;</td>
+                            <td class="px-4 py-3">${{ membership_price }}.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+      <div class="flex">
+          <button class="w-full px-5 py-2.5 sm:py-3.5 text-sm font-medium text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" hx-target="#membership-div" hx-swap="innerHTML" hx-get="{% url 'memberships:onboarding_activities_enjoyed_partial' %}" hx-trigger="click">Back: Activities Enjoyed</button>
+          <form class="w-full"  action="/memberships/onboarding/confirmation/" method="post">
+             {% csrf_token %}
+            <input type="submit" id="checkout-button" name="checkout-button" class="w-full px-5 py-2.5 sm:py-3.5 text-sm font-medium text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 md:ml-4" value="Checkout" />
+          </form>
+      </div>
+</div>
+

@@ -1,5 +1,5 @@
 from decimal import Decimal
-
+from django.conf import settings
 from django.db import models
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
@@ -25,6 +25,18 @@ class MembershipTypeChoices(models.TextChoices):
             return Decimal(40)
         if membership_type == MembershipTypeChoices.FAMILY:
             return Decimal(185)
+        raise ValueError(f"Unknown membership type {membership_type}")
+
+    @staticmethod
+    def get_membership_strip_api_price_id(membership_type):
+        if membership_type == MembershipTypeChoices.ADULT:
+            return settings.STRIPE_ADULT_MEMBERSHIP_PRICE
+        if membership_type == MembershipTypeChoices.YOUTH:
+            return settings.STRIPE_YOUTH_MEMBERSHIP_PRICE
+        if membership_type == MembershipTypeChoices.FAMILY:
+            return settings.STRIPE_FAMILY_MEMBERSHIP_PRICE
+        if membership_type == MembershipTypeChoices.UMFK:
+            return settings.STRIPE_UMFK_MEMBERSHIP_PRICE
         raise ValueError(f"Unknown membership type {membership_type}")
 
 
@@ -63,7 +75,9 @@ class Membership(models.Model):
     )
     season = models.ForeignKey("MembershipSeason", on_delete=models.CASCADE)
     price = models.DecimalField(decimal_places=0, max_digits=3)
-    activities_enjoyed = models.ManyToManyField(to=ActivitiesEnjoyed, null=True, blank=True)
+    activities_enjoyed = models.ManyToManyField(
+        to=ActivitiesEnjoyed, null=True, blank=True
+    )
 
 
 class Member(models.Model):

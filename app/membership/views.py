@@ -1,8 +1,8 @@
 from enum import member
-
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
-
+import stripe
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.sessions.models import Session
@@ -11,7 +11,8 @@ from django.views.generic import TemplateView
 from membership.models import (
     Membership,
     MembershipSeason,
-    MembershipTypeChoices, Member,
+    MembershipTypeChoices,
+    Member,
 )
 from membership.forms import (
     MembershipFormStep1,
@@ -82,10 +83,16 @@ def membership_form_step_2(request):
             zip_code = form.cleaned_data["zip_code"]
             phone = form.cleaned_data["phone"]
             email = form.cleaned_data["email"]
-            additional_first_names = request.POST.getlist('first_name_additional')
-            additional_last_names = request.POST.getlist('last_name_additional')
+            additional_first_names = request.POST.getlist(
+                "first_name_additional"
+            )
+            additional_last_names = request.POST.getlist(
+                "last_name_additional"
+            )
 
-            for first_name, last_name in zip(additional_first_names, additional_last_names):
+            for first_name, last_name in zip(
+                additional_first_names, additional_last_names
+            ):
                 Member.objects.create(
                     first_name=first_name,
                     last_name=last_name,
@@ -95,7 +102,7 @@ def membership_form_step_2(request):
                     zip_code=zip_code,
                     phone=phone,
                     email=email,
-                    membership_id=membership.id
+                    membership_id=membership.id,
                 )
 
             return redirect(
@@ -103,11 +110,19 @@ def membership_form_step_2(request):
             )
     else:
         members = membership.member_set.all()
-        form = MembershipFormStep2(instance=membership.member_set.first() if membership.member_set.exists() else None)
+        form = MembershipFormStep2(
+            instance=membership.member_set.first()
+            if membership.member_set.exists()
+            else None
+        )
     return render(
         request,
         "website/partials/memberships/membership_member_form.html",
-        {"form": form, "membership": membership, "members": members[1:] if members else None},
+        {
+            "form": form,
+            "membership": membership,
+            "members": members[1:] if members else None,
+        },
     )
 
 
@@ -123,7 +138,7 @@ def membership_form_step_3(request):
                 reverse("memberships:onboarding_confirmation_partial")
             )
     else:
-        form = MembershipFormStep3()
+        form = MembershipFormStep3(instance=membership)
     return render(
         request,
         "website/partials/memberships/membership_activities_form.html",
@@ -132,18 +147,43 @@ def membership_form_step_3(request):
 
 
 def membership_form_step_4(request):
+    membership = Membership.objects.get(
+        session_key=request.session.session_key
+    )
+    members = membership.member_set.all()
+    membership_price = MembershipTypeChoices.get_membership_price(
+        membership.type
+    )
     if request.method == "POST":
-        form = MembershipFormStep1(request.POST)
-        if form.is_valid():
-            return HttpResponseRedirect("")
-    else:
-        form = MembershipFormStep1()
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                line_items=[
+                    {
+                        'price': f'{MembershipTypeChoices.get_membership_strip_api_price_id(membership.type)}',
+                        'quantity': 1,
+                    },
+                ],
+                mode='payment',
+                success_url="http://localhost:8000" + reverse("memberships:welcome_new_member"),
+                cancel_url="http://localhost:8000" + reverse("memberships:canceled"),
+                automatic_tax={'enabled': True},
+            )
+        except Exception as e:
+            return str(e)
+        return redirect(checkout_session.url)
     return render(
         request,
-        "website/partials/memberships/membership_member_form.html",
-        {"form": form},
+        "website/partials/memberships/membership_confirmation_checkout.html",
+        {
+            "membership": membership,
+            "members": members,
+            "membership_price": membership_price,
+        },
     )
 
 
 class MembershipFormNameField(TemplateView):
-    template_name = "website/partials/memberships/membership_member_form_name_fields.html"
+    template_name = (
+        "website/partials/memberships/membership_member_form_name_fields.html"
+    )
