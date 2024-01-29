@@ -71,18 +71,15 @@
   </div>
 </section>
 
-
-
-<div class="container">
-<section class="py-8 bg-white dark:bg-gray-900 lg:py-0">
-  <div class="lg:flex">
-      <div class="hidden w-full max-w-md p-12 lg:h-screen lg:block bg-primary-600">
+<section class="py-8  lg:py-0  bg-primary-600">
+  <div class="flex mx-auto max-w-screen-xl bg-white">
+      <div class="hidden w-full max-w-md p-6 lg:block bg-primary-600">
           <div class="block p-8 text-white rounded-lg bg-primary-500">
               <h2 class="mb-1 text-2xl font-semibold">Join Today</h2>
               <p class="mb-4 font-light text-primary-100 sm:text-lg">Easy Membership Process</p>
               <!-- List -->
               <ul role="list" class="space-y-4 text-left">
-                  <li class="flex items-center space-x-3">
+                  <li class="flex items-center">
                       <!-- Icon -->
                       <svg class="flex-shrink-0 w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                       <span>Purchase your 2024 Membership</span>
@@ -105,52 +102,51 @@
               </ul>
           </div>
       </div>
-      <div class="flex items-center mx-auto md:w-[42rem] px-4 md:px-8 xl:px-0" id="membership-div">
+      <div class="p-12" id="membership-div">
           {% include 'website/partials/memberships/membership_type_form.html' %}
       </div>
   </div>
 </section>
-</div>
 
 
 
 
-    <section class="bg-white dark:bg-gray-900">
-  <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-      <div class="mx-auto max-w-screen-md text-center">
-          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Member Testimonials</h2>
-          <p class="mb-8 font-light text-gray-500 lg:mb-16 dark:text-gray-400 sm:text-xl">The following excerpts are words from our membership about what being an FKOC member means to them.</p>
-      </div>
-      <div class="grid gap-8 lg:grid-cols-3">
-    {% for testimonial in testimonials %}
-          <div class="space-y-6">
-
-              <figure class="p-6 bg-gray-50 rounded dark:bg-gray-800">
-                  <blockquote class="text-sm text-gray-500 dark:text-gray-400">
-                      <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ testimonial.title }}</h3>
-                      {{ testimonial.testimonial|safe }}
-                  </blockquote>
-                  <figcaption class="flex items-center space-x-3">
+{#    <section class="bg-white dark:bg-gray-900">#}
+{#  <div class="py-8 px-4 max-w-screen-xl lg:py-16 lg:px-6">#}
+{#      <div class="max-w-screen-md text-center">#}
+{#          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Member Testimonials</h2>#}
+{#          <p class="mb-8 font-light text-gray-500 lg:mb-16 dark:text-gray-400 sm:text-xl">The following excerpts are words from our membership about what being an FKOC member means to them.</p>#}
+{#      </div>#}
+{#      <div class="grid gap-8 lg:grid-cols-3">#}
+{#    {% for testimonial in testimonials %}#}
+{#          <div class="space-y-6">#}
+{##}
+{#              <figure class="p-6 bg-gray-50 rounded dark:bg-gray-800">#}
+{#                  <blockquote class="text-sm text-gray-500 dark:text-gray-400">#}
+{#                      <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ testimonial.title }}</h3>#}
+{#                      {{ testimonial.testimonial|safe }}#}
+{#                  </blockquote>#}
+{#                  <figcaption class="flex items-center space-x-3">#}
 {#                      <img class="w-9 h-9 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="profile picture">#}
-                      <div class="space-y-0.5 font-medium dark:text-white flex justify-center items-center">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 18">
-                            <path d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
-                          </svg>
-                          <div class="ml-3">{{ testimonial.author }}</div>
-
-                      </div>
-                  </figcaption>
-              </figure>
-
-          </div>
-        {% if forloop.counter|divisibleby:3 and not forloop.last %}
-                </div><div class="grid gap-8 lg:grid-cols-3">
-            {% endif %}
-          {% endfor %}
-
-      </div>
-  </div>
-</section>
+{#                      <div class="space-y-0.5 font-medium dark:text-white flex justify-center items-center">#}
+{#                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 18">#}
+{#                            <path d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>#}
+{#                          </svg>#}
+{#                          <div class="ml-3">{{ testimonial.author }}</div>#}
+{##}
+{#                      </div>#}
+{#                  </figcaption>#}
+{#              </figure>#}
+{##}
+{#          </div>#}
+{#        {% if forloop.counter|divisibleby:3 and not forloop.last %}#}
+{#                </div><div class="grid gap-8 lg:grid-cols-3">#}
+{#            {% endif %}#}
+{#          {% endfor %}#}
+{##}
+{#      </div>#}
+{#  </div>#}
+{#</section>#}
 
 
 {% endblock content %}

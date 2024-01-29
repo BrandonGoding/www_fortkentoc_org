@@ -68,23 +68,25 @@ class MembershipSeason(models.Model):
 
 class Membership(models.Model):
     session_key = models.CharField(
-        max_length=255, unique=True, null=True, blank=True
+        max_length=255, blank=True, null=True, default=None, unique=True
     )
+    square_timestamp = models.DateTimeField(null=True, blank=True)
     type = models.CharField(
         max_length=2, choices=MembershipTypeChoices.choices
     )
     season = models.ForeignKey("MembershipSeason", on_delete=models.CASCADE)
     price = models.DecimalField(decimal_places=0, max_digits=3)
     activities_enjoyed = models.ManyToManyField(
-        to=ActivitiesEnjoyed, null=True, blank=True
+        to=ActivitiesEnjoyed, blank=True
     )
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Member(models.Model):
     membership = models.ForeignKey("Membership", on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    email = models.EmailField()  # NEED TO BE UNIQUE OR NULL
+    email = models.EmailField()
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
     city = models.CharField(max_length=50)

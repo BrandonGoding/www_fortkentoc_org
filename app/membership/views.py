@@ -1,11 +1,14 @@
-from enum import member
+import json
+from datetime import datetime
+
+import pytz
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 import stripe
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.contrib.sessions.models import Session
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
 from membership.models import (
@@ -21,11 +24,10 @@ from membership.forms import (
 )
 
 
-# season = models.ForeignKey("MembershipSeason", on_delete=models.CASCADE)
-# price = models.DecimalField(decimal_places=0, max_digits=3)
-
-
 def membership_form_step_1(request):
+    if request.session.session_key is None:
+        request.session.create()
+
     if request.method == "POST":
         form = MembershipFormStep1(request.POST)
         if form.is_valid():
@@ -160,14 +162,17 @@ def membership_form_step_4(request):
             checkout_session = stripe.checkout.Session.create(
                 line_items=[
                     {
-                        'price': f'{MembershipTypeChoices.get_membership_strip_api_price_id(membership.type)}',
-                        'quantity': 1,
+                        "price": f"{MembershipTypeChoices.get_membership_strip_api_price_id(membership.type)}",
+                        "quantity": 1,
                     },
                 ],
-                mode='payment',
-                success_url="http://localhost:8000" + reverse("memberships:welcome_new_member"),
-                cancel_url="http://localhost:8000" + reverse("memberships:canceled"),
-                automatic_tax={'enabled': True},
+                mode="payment",
+                success_url="http://localhost:8000"
+                + reverse("memberships:welcome_new_member"),
+                cancel_url="http://localhost:8000"
+                + reverse("memberships:canceled"),
+                automatic_tax={"enabled": True},
+                client_reference_id=request.session.session_key,
             )
         except Exception as e:
             return str(e)
@@ -181,6 +186,37 @@ def membership_form_step_4(request):
             "membership_price": membership_price,
         },
     )
+
+
+@csrf_exempt
+def membership_stripe_callback_url(request):
+    if request.method == "GET":
+        return HttpResponse(status=405)
+    try:
+        event = stripe.Event.construct_from(
+            json.loads(request.body), settings.STRIPE_SECRET_KEY
+        )
+    except ValueError as e:
+        return HttpResponse(status=400)
+
+    # Handle the event
+    if event.type == "checkout.session.completed":
+        payment_intent = event.data.object
+        try:
+            membership = Membership.objects.get(
+                session_key=payment_intent["client_reference_id"]
+            )
+        except ObjectDoesNotExist:
+            return HttpResponse(status=404)
+        tz = pytz.timezone("America/New_York")
+        membership.square_timestamp = datetime.fromtimestamp(
+            payment_intent["created"], tz
+        )
+        membership.session_key = None
+        membership.save()
+        request.session.flush()
+        return HttpResponse(status=200)
+    return HttpResponse(status=400)
 
 
 class MembershipFormNameField(TemplateView):

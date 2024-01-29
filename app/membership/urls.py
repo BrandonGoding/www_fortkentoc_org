@@ -2,6 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from membership import views as membership_views
+from django.views.decorators.csrf import csrf_exempt
 
 app_name = "memberships"
 
@@ -32,9 +33,18 @@ urlpatterns = [
         name="name_fields",
     ),
     path(
-        "onboarding/complete/", TemplateView.as_view(template_name="website/welcome_new_member.html"), name="welcome_new_member"
+        "onboarding/complete/",
+        TemplateView.as_view(template_name="website/welcome_new_member.html"),
+        name="welcome_new_member",
     ),
     path(
-        "onboarding/canceled/", TemplateView.as_view(template_name="website/membership_canceled.html"), name="canceled"
+        "onboarding/canceled/",
+        TemplateView.as_view(template_name="website/membership_canceled.html"),
+        name="canceled",
+    ),
+    path(
+        "onboarding/stripe-callback/",
+        membership_views.membership_stripe_callback_url,
+        name="stripe-callback",
     ),
 ]
