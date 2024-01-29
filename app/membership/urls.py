@@ -1,5 +1,4 @@
 from django.urls import path
-from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
 from membership import views as membership_views
@@ -9,22 +8,22 @@ app_name = "memberships"
 urlpatterns = [
     path(
         "onboarding/membership-type/",
-        membership_views.membership_form_step_1,
+        membership_views.MembershipFormStep1View.as_view(),
         name="onboarding_membership_type_partial",
     ),
     path(
         "onboarding/member-info/",
-        membership_views.membership_form_step_2,
+        membership_views.MembershipFormStep2View.as_view(),
         name="onboarding_member_partial",
     ),
     path(
         "onboarding/activities-enjoyed/",
-        membership_views.membership_form_step_3,
+        membership_views.MembershipFormStep3View.as_view(),
         name="onboarding_activities_enjoyed_partial",
     ),
     path(
         "onboarding/confirmation/",
-        membership_views.membership_form_step_4,
+        membership_views.MembershipFormStep4View.as_view(),
         name="onboarding_confirmation_partial",
     ),
     path(
@@ -44,7 +43,7 @@ urlpatterns = [
     ),
     path(
         "onboarding/stripe-callback/",
-        membership_views.membership_stripe_callback_url,
+        membership_views.MembershipStripeCallbackView.as_view(),
         name="stripe-callback",
     ),
 ]

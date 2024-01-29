@@ -185,6 +185,7 @@ if ENVIRONMENT == "development":
     STRIPE_UMFK_MEMBERSHIP_PRICE = config(
         "DEVELOPMENT_STRIPE_UMFK_MEMBERSHIP_PRICE", default=""
     )
+    BASE_URL = "localhost:8000/"
 
 if ENVIRONMENT == "production":
     STRIPE_SECRET_KEY = config("PRODUCTION_STRIPE_SECRET_KEY", default="")
@@ -200,3 +201,4 @@ if ENVIRONMENT == "production":
     STRIPE_UMFK_MEMBERSHIP_PRICE = config(
         "PRODUCTION_STRIPE_UMFK_MEMBERSHIP_PRICE", default=""
     )
+    BASE_URL = "https://www.fortkentoc.org/"

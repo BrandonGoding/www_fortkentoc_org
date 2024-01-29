@@ -13,14 +13,14 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from membership.forms import (MembershipFormStep1, MembershipFormStep2,
-                              MembershipFormStep3)
-from membership.models import (Member, Membership, MembershipSeason,
-                               MembershipTypeChoices)
+from membership.forms import (
+    MembershipFormStep1,
+    MembershipFormStep2,
+    MembershipFormStep3,
+)
+from membership.models import Member, Membership, MembershipTypeChoices
 
 # Constants
-SUCCESS_URL = settings.BASE_URL + reverse("memberships:welcome_new_member")
-CANCEL_URL = settings.BASE_URL + reverse("memberships:canceled")
 
 
 def get_membership_by_session_key(session_key):
@@ -212,8 +212,8 @@ class MembershipFormStep4View(View):
                     },
                 ],
                 mode="payment",
-                success_url=SUCCESS_URL,
-                cancel_url=CANCEL_URL,
+                success_url=f"{settings.BASE_URL}{reverse('memberships:welcome_new_member')}",
+                cancel_url=f"{settings.BASE_URL}{reverse('memberships:canceled')}",
                 automatic_tax={"enabled": True},
                 client_reference_id=request.session.session_key,
             )
