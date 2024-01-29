@@ -4,24 +4,16 @@ from django import forms
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.utils.text import slugify
-from modelcluster.fields import ParentalManyToManyField, ParentalKey
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail import blocks
-from wagtail.admin.panels import (
-    FieldPanel,
-    FieldRowPanel,
-    MultiFieldPanel,
-    InlinePanel,
-)
+from wagtail.admin.panels import (FieldPanel, FieldRowPanel, InlinePanel,
+                                  MultiFieldPanel)
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Page, Orderable
+from wagtail.models import Orderable, Page
 
-from website.blocks import (
-    ImagesWithHeadingAndDescription,
-    DefaultCTA,
-    VisualImageWithHeader,
-)
+from website.blocks import (DefaultCTA, ImagesWithHeadingAndDescription,
+                            VisualImageWithHeader)
 from website.forms import SimpleSubscribeForm
-
 
 COLOR_CODES = {
     "gray": {

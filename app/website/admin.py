@@ -1,5 +1,6 @@
-from website.models import EventTag, EventCategory
 from django.contrib import admin
+
+from website.models import EventCategory, EventTag
 
 
 @admin.register(EventCategory)

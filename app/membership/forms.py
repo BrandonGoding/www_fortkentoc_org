@@ -1,6 +1,7 @@
 from django import forms
 from localflavor.us.forms import USStateSelect
-from membership.models import Membership, Member, ActivitiesEnjoyed
+
+from membership.models import ActivitiesEnjoyed, Member, Membership
 
 
 class MembershipFormStep1(forms.ModelForm):

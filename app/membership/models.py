@@ -1,9 +1,9 @@
 from decimal import Decimal
-from django.conf import settings
-from django.db import models
-from django.contrib.sessions.models import Session
-from django.contrib.auth.models import User
 
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
+from django.db import models
 
 User._meta.get_field("email")._unique = True
 

@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
-from decouple import config
-import pymysql
 
+import pymysql
+from decouple import config
 
 ENVIRONMENT = config("ENVIRONMENT", default="development")
 

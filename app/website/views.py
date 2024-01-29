@@ -1,20 +1,14 @@
 from datetime import datetime
 
-from django.core.mail import send_mail, BadHeaderError
-from django.http import (
-    HttpResponse,
-    HttpResponseRedirect,
-    JsonResponse,
-    HttpResponseBadRequest,
-)
+from django.core.mail import BadHeaderError, send_mail
+from django.http import (HttpResponse, HttpResponseBadRequest,
+                         HttpResponseRedirect, JsonResponse)
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import DetailView
 
-
 from website.forms import ContactForm, SimpleSubscribeForm
-
-from website.models import Coach, ActivityPage, EventDatePage
+from website.models import ActivityPage, Coach, EventDatePage
 
 
 def empty_route(request):

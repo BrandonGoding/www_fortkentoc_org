@@ -1,9 +1,9 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from django.views.generic import TemplateView
 
 from website import views as website_views
-from django.conf import settings
-from django.conf.urls.static import static
 
 app_name = "website"
 
