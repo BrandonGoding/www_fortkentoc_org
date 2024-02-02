@@ -5,6 +5,7 @@ import pytz
 import stripe
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -18,7 +19,8 @@ from membership.forms import (
     MembershipFormStep2,
     MembershipFormStep3,
 )
-from membership.models import Member, Membership, MembershipTypeChoices
+from membership.models import Member, Membership, MembershipTypeChoices, MembershipSeason
+
 
 # Constants
 
@@ -57,6 +59,7 @@ class MembershipFormStep1View(View):
 
         if form.is_valid():
             membership = form.save(commit=False)
+            membership.season = MembershipSeason.objects.get(current=True)
             membership.session_key = request.session.session_key
             membership.price = MembershipTypeChoices.get_membership_price(
                 form.cleaned_data["type"]
@@ -232,7 +235,7 @@ class MembershipStripeCallbackView(View):
             )
         except ObjectDoesNotExist:
             return HttpResponse(status=404)
-
+        self.send_email(membership.email)
         tz = pytz.timezone("America/New_York")
         membership.square_timestamp = datetime.fromtimestamp(
             event_data["created"], tz
@@ -242,10 +245,19 @@ class MembershipStripeCallbackView(View):
         self.request.session.flush()
         return HttpResponse(status=200)
 
-    def post(self, request):
-        if request.method == "GET":
-            return HttpResponse(status=405)
+    def send_email(self, email):
+        send_mail(
+            "Welcome to your membership",
+            "Thank you for joining The Fort Kent Outdoor Center.  Before we can finish processing your "
+            "membership we need a release form filled out for each member.  Once we receive your release form we will"
+            " send your parking decals and welcome letter. Please complete the release form at this link: "
+            "https://waiver.smartwaiver.com/w/61670215255e2/web/",
+            "info@fortkentoc.org",
+            ["info@fortkentoc.org", email],
+            fail_silently=True,
+        )
 
+    def post(self, request):
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
         try:

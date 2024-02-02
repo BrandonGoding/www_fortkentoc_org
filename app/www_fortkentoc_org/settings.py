@@ -172,7 +172,7 @@ LOGOUT_REDIRECT_URL = "/login/"
 CART_SESSION_ID = "fkoc_cart"
 
 if ENVIRONMENT == "development":
-    STRIPE_SECRET_KEY = config("DEVELOPMENT_STRIPE_SECRET_KEY", default="")
+    STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")
     STRIPE_ADULT_MEMBERSHIP_PRICE = config(
         "DEVELOPMENT_STRIPE_ADULT_MEMBERSHIP_PRICE", default=""
     )
@@ -185,10 +185,10 @@ if ENVIRONMENT == "development":
     STRIPE_UMFK_MEMBERSHIP_PRICE = config(
         "DEVELOPMENT_STRIPE_UMFK_MEMBERSHIP_PRICE", default=""
     )
-    BASE_URL = "localhost:8000/"
+    BASE_URL = "http://localhost:8000"
 
 if ENVIRONMENT == "production":
-    STRIPE_SECRET_KEY = config("PRODUCTION_STRIPE_SECRET_KEY", default="")
+    STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")
     STRIPE_ADULT_MEMBERSHIP_PRICE = config(
         "PRODUCTION_STRIPE_ADULT_MEMBERSHIP_PRICE", default=""
     )
@@ -201,4 +201,4 @@ if ENVIRONMENT == "production":
     STRIPE_UMFK_MEMBERSHIP_PRICE = config(
         "PRODUCTION_STRIPE_UMFK_MEMBERSHIP_PRICE", default=""
     )
-    BASE_URL = "https://www.fortkentoc.org/"
+    BASE_URL = "https://www.fortkentoc.org"

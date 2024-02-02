@@ -1,3 +1,4 @@
+from django.utils import timezone
 from decimal import Decimal
 
 from django.conf import settings
@@ -79,7 +80,11 @@ class Membership(models.Model):
     activities_enjoyed = models.ManyToManyField(
         to=ActivitiesEnjoyed, blank=True
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    @property
+    def email(self):
+        return self.member_set.first().email
 
 
 class Member(models.Model):
