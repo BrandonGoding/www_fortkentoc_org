@@ -6,20 +6,12 @@ from django.http import HttpResponseRedirect
 from django.utils.text import slugify
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail import blocks
-from wagtail.admin.panels import (
-    FieldPanel,
-    FieldRowPanel,
-    InlinePanel,
-    MultiFieldPanel,
-)
+from wagtail.admin.panels import (FieldPanel, FieldRowPanel, InlinePanel,
+                                  MultiFieldPanel)
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Orderable, Page
-
-from website.blocks import (
-    DefaultCTA,
-    ImagesWithHeadingAndDescription,
-    VisualImageWithHeader,
-)
+from website.blocks import (DefaultCTA, ImagesWithHeadingAndDescription,
+                            VisualImageWithHeader)
 from website.forms import SimpleSubscribeForm
 
 COLOR_CODES = {

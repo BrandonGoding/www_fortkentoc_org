@@ -13,14 +13,10 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
-
-from membership.forms import (
-    MembershipFormStep1,
-    MembershipFormStep2,
-    MembershipFormStep3,
-)
-from membership.models import Member, Membership, MembershipTypeChoices, MembershipSeason
-
+from membership.forms import (MembershipFormStep1, MembershipFormStep2,
+                              MembershipFormStep3)
+from membership.models import (Member, Membership, MembershipSeason,
+                               MembershipTypeChoices)
 
 # Constants
 

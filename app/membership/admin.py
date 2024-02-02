@@ -1,6 +1,5 @@
 from django.contrib import admin
-
-from membership.models import Membership, MembershipSeason, ActivitiesEnjoyed
+from membership.models import ActivitiesEnjoyed, Membership, MembershipSeason
 
 # Register your models here.
 admin.site.register(Membership)

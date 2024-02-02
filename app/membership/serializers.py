@@ -1,6 +1,5 @@
-from rest_framework import serializers
-
 from membership.models import Membership, MembershipTypeChoices
+from rest_framework import serializers
 
 
 class MembershipTypeSerializer(serializers.ModelSerializer):
