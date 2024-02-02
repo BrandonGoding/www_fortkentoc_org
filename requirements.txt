@@ -17,6 +17,7 @@ django-allow-cidr==0.7.1
 django-appconf==1.0.5
 django-compressor==4.4
 django-filter==23.3
+django-localflavor==4.0
 django-modelcluster==6.1
 django-permissionedforms==0.1
 django-storages==1.14.2
@@ -32,6 +33,7 @@ gunicorn==21.2.0
 html5lib==1.1
 identify==2.5.31
 idna==3.4
+isort==5.13.2
 jmespath==1.0.1
 l18n==2021.3
 mypy-extensions==1.0.0
@@ -47,15 +49,18 @@ pycparser==2.21
 PyMySQL==1.1.0
 python-dateutil==2.8.2
 python-decouple==3.8
+python-stdnum==1.19
 pytz==2023.3.post1
 PyYAML==6.0.1
 rcssmin==1.1.1
 requests==2.31.0
 rjsmin==1.2.1
 s3transfer==0.7.0
+setuptools==69.0.3
 six==1.16.0
 soupsieve==2.5
 sqlparse==0.4.4
+stripe==7.13.0
 telepath==0.3.1
 tomli==2.0.1
 typing_extensions==4.8.0
