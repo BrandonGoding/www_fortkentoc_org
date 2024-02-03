@@ -1,4 +1,5 @@
 import json
+import logging
 from datetime import datetime
 
 import pytz
@@ -13,18 +14,28 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
-from membership.forms import (MembershipFormStep1, MembershipFormStep2,
-                              MembershipFormStep3)
-from membership.models import (Member, Membership, MembershipSeason,
-                               MembershipTypeChoices)
+
+from membership.forms import (
+    MembershipFormStep1,
+    MembershipFormStep2,
+    MembershipFormStep3,
+)
+from membership.models import (
+    Member,
+    Membership,
+    MembershipSeason,
+    MembershipTypeChoices,
+)
 
 # Constants
+logger = logging.getLogger(__name__)
 
 
 def get_membership_by_session_key(session_key):
     try:
         return Membership.objects.get(session_key=session_key)
     except Membership.DoesNotExist:
+        logger.warning(f"No membership for session key {session_key}")
         return None
 
 
