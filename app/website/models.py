@@ -181,14 +181,7 @@ class ThreeSeasonActivity(ActivityPage):
     )
 
 
-class BoardMember(Orderable):
-    page = ParentalKey(
-        "website.AboutPage",
-        on_delete=models.CASCADE,
-        null=True,
-        related_name="board_members",
-        default=9,
-    )
+class BoardMember(models.Model):
     last_name = models.CharField(max_length=26)
     first_name = models.CharField(max_length=26)
     title = models.CharField(max_length=16, blank=True)
@@ -214,18 +207,8 @@ class BoardMember(Orderable):
         return f"{self.first_name} {self.last_name}"
 
     class Meta:
-        ordering = ["sort_order"]
         verbose_name = "Board Member"
         verbose_name_plural = "Board Members"
-
-
-class AboutPage(Page):
-    template = "website/about_page.html"
-    max_count = 1
-
-    content_panels = Page.content_panels + [
-        InlinePanel("board_members", label="Board Members"),
-    ]
 
 
 class DayPassSquareLink(Orderable):

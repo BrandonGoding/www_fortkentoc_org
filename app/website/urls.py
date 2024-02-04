@@ -13,6 +13,7 @@ urlpatterns = [
         website_views.calendar_events,
         name="calendar-events",
     ),
+    path("about-us/", website_views.AboutTemplateView.as_view(), name="about_us"),
     path(
         "calendar/",
         TemplateView.as_view(template_name="website/event_calendar.html"),

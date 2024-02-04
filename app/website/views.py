@@ -9,10 +9,20 @@ from django.http import (
 )
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 
 from website.forms import ContactForm, SimpleSubscribeForm
-from website.models import ActivityPage, Coach, EventDatePage
+from website.models import ActivityPage, Coach, EventDatePage, BoardMember
+
+
+class AboutTemplateView(TemplateView):
+    template_name = "website/about_page.html"
+
+    def context_data(self, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context["board_members"] = BoardMember.objects.all()
+        print(context["board_members"])
+        return context
 
 
 def empty_route(request):
