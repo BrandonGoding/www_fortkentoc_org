@@ -46,7 +46,7 @@
                 <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:webcam_modal' %}"
                    hx-swap="afterbegin"
                    class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Webcam</a>
-                <a href="{% slugurl 'trails' %}" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Trail Maps</a>
+                <a href="{% url 'website:trails' %}" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Trail Maps</a>
                 <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:contact_form' %}"
                    hx-swap="afterbegin"
                    class="text-sm font-medium sm:mr-2 text-white hover:text-gray-300">Contact us</a>
@@ -103,15 +103,15 @@
                                         we are</a>
                                 </li>
                                 <li>
-                                    <a href="{% slugurl 'facilities' %}"
+                                    <a href="{% url 'website:facilities' %}"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Facilities</a>
                                 </li>
                                 <li>
-                                    <a href="{% slugurl 'trails' %}"
+                                    <a href="{% url 'website:trails' %}"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Trails</a>
                                 </li>
                                 <li>
-                                    <a href="{% slugurl 'policies' %}"
+                                    <a href="{% url 'website:policies' %}"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Policies</a>
                                 </li>
                             </ul>
@@ -179,7 +179,7 @@
                             <ul class="py-1 text-sm font-light text-gray-500 dark:text-gray-400"
                                 aria-labelledby="trails-dropdown-button">
                                 <li>
-                                    <a href="{% slugurl 'trails' %}#interactive"
+                                    <a href="{% url 'website:trails' %}#interactive"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Trail
                                         Maps</a>
                                 </li>
@@ -193,7 +193,7 @@
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Memberships</a>
                                 </li>
                                 <li>
-                                    <a href="{% slugurl 'rentals' %}"
+                                    <a href="{% url 'website:rentals' %}"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Equipment
                                         Rentals</a>
                                 </li>
@@ -240,7 +240,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="{% slugurl 'location' %}"
+                        <a href="{% url 'website:location' %}"
                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Location</a>
                     </li>
                 </ul>
@@ -264,7 +264,7 @@
                     <a href="/home/" class="mr-4 hover:underline md:mr-6 ">Home</a>
                 </li>
                 <li>
-                    <a href="/policies/" class="mr-4 hover:underline md:mr-6">Policies & Safety</a>
+                    <a href="{% url 'website:policies' %}" class="mr-4 hover:underline md:mr-6">Policies & Safety</a>
                 </li>
 {#                <li>#}
 {#                    <a href="#" class="mr-4 hover:underline md:mr-6">Job Opportunities</a>#}

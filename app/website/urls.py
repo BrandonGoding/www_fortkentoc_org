@@ -19,6 +19,10 @@ urlpatterns = [
         TemplateView.as_view(template_name="website/event_calendar.html"),
         name="calendar",
     ),
+    path("facilities/", website_views.FacilitiesTemplateView.as_view(), name="facilities"),
+    path("location/", website_views.LocationTemplateView.as_view(), name="location"),
+    path("rentals/", website_views.RentalsTemplateView.as_view(), name="rentals"),
+    path("trails/", website_views.TrailsTemplateView.as_view(), name="trails"),
     path(
         "partials/activity/<slug:slug>/",
         website_views.ActivityDetailView.as_view(),
@@ -55,4 +59,5 @@ urlpatterns = [
         website_views.contact_thank_you,
         name="contact_form_thank_you",
     ),
+    path("policies/", website_views.PoliciesTemplateView.as_view(), name="policies"),
 ]

@@ -18,11 +18,30 @@ from website.models import ActivityPage, Coach, EventDatePage, BoardMember
 class AboutTemplateView(TemplateView):
     template_name = "website/about_page.html"
 
-    def context_data(self, **kwargs):
-        context = self.get_context_data(**kwargs)
-        context["board_members"] = BoardMember.objects.all()
-        print(context["board_members"])
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['board_members'] = BoardMember.objects.all()
         return context
+
+
+class PoliciesTemplateView(TemplateView):
+    template_name = "website/policies_page.html"
+
+
+class FacilitiesTemplateView(TemplateView):
+    template_name = "website/facility_page.html"
+
+
+class LocationTemplateView(TemplateView):
+    template_name = "website/location_page.html"
+
+
+class RentalsTemplateView(TemplateView):
+    template_name = "website/rentals_page.html"
+
+
+class TrailsTemplateView(TemplateView):
+    template_name = "website/trails_page.html"
 
 
 def empty_route(request):

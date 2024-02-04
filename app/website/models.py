@@ -273,16 +273,6 @@ class DayPassPage(Page):
     ]
 
 
-class FacilityPage(Page):
-    template = "website/facility_page.html"
-    max_count = 1
-
-
-class LocationPage(Page):
-    template = "website/location_page.html"
-    max_count = 1
-
-
 class MembershipPage(Page):
     template = "website/membership_page.html"
     max_count = 1
@@ -300,11 +290,6 @@ class MembershipPage(Page):
     ]
 
 
-class PoliciesPage(Page):
-    template = "website/policies_page.html"
-    max_count = 1
-
-
 class ProgramPage(Page):
     template = "website/program_page.html"
     max_count = 1
@@ -312,16 +297,6 @@ class ProgramPage(Page):
     content_panels = Page.content_panels + [
         InlinePanel("coaches", label="Coaches"),
     ]
-
-
-class RentalsPage(Page):
-    template = "website/rentals_page.html"
-    max_count = 1
-
-
-class TrailsPage(Page):
-    template = "website/trails_page.html"
-    max_count = 1
 
 
 class Coach(Orderable):
@@ -388,16 +363,6 @@ class Coach(Orderable):
         ordering = ["sort_order"]
         verbose_name = "Coach"
         verbose_name_plural = "Coaches"
-
-
-class Testimonial(models.Model):
-    author = models.CharField(max_length=50)
-    title = models.CharField(max_length=50)
-    testimonial = models.TextField()
-    img = models.ImageField(upload_to="testimonials", blank=True)
-
-    def __str__(self):
-        return f"{self.author}"
 
 
 class EventListingPage(Page):
