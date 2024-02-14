@@ -8,26 +8,31 @@ from website import views as website_views
 app_name = "website"
 
 urlpatterns = [
+    path('', TemplateView.as_view(template_name="website/home_page.html"), name='home'),
+    path('activities/', TemplateView.as_view(template_name="website/activities_page.html"), name='activities'),
+    path('memberships/', TemplateView.as_view(template_name="website/membership_page.html"), name='memberships'),
+    path('programs/', TemplateView.as_view(template_name="website/program_page.html"), name='programs'),
     path(
         "api/calendar-events/",
         website_views.calendar_events,
         name="calendar-events",
     ),
-    path("about-us/", website_views.AboutTemplateView.as_view(), name="about_us"),
+    path("about-us/", TemplateView.as_view(template_name="website/about_page.html"), name="about_us"),
+    path("day-passes/", TemplateView.as_view(template_name="website/day_pass_page.html"), name="day_passes"),
     path(
         "calendar/",
         TemplateView.as_view(template_name="website/event_calendar.html"),
         name="calendar",
     ),
-    path("facilities/", website_views.FacilitiesTemplateView.as_view(), name="facilities"),
-    path("location/", website_views.LocationTemplateView.as_view(), name="location"),
-    path("rentals/", website_views.RentalsTemplateView.as_view(), name="rentals"),
-    path("trails/", website_views.TrailsTemplateView.as_view(), name="trails"),
-    path(
-        "partials/activity/<slug:slug>/",
-        website_views.ActivityDetailView.as_view(),
-        name="activity_partial",
-    ),
+    path("facilities/", TemplateView.as_view(template_name="website/facility_page.html"), name="facilities"),
+    path("location/", TemplateView.as_view(template_name="website/location_page.html"), name="location"),
+    path("rentals/", TemplateView.as_view(template_name="website/rentals_page.html"), name="rentals"),
+    path("trails/", TemplateView.as_view(template_name="website/trails_page.html"), name="trails"),
+    # path(
+    #     "partials/activity/<slug:slug>/",
+    #     TemplateView.as_view(template_name="website/"),
+    #     name="activity_partial",
+    # ),
     path(
         "paritals/subscribe/",
         website_views.process_subscribe_form,
@@ -44,11 +49,11 @@ urlpatterns = [
     path(
         "partials/webcam/", website_views.webcam_partial, name="webcam_modal"
     ),
-    path(
-        "partials/coach/<slug:slug>/",
-        website_views.CoachDetailView.as_view(),
-        name="coach_modal",
-    ),
+    # path(
+    #     "partials/coach/<slug:slug>/",
+    #     website_views.CoachDetailView.as_view(),
+    #     name="coach_modal",
+    # ),
     path(
         "partials/contact-form/",
         website_views.contact_form,
@@ -59,5 +64,5 @@ urlpatterns = [
         website_views.contact_thank_you,
         name="contact_form_thank_you",
     ),
-    path("policies/", website_views.PoliciesTemplateView.as_view(), name="policies"),
+    path("policies/", TemplateView.as_view(template_name="website/policies_page.html"), name="policies"),
 ]

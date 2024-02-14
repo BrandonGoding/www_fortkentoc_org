@@ -9,39 +9,23 @@ from django.http import (
 )
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import ListView
 
 from website.forms import ContactForm, SimpleSubscribeForm
-from website.models import ActivityPage, Coach, EventDatePage, BoardMember
 
 
-class AboutTemplateView(TemplateView):
-    template_name = "website/about_page.html"
+class EventsListView(ListView):
+    template_name = "website/event_listing_page.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['board_members'] = BoardMember.objects.all()
-        return context
-
-
-class PoliciesTemplateView(TemplateView):
-    template_name = "website/policies_page.html"
-
-
-class FacilitiesTemplateView(TemplateView):
-    template_name = "website/facility_page.html"
-
-
-class LocationTemplateView(TemplateView):
-    template_name = "website/location_page.html"
-
-
-class RentalsTemplateView(TemplateView):
-    template_name = "website/rentals_page.html"
-
-
-class TrailsTemplateView(TemplateView):
-    template_name = "website/trails_page.html"
+    # def get_context(self, request, *args, **kwargs):
+    #     context = super().get_context(request, *args, **kwargs)
+    #     # NEED TO INCORPORATE live().child_of(self) TO FILTER OUT PAST EVENTS
+    #     context["events"] = EventDatePage.objects.filter(
+    #         date__gte=datetime.date.today(), live=True
+    #     ).order_by("date")
+    #     context["categories"] = EventCategory.objects.all().order_by("name")
+    #     context["tags"] = EventTag.objects.all().order_by("name")
+    #     return context
 
 
 def empty_route(request):
@@ -63,18 +47,18 @@ def calendar_events(request):
             datetime.fromisoformat(end_date_str) if end_date_str else None
         )
         events = []
-        for event in EventDatePage.objects.filter(
-            date__range=[start_date.date(), end_date.date()]
-        ):
-            print(event)
-            events.append(
-                {
-                    "title": event.get_parent().title,
-                    "start": event.date.strftime("%Y-%m-%d"),
-                    "color": "rgb(119 29 29)" if event.cancelled else None,
-                    "url": event.get_url(),
-                }
-            )
+        # for event in EventDatePage.objects.filter(
+        #     date__range=[start_date.date(), end_date.date()]
+        # ):
+        #     print(event)
+        #     events.append(
+        #         {
+        #             "title": event.get_parent().title,
+        #             "start": event.date.strftime("%Y-%m-%d"),
+        #             "color": "rgb(119 29 29)" if event.cancelled else None,
+        #             "url": event.get_url(),
+        #         }
+        #     )
         return JsonResponse(events, safe=False)
     except ValueError:
         # Handle invalid date format
@@ -141,23 +125,3 @@ def process_subscribe_form(request):
     else:
         form = SimpleSubscribeForm()
     return render(request, "website/cta/email_list.html", {"form": form})
-
-
-class CoachDetailView(DetailView):
-    model = Coach
-    template_name = "website/partials/coach_bio.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(CoachDetailView, self).get_context_data(**kwargs)
-        context["next_coach"] = (
-            Coach.objects.filter(pk__gt=self.object.pk).order_by("id").first()
-        )
-        context["prev_coach"] = (
-            Coach.objects.filter(pk__lt=self.object.pk).order_by("-id").first()
-        )
-        return context
-
-
-class ActivityDetailView(DetailView):
-    model = ActivityPage
-    template_name = "website/partials/activity_partial.html"

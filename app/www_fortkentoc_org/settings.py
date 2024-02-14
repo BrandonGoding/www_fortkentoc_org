@@ -30,20 +30,6 @@ INSTALLED_APPS = [
     "compressor",
     "rest_framework",
     "storages",
-    "wagtail.contrib.forms",
-    "wagtail.contrib.redirects",
-    "wagtail.embeds",
-    "wagtail.sites",
-    "wagtail.users",
-    "wagtail.snippets",
-    "wagtail.documents",
-    "wagtail.images",
-    "wagtail.search",
-    "wagtail.admin",
-    "wagtail",
-    "modelcluster",
-    "taggit",
-    "wagtail_modeladmin",
     "widget_tweaks",
 ]
 
@@ -57,7 +43,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 ROOT_URLCONF = "www_fortkentoc_org.urls"
@@ -127,8 +112,6 @@ STATICFILES_FINDERS = [
 
 COMPRESS_ROOT = BASE_DIR / "static"
 COMPRESS_ENABLED = config("COMPRESS_ENABLED", default=False, cast=bool)
-WAGTAIL_SITE_NAME = "The Fort Kent Outdoor Center"
-WAGTAILADMIN_BASE_URL = "https://www.fortkentoc.org"
 EMAIL_BACKEND = config(
     "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
 )
