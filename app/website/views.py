@@ -74,7 +74,7 @@ def contact_form(request):
                     subject,
                     message,
                     "info@fortkentoc.org",
-                    ["brandon.h.goding@gmail.com"],
+                    ["info@fortkentoc.org"],
                 )
             except BadHeaderError:
                 return HttpResponse("Invalid header found.")
