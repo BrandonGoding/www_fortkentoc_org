@@ -1,6 +1,6 @@
 <!-- templates/_base.html -->
 
-{% load compress static wagtailcore_tags wagtailuserbar  %}
+{% load compress static  %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,12 +37,11 @@
 {% endblock %}
 </head>
 <body>
-{% wagtailuserbar %}
 <header>
     <nav class="hidden border-gray-200 bg-gray-800 md:block">
         <div class="flex flex-wrap justify-between items-end mx-auto max-w-screen-xl py-2.5">
             <div class="flex" style="margin-left:auto;">
-                <a href="{% slugurl 'memberships' %}" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Become A Member</a>
+                <a href="#" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Become A Member</a>
                 <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:webcam_modal' %}"
                    hx-swap="afterbegin"
                    class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Webcam</a>
@@ -60,7 +59,7 @@
                 <span class="sr-only">Fort Kent Outdoor Center</span>
             </a>
             <div class="flex items-center lg:order-2">
-                <a href="{% slugurl 'memberships' %}"
+                <a href="#"
                    class="hidden text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 lg:block">Join
                     Today</a>
                 <button data-collapse-toggle="mobile-menu-2" type="button"
@@ -133,25 +132,25 @@
                             <ul class="py-1 text-sm font-light text-gray-500 dark:text-gray-400"
                                 aria-labelledby="programs-dropdown-button">
                                 <li>
-                                    <a href="{% slugurl 'programs' %}#fkoc-coaching"
+                                    <a href="##fkoc-coaching"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Coaches</a>
                                 </li>
                                 <li>
-                                    <a href="{% slugurl 'programs' %}#pg-training"
+                                    <a href="##pg-training"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">(PG)
                                         Training PROGRAM</a>
                                 </li>
                                 <li>
-                                    <a href="{% slugurl 'programs' %}#residence"
+                                    <a href="##residence"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Jalbert Biathlon Residence</a>
                                 </li>
                                 <li>
-                                    <a href="{% slugurl 'programs' %}#ski-program"
+                                    <a href="##ski-program"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Jalbert
                                         Ski Program</a>
                                 </li>
                                 <li>
-                                    <a href="{% slugurl 'programs' %}#biathlon-program"
+                                    <a href="###biathlon-program"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Jalbert
                                         Biathlon Program</a>
                                 </li>
@@ -184,16 +183,16 @@
                                         Maps</a>
                                 </li>
                                 <li>
-                                    <a href="{% slugurl 'day-passes' %}"
+                                    <a href="#"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Day
                                         Passes</a>
                                 </li>
                                 <li>
-                                    <a href="{% slugurl 'memberships' %}"
+                                    <a href="#"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Memberships</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'website:rentals' %}"
+                                    <a href="#"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Equipment
                                         Rentals</a>
                                 </li>
@@ -201,7 +200,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="{% slugurl 'activities' %}"
+                        <a href="#"
                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Activities</a>
                     </li>
                     <li>
