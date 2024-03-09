@@ -1,5 +1,5 @@
 {% extends "../_base.html" %}
-
+{% load static %}
 {% block content %}
     <section
             class="bg-[url('https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
@@ -94,7 +94,7 @@
 {#                              clip-rule="evenodd"></path>#}
 {#                    </svg>#}
 {#                </a>#}
-                <a href="{% url 'website:trails' %}#interactive"
+                <a href="#interactive"
                    class="inline-flex justify-center items-center p-5 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
                     <span class="w-full">See our online trail map with live grooming updates</span>
                     <svg class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -104,7 +104,7 @@
                               clip-rule="evenodd"></path>
                     </svg>
                 </a>
-                <a href="{% url 'website:trails' %}#conditions"
+                <a href="#conditions"
                    class="inline-flex justify-center items-center p-5 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
                     <span class="w-full">Review our latest Trail Report</span>
                     <svg class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -114,7 +114,7 @@
                               clip-rule="evenodd"></path>
                     </svg>
                 </a>
-                <a href="{% url 'day-passes' %}"
+                <a href=""
                    class="inline-flex justify-center items-center p-5 text-base font-medium text-gray-500 bg-gray-50 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white">
                     <span class="w-full">Purchase a day pass or FKOC membership</span>
                     <svg class="ml-3 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -140,7 +140,7 @@
                     ski, throwing a disc to a basket at the top of Lonesome Pine Trails, watch a toddler learn to ski
                     with the Jalbert program, to a simple walk through the beautiful woods, there is truly something for
                     everyone! </p>
-                <a href="{% url 'activities' %}"
+                <a href=""
                    class="text-white  focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-primary-800">View
                     Activities</a>
             </div>
@@ -163,7 +163,7 @@
                 {% for board_member in board_members.all %}
                     <div class="relative overflow-hidden rounded-lg group">
 
-                        {% image board_member.photo fill-296x369 class="object-cover object-top w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125 top-0" %}
+                        
                         <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
                             <div class="text-center">
                                 <p class="text-xl font-bold text-white">
