@@ -21,8 +21,8 @@
             <p class="mb-4">{{ object.description|safe }}</p>
         </div>
         <div class="grid grid-cols-2 gap-4 mt-8">
-            {% image object.banner_image fill-284x394 class="w-full rounded-lg" %}
-            {% image object.card_image fill-284x394 class="mt-4 w-full lg:mt-10 rounded-lg" %}
+            <img src="{{ object.imgLeft }}" class="w-full rounded-lg" />
+            <img src="{{ object.imgRight }}" class="mt-4 w-full lg:mt-10 rounded-lg" />
         </div>
     </div>
 </section>

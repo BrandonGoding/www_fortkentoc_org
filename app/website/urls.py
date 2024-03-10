@@ -15,7 +15,7 @@ urlpatterns = [
     ),
     path(
         "activities/",
-        TemplateView.as_view(template_name="website/activities_page.html"),
+        website_views.ActivitiesTemplateView.as_view(),
         name="activities",
     ),
     path(
@@ -64,11 +64,11 @@ urlpatterns = [
         TemplateView.as_view(template_name="website/trails_page.html"),
         name="trails",
     ),
-    # path(
-    #     "partials/activity/<slug:slug>/",
-    #     TemplateView.as_view(template_name="website/"),
-    #     name="activity_partial",
-    # ),
+    path(
+        "partials/activity/<slug:slug>/",
+        website_views.ActivitiesDetailView.as_view(),
+        name="activity_partial",
+    ),
     path(
         "paritals/subscribe/",
         website_views.process_subscribe_form,

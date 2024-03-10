@@ -18,25 +18,18 @@
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Winter Activities</h2>
             <p class="font-light text-gray-500 sm:text-lg md:px-20 lg:px-38 xl:px-48 dark:text-gray-400">We are strategists, designers and developers. Innovators and problem solvers. Small enough to be simple and quick, but big enough to deliver the scope you want at the pace you need.</p>
             <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">
-
-                {% for activity in page.winter_activities.all %}
+                {% for activity in winter_activities %}
                 <button  hx-trigger="click" hx-target="body" hx-get="{% url 'website:activity_partial' activity.slug %}" hx-swap="afterbegin" class="relative overflow-hidden hover:outline hover:outline-2 hover:outline-blue-900 rounded-lg group flex justify-center items-center bg-white col-span-{{ activity.col_span }} mb-4 sm:mb-0 rounded-lg bg-cover activity-button">
                     <h3 class="absolute z-10 mb-2 text-xl font-bold text-white outline-1 p-5 learn-title">{{ activity.name }}</h3>
                     <h3 class="hidden absolute z-10 mb-2 text-xl font-bold text-white outline-1 p-5 learn-more">Learn More...</h3>
                     {% if activity.col_span == 2 %}
-                    {% image activity.card_image fill-584x238 class="z-0 object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" %}
+                        <img src="{{ activity.thumbnail }}" class="z-0 object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125"  />
                     {% elif activity.col_span == 1 %}
-                    {% image activity.card_image fill-284x238 class="z-0 object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125" %}
+                        <img src="{{ activity.thumbnail }}" class="z-0 object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125"  />
                     {% endif %}
                     <span class="bg-black absolute w-full h-full opacity-40">&nbsp;</span>
                 </button>
                 {% endfor %}
-
-{#                <img class="hidden col-span-1 sm:block rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-2.png" alt="content gallery 2">#}
-{#                <img class="hidden col-span-1 sm:block rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-3.png" alt="content gallery 3">#}
-{#                <img class="hidden col-span-1 sm:block rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-4.png" alt="content gallery 4">#}
-{#                <img class="col-span-2 rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-5.png" alt="content gallery 5">#}
-{#                <img class="hidden col-span-1 sm:block rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/content-gallery-6.png" alt="content gallery 6">#}
             </div>
         </div>
     </section>

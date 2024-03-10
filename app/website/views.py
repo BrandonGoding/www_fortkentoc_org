@@ -11,7 +11,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView, DetailView
 
-from website.constants import COACHES, BOARD_MEMBERS
+from website.constants import COACHES, BOARD_MEMBERS, ACTIVITIES, WINTER_SEASON
 from website.forms import ContactForm, SimpleSubscribeForm
 
 
@@ -22,6 +22,29 @@ class AboutUsView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["board_members"] = BOARD_MEMBERS
         return context
+
+
+class ActivitiesTemplateView(TemplateView):
+    template_name = "website/activities_page.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        winter_activities = []
+        for activity in ACTIVITIES:
+            if activity.get("season") == WINTER_SEASON:
+                winter_activities.append(activity)
+        context["winter_activities"] = winter_activities
+        return context
+
+
+class ActivitiesDetailView(DetailView):
+    template_name = "website/partials/activity_partial.html"
+
+    def get_object(self, queryset=None):
+        for activity in ACTIVITIES:
+            if activity["slug"] == self.kwargs["slug"]:
+                return activity
+        return None  # Return None if no coach with the given slug is found
 
 
 class ProgramsTemplateView(TemplateView):

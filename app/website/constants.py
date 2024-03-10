@@ -1,3 +1,5 @@
+WINTER_SEASON = "winter_season"
+
 COACHES = [
     {
         "name": "Carl Theriault",
@@ -91,5 +93,58 @@ BOARD_MEMBERS = [
     },
     {
         "name": "Mike Tanguay",
+    },
+]
+
+ACTIVITIES = [
+    {
+        "name": "Biathlon",
+        "slug": "biathlon",
+        "thumbnail": "https://cdn.fortkentoc.org/media/public/images/winter-biathlon-skier.2e16d0ba.fill-584x238.jpg",
+        "imgLeft": "https://cdn.fortkentoc.org/media/public/images/winter-biathlon-shooting-range.2e16d0ba.fill-284x394.jpg",
+        "imgRight": "https://cdn.fortkentoc.org/media/public/images/winter-biathlon-skier.2e16d0ba.fill-284x394.jpg",
+        "description": "Biathlon, a two phase athletic pursuit is typically practiced in the summertime using Roller Skis on the paved trails through the Stadium at the Fort Kent Outdoor Center. The athlete will stop and shoot at the targets in the range that is set up in the Stadium. Biathletes must be in a program or have permission in order to shoot on the range. For more information please contact Carl Theriault at theriault.carl@hotmail.com",
+        "col_span": 2,
+        "season": WINTER_SEASON,
+    },
+    {
+        "name": "Cross Country Skiing",
+        "slug": "cross-country-skiing",
+        "thumbnail": "https://cdn.fortkentoc.org/media/public/images/crosscountryskiing.2e16d0ba.fill-284x238.jpg",
+        "imgLeft": "https://cdn.fortkentoc.org/media/public/images/fort-kent-outdoor-center-coach-ben.2e16d0ba.fill-284x394.png",
+        "imgRight": "https://cdn.fortkentoc.org/media/public/images/crosscountryskiing.2e16d0ba.fill-284x394.jpg",
+        "description": "As one of the first ski centers in the Northeast to have snow in the fall and the last to hang up our skis in April, plus a fantastic grooming crew, the Fort Kent Outdoor Center is becoming the No.1 choice for cross country skiing. Come check out our trails!",
+        "col_span": 1,
+        "season": WINTER_SEASON,
+    },
+    {
+        "name": "Snowshoeing",
+        "slug": "snowshoeing",
+        "thumbnail": "https://cdn.fortkentoc.org/media/public/images/snowshoes.2e16d0ba.fill-284x238.jpg",
+        "imgLeft": "https://cdn.fortkentoc.org/media/public/images/snowshoeing.2e16d0ba.fill-284x394.jpg",
+        "imgRight": "https://cdn.fortkentoc.org/media/public/images/snowshoes.2e16d0ba.fill-284x394.jpg",
+        "description": "We currently have seven miles of snowshoe trails surrounding the venue. They range from easy and rolling to those that are steeper and more difficult. Many of the trails interconnect, allowing for outings of varying lengths. The trails can be accessed at three of our trailheads: FKOC, Red Barn and Lonesome Pine Trails. Grab a map or access it on your smartphone and follow the yellow snowshoe signs. The trail intersections are numbered and have directional signs to make the trails easy to navigate.",
+        "col_span": 1,
+        "season": WINTER_SEASON,
+    },
+    {
+        "name": "Sledding",
+        "slug": "sledding",
+        "thumbnail": "https://cdn.fortkentoc.org/media/public/images/kids-sledding.2e16d0ba.fill-284x238.jpg",
+        "imgLeft": "https://cdn.fortkentoc.org/media/public/images/fort-kent-outdoor-center-coach-ben.2e16d0ba.fill-284x394.png",
+        "imgRight": "https://cdn.fortkentoc.org/media/public/images/kids-sledding.2e16d0ba.fill-284x394.jpg",
+        "description": "Indulge in the exhilaration of winter fun at Fort Kent Outdoor Center as we present an exciting sledding experience for enthusiasts of all ages. Nestled within our winter wonderland, our specially crafted sledding hill promises thrills and laughter against a backdrop of snowy enchantment. Whether you're a family seeking a memorable day of winter bonding or an adventure seeker craving the rush of the downhill slide, our sledding hill is the perfect destination. Feel the crisp winter air on your face as you glide effortlessly down the slope, surrounded by the beauty of a snow-covered landscape. With safety as our priority, our well-maintained hill ensures a delightful sledding escapade for everyone. Join us in embracing the magic of winter and create cherished memories on our inviting sledding hill – where the joy of the season comes alive with every descent.",
+        "col_span": 1,
+        "season": WINTER_SEASON,
+    },
+    {
+        "name": "Skijoring",
+        "slug": "skijoring",
+        "thumbnail": "https://cdn.fortkentoc.org/media/public/images/skijoring.2e16d0ba.fill-584x238.jpg",
+        "imgLeft": "https://cdn.fortkentoc.org/media/public/images/skijoring-set-up.2e16d0ba.fill-284x394.jpg",
+        "imgRight": "https://cdn.fortkentoc.org/media/public/images/skijoring.2e16d0ba.fill-284x394.jpg",
+        "description": "Embark on a winter adventure with skijoring, a thrilling sport that combines the joy of skiing with the energy and enthusiasm of your four-legged companion. Skijoring involves being harnessed to a dog, creating a harmonious partnership as you navigate snowy landscapes together. This exciting activity has gained popularity among dog lovers seeking an active and unique way to enjoy the winter months. At Fort Kent Outdoor Center, we celebrate the spirit of skijoring and the bond it fosters between humans and their canine friends. Explore the beauty of winter landscapes, feel the rush of the chilly breeze, and experience the joy of gliding across snow-covered trails in this exhilarating fusion of sport and companionship. Discover the wonders of skijoring and the special connection it brings to winter enthusiasts and their furry companions.",
+        "col_span": 2,
+        "season": WINTER_SEASON,
     },
 ]
