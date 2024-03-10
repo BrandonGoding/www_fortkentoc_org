@@ -11,13 +11,13 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name="website/home_page.html"), name='home'),
     path('activities/', TemplateView.as_view(template_name="website/activities_page.html"), name='activities'),
     path('memberships/', TemplateView.as_view(template_name="website/membership_page.html"), name='memberships'),
-    path('programs/', TemplateView.as_view(template_name="website/program_page.html"), name='programs'),
+    path('programs/', website_views.ProgramsTemplateView.as_view(), name='programs'),
     path(
         "api/calendar-events/",
         website_views.calendar_events,
         name="calendar-events",
     ),
-    path("about-us/", TemplateView.as_view(template_name="website/about_page.html"), name="about_us"),
+    path("about-us/", website_views.AboutUsView.as_view(), name="about_us"),
     path("day-passes/", TemplateView.as_view(template_name="website/day_pass_page.html"), name="day_passes"),
     path(
         "calendar/",
