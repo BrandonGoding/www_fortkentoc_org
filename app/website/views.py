@@ -9,108 +9,38 @@ from django.http import (
 )
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, DetailView
 
+from website.constants import COACHES, BOARD_MEMBERS
 from website.forms import ContactForm, SimpleSubscribeForm
 
 
 class AboutUsView(TemplateView):
     template_name = "website/about_page.html"
 
-    people = [
-        {
-            "name": 'Laura Audibert',
-            "role": 'President',
-            "imageUrl":
-                'https://cdn.fortkentoc.org/media/public/images/board-members-35_6Vtw0Gw.2e16d0ba.fill-296x369.jpg',
-        },
-        {
-            "name": 'Paul Kile',
-            "role": 'Vice President',
-        },
-        {
-            "name": 'Danielle Reardon',
-            "role": 'Secretary',
-            "imageUrl":
-                'https://cdn.fortkentoc.org/media/public/images/board-members-46_gr5wYex.2e16d0ba.fill-296x369.jpg',
-        },
-        {
-            "name": 'Pat Theriault',
-            "role": 'Treasurer',
-            "imageUrl":
-                'https://cdn.fortkentoc.org/media/public/images/board-members-50_gTzSElr.2e16d0ba.fill-296x369.jpg',
-        },
-        {
-            "name": 'Deb Hedeen',
-            "imageUrl":
-                'https://cdn.fortkentoc.org/media/public/images/board-members-38_jqAvAVt.2e16d0ba.fill-296x369.jpg',
-        },
-        {
-            "name": 'Jim Marquis',
-            "imageUrl":
-                'https://cdn.fortkentoc.org/media/public/images/board-members-43.2e16d0ba.fill-296x369.jpg',
-        },
-        {
-            "name": 'Ben Paradis',
-            "imageUrl":
-                'https://cdn.fortkentoc.org/media/public/images/board-members-53.2e16d0ba.fill-296x369.jpg',
-        },
-        {
-            "name": 'Carl Theriault',
-            "imageUrl":
-                'https://cdn.fortkentoc.org/media/public/images/board-members-47.2e16d0ba.fill-296x369.jpg',
-        },
-        {
-            "name": 'Brandon Goding',
-            "imageUrl":
-                'https://cdn.fortkentoc.org/media/public/images/board-members-36_yrFRg68.2e16d0ba.fill-296x369.jpg',
-        },
-        {
-            "name": 'Mike Tanguay',
-        },
-    ]
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['board_members'] = self.people
+        context["board_members"] = BOARD_MEMBERS
         return context
 
 
 class ProgramsTemplateView(TemplateView):
     template_name = "website/program_page.html"
 
-    people = [
-        {
-            "name": "Carl Theriault",
-            "title": "Program Director",
-            "imageUrl": "https://cdn.fortkentoc.org/media/public/images/fort-kent-outdoor-center-coach-car.f3b3db8f.fill-144x144.jpg"
-        },
-        {
-            "name": "Charlie Cobb",
-            "title": "Venue Manager/Nordic Coach",
-            "imageUrl": "https://cdn.fortkentoc.org/media/public/images/Ski_Pic_GGTCdh4.bbeadf32.fill-144x144.jpg"
-        },
-        {
-            "name": "Matt Michaud",
-            "title": "Youth and Masters Biathlon Coach",
-            "imageUrl": "https://cdn.fortkentoc.org/media/public/images/fort-kent-outdoor-center-coach-mat.2e16d0ba.fill-144x144_TYLjMTW.jpg"
-        },
-        {
-            "name": "Ben Paradis",
-            "title": "Youth and Masters Nordic Coach",
-            "imageUrl": "https://cdn.fortkentoc.org/media/public/images/fort-kent-outdoor-center-coach-ben.2e16d0ba.fill-144x144_ksIi8Lr.png"
-        },
-        {
-            "name": "Sarah Ashley",
-            "title": "Nordic Coach",
-            "imageUrl": "https://cdn.fortkentoc.org/media/public/images/fort-kent-outdoor-center-coach-sar.2e16d0ba.fill-144x144_NIljKbb.jpg"
-        },
-    ]
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['coaches'] = self.people
+        context["coaches"] = COACHES
         return context
+
+
+class CoachDetailView(DetailView):
+    template_name = "website/partials/coach_bio.html"
+
+    def get_object(self, queryset=None):
+        for coach in COACHES:
+            if coach["slug"] == self.kwargs["slug"]:
+                return coach
+        return None  # Return None if no coach with the given slug is found
 
 
 class EventsListView(ListView):

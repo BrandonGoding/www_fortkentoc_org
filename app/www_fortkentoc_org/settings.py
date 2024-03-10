@@ -65,11 +65,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "www_fortkentoc_org.wsgi.application"
 
-DATABASE_DIR = os.path.join(BASE_DIR, 'db.sqlite3')
+DATABASE_DIR = os.path.join(BASE_DIR, "db.sqlite3")
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': DATABASE_DIR,
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": DATABASE_DIR,
     }
 }
 

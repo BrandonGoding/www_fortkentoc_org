@@ -113,7 +113,9 @@ class Event(models.Model):
 
 
 class EventDateAndTime(models.Model):
-    event = models.ForeignKey(to=Event, on_delete=models.CASCADE, related_name="events")
+    event = models.ForeignKey(
+        to=Event, on_delete=models.CASCADE, related_name="events"
+    )
     day = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
