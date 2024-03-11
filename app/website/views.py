@@ -11,7 +11,13 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView, TemplateView, DetailView
 
-from website.constants import COACHES, BOARD_MEMBERS, ACTIVITIES, WINTER_SEASON
+from website.constants import (
+    COACHES,
+    BOARD_MEMBERS,
+    ACTIVITIES,
+    WINTER_SEASON,
+    OFF_SEASON,
+)
 from website.forms import ContactForm, SimpleSubscribeForm
 
 
@@ -34,6 +40,11 @@ class ActivitiesTemplateView(TemplateView):
             if activity.get("season") == WINTER_SEASON:
                 winter_activities.append(activity)
         context["winter_activities"] = winter_activities
+        summer_activities = []
+        for activity in ACTIVITIES:
+            if activity.get("season") == OFF_SEASON:
+                summer_activities.append(activity)
+        context["summer_activities"] = summer_activities
         return context
 
 
