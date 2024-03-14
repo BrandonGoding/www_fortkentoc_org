@@ -193,3 +193,5 @@ if ENVIRONMENT == "production":
         # We recommend adjusting this value in production.
         profiles_sample_rate=1.0,
     )
+
+SPATIALITE_LIBRARY_PATH = "/usr/local/lib/mod_spatialite.dylib"
