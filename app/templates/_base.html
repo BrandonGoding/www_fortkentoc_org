@@ -53,6 +53,7 @@
                    hx-swap="afterbegin"
                    class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Webcam</a>
                 <a href="{% slugurl 'trails' %}" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Trail Maps</a>
+                <a href="{% slugurl 'trails' %}#biathlon-maps" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Biathlon Course Maps</a>
                 <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:contact_form' %}"
                    hx-swap="afterbegin"
                    class="text-sm font-medium sm:mr-2 text-white hover:text-gray-300">Contact us</a>
@@ -188,6 +189,10 @@
                                     <a href="{% slugurl 'trails' %}#interactive"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Trail
                                         Maps</a>
+                                </li>
+                                <li>
+                                    <a href="{% slugurl 'trails' %}#biathlon-maps"
+                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Biathlon Course Maps</a>
                                 </li>
                                 <li>
                                     <a href="{% slugurl 'day-passes' %}"
