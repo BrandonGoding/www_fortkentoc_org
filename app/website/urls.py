@@ -45,6 +45,11 @@ urlpatterns = [
         name="calendar",
     ),
     path(
+        "events/",
+        website_views.EventsListView.as_view(),
+        name="events",
+    ),
+    path(
         "facilities/",
         TemplateView.as_view(template_name="website/facility_page.html"),
         name="facilities",

@@ -3,13 +3,12 @@ from datetime import datetime
 from django.core.mail import BadHeaderError, send_mail
 from django.http import (
     HttpResponse,
-    HttpResponseBadRequest,
     HttpResponseRedirect,
     JsonResponse,
 )
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import ListView, TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView
 
 from website.constants import (
     COACHES,
@@ -19,6 +18,8 @@ from website.constants import (
     OFF_SEASON,
 )
 from website.forms import ContactForm, SimpleSubscribeForm
+from website.events import EVENTS
+from website.models import ColorChoices
 
 
 class AboutUsView(TemplateView):
@@ -77,8 +78,30 @@ class CoachDetailView(DetailView):
         return None  # Return None if no coach with the given slug is found
 
 
-class EventsListView(ListView):
+class EventsListView(TemplateView):
     template_name = "website/event_listing_page.html"
+    json_file_path = "website/events.json"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        event_list = []
+        data = EVENTS
+        for event in data:
+            event_title = event["title"]
+            for event_date in event["program_dates"]:
+                program_date = datetime.strptime(event_date['date'], "%Y-%m-%d").date()
+                event_list.append(
+                    {
+                        "title": event_title,
+                        "date": program_date,
+                        "cancelled": event_date.get("cancelled", False),
+                        "category": {"category": event.get("category"), "category_color": ColorChoices.get_category_color(event["category"]) if event.get("category") else None},
+                        "tags": event.get("tags")
+                    }
+                )
+        event_list = sorted(event_list, key=lambda event_block: event_block["date"])
+        context["events"] = [event_date for event_date in event_list if event_date["date"] > datetime.now().date()]
+        return context
 
     # def get_context(self, request, *args, **kwargs):
     #     context = super().get_context(request, *args, **kwargs)
@@ -100,32 +123,15 @@ def webcam_partial(request):
 
 
 def calendar_events(request):
-    try:
-        start_date_str = request.GET.get("start", "")
-        end_date_str = request.GET.get("end", "")
-        start_date = (
-            datetime.fromisoformat(start_date_str) if start_date_str else None
-        )
-        end_date = (
-            datetime.fromisoformat(end_date_str) if end_date_str else None
-        )
-        events = []
-        # for event in EventDatePage.objects.filter(
-        #     date__range=[start_date.date(), end_date.date()]
-        # ):
-        #     print(event)
-        #     events.append(
-        #         {
-        #             "title": event.get_parent().title,
-        #             "start": event.date.strftime("%Y-%m-%d"),
-        #             "color": "rgb(119 29 29)" if event.cancelled else None,
-        #             "url": event.get_url(),
-        #         }
-        #     )
-        return JsonResponse(events, safe=False)
-    except ValueError:
-        # Handle invalid date format
-        return HttpResponseBadRequest("Invalid date format")
+    event_list = []
+    data = EVENTS
+    for event in data:
+        event_title = event["title"]
+        for date in event["program_dates"]:
+            event_list.append(
+                {"title": event_title, "start": date["date"]}
+            )
+    return JsonResponse(event_list, safe=False)
 
 
 def contact_thank_you(request):
