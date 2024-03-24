@@ -22,6 +22,7 @@ from website.events import EVENTS
 from website.models import ColorChoices
 
 
+
 class AboutUsView(TemplateView):
     template_name = "website/about_page.html"
 

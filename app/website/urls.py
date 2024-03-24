@@ -87,7 +87,7 @@ urlpatterns = [
     ),
     path(
         "events/usba-nationals/",
-        TemplateView.as_view(template_name="website/usba_nationals_2024.html"),
+        website_views.usba_redirect,
         name="usba_nationals"
     ),
 ]
