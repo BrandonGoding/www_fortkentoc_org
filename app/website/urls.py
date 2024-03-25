@@ -23,7 +23,32 @@ urlpatterns = [
         website_views.ProgramsTemplateView.as_view(),
         name="programs",
     ),
+    path(
+        "api/calendar-events/",
+        website_views.calendar_events,
+        name="calendar-events",
+    ),
     path("about-us/", website_views.AboutUsView.as_view(), name="about_us"),
+    path(
+        "day-passes/",
+        TemplateView.as_view(template_name="website/day_pass_page.html"),
+        name="day_passes",
+    ),
+    path(
+        "calendar/",
+        TemplateView.as_view(template_name="website/event_calendar.html"),
+        name="calendar",
+    ),
+    path(
+        "events/",
+        website_views.EventsListView.as_view(),
+        name="events",
+    ),
+    path(
+        "events/past/",
+        website_views.PastEventsListView.as_view(),
+        name="past-events",
+    ),
     path(
         "facilities/",
         TemplateView.as_view(template_name="website/facility_page.html"),
@@ -87,7 +112,7 @@ urlpatterns = [
     ),
     path(
         "events/usba-nationals/",
-        website_views.usba_redirect,
+        TemplateView.as_view(template_name="website/usba_nationals_2024.html"),
         name="usba_nationals"
     ),
 ]

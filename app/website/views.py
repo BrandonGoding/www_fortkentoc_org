@@ -22,7 +22,6 @@ from website.events import EVENTS
 from website.models import ColorChoices
 
 
-
 class AboutUsView(TemplateView):
     template_name = "website/about_page.html"
 
@@ -114,6 +113,43 @@ class EventsListView(TemplateView):
     #     context["tags"] = EventTag.objects.all().order_by("name")
     #     return context
 
+
+class PastEventsListView(TemplateView):
+    template_name = "website/event_listing_page.html"
+    json_file_path = "website/events.json"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        event_list = []
+        data = EVENTS
+        for event in data:
+            event_title = event["title"]
+            for event_date in event["program_dates"]:
+                program_date = datetime.strptime(event_date['date'], "%Y-%m-%d").date()
+                event_list.append(
+                    {
+                        "title": event_title,
+                        "date": program_date,
+                        "cancelled": event_date.get("cancelled", False),
+                        "category": {"category": event.get("category"), "category_color": ColorChoices.get_category_color(event["category"]) if event.get("category") else None},
+                        "tags": event.get("tags"),
+                        "show_in_past_events": event.get("show_in_past_events"),
+                        "url": event.get("url"),
+                    }
+                )
+        event_list = sorted(event_list, key=lambda event_block: event_block["date"], reverse=True)
+        context["events"] = [event_date for event_date in event_list if event_date["date"] < datetime.now().date() and event_date["show_in_past_events"]]
+        return context
+
+    # def get_context(self, request, *args, **kwargs):
+    #     context = super().get_context(request, *args, **kwargs)
+    #     # NEED TO INCORPORATE live().child_of(self) TO FILTER OUT PAST EVENTS
+    #     context["events"] = EventDatePage.objects.filter(
+    #         date__gte=datetime.date.today(), live=True
+    #     ).order_by("date")
+    #     context["categories"] = EventCategory.objects.all().order_by("name")
+    #     context["tags"] = EventTag.objects.all().order_by("name")
+    #     return context
 
 def empty_route(request):
     return HttpResponse("")

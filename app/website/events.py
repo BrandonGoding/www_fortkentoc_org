@@ -104,6 +104,8 @@ EVENTS = [
         "category": EventCategoryTextChoices.US_BIATHLON_ASSOCIATION,
         "tags": [
             EventTagTextChoices.CHAMPIONSHIP_EVENT
-        ]
+        ],
+        "show_in_past_events": True,
+        "url": "/events/usba-nationals/",
     }
 ]
