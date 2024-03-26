@@ -23,7 +23,6 @@ from django.urls import include, path
 urlpatterns = [
     path("", include("website.urls")),
     path("admin/", admin.site.urls),
-    path("memberships/", include("membership.urls")),
 ]
 
 if settings.ENVIRONMENT == "development":

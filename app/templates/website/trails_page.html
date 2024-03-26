@@ -43,12 +43,12 @@
     trailHeadCamMarker.bindPopup("<div>Trailhead Webcam<br /><img src='https://webcam.fortkentoc.org/image2-small.jpg' /><br /><a href='https://webcam.fortkentoc.org/image2.jpg' target='_blank'> View Image</a></div>")
     const stadiumCamMarker = L.marker([47.23333, -68.59105], {icon: svgIcon}).addTo(map);
     stadiumCamMarker.bindPopup("<div>Stadium Webcam<br /><img src='https://webcam.fortkentoc.org/image-small.jpg' /><br /><a href='https://webcam.fortkentoc.org/image.jpg' target='_blank'> View Image</a></div>")
-    
-    
+
+
     const trailLineStyles = {
         weight: 2,
-    }   
-    
+    }
+
     const greenBeanFeature = {
         "type": "FeatureCollection",
         "features": [
@@ -1226,7 +1226,7 @@
         ]
     };
     L.geoJSON(greenBeanFeature, {style: trailLineStyles}).addTo(map);
-    
+
     const waskaLoopFeature = {
         "type": "FeatureCollection",
         "features": [

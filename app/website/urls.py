@@ -19,11 +19,6 @@ urlpatterns = [
         name="activities",
     ),
     path(
-        "memberships/",
-        TemplateView.as_view(template_name="website/membership_page.html"),
-        name="memberships",
-    ),
-    path(
         "programs/",
         website_views.ProgramsTemplateView.as_view(),
         name="programs",
@@ -36,13 +31,28 @@ urlpatterns = [
     path("about-us/", website_views.AboutUsView.as_view(), name="about_us"),
     path(
         "day-passes/",
-        TemplateView.as_view(template_name="website/day_pass_page.html"),
-        name="day_passes",
+        website_views.DayPassesTemplateView.as_view(),
+        name="day-passes",
+    ),
+    path(
+        "memberships/",
+        website_views.MembershipTemplateView.as_view(),
+        name="memberships",
     ),
     path(
         "calendar/",
         TemplateView.as_view(template_name="website/event_calendar.html"),
         name="calendar",
+    ),
+    path(
+        "events/",
+        website_views.EventsListView.as_view(),
+        name="events",
+    ),
+    path(
+        "events/past/",
+        website_views.PastEventsListView.as_view(),
+        name="past-events",
     ),
     path(
         "facilities/",
@@ -104,5 +114,10 @@ urlpatterns = [
         "policies/",
         TemplateView.as_view(template_name="website/policies_page.html"),
         name="policies",
+    ),
+    path(
+        "events/usba-nationals/",
+        TemplateView.as_view(template_name="website/usba_nationals_2024.html"),
+        name="usba_nationals",
     ),
 ]

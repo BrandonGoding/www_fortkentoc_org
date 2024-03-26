@@ -3,7 +3,6 @@ FROM python:3.11-slim
 WORKDIR /usr/src/app
 
 
-COPY ./app/membership /usr/src/app/membership
 COPY ./app/templates /usr/src/app/templates
 COPY ./app/website /usr/src/app/website
 COPY ./app/www_fortkentoc_org /usr/src/app/www_fortkentoc_org

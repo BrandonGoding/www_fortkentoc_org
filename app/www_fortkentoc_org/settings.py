@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 
 import pymysql
-import sentry_sdk
 from decouple import config
 
 ENVIRONMENT = config("ENVIRONMENT", default="development")
@@ -25,7 +24,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "membership.apps.MembershipConfig",
     "website.apps.WebsiteConfig",
     "compressor",
     "rest_framework",
@@ -153,45 +151,7 @@ LOGOUT_REDIRECT_URL = "/login/"
 CART_SESSION_ID = "fkoc_cart"
 
 if ENVIRONMENT == "development":
-    STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")
-    STRIPE_ADULT_MEMBERSHIP_PRICE = config(
-        "DEVELOPMENT_STRIPE_ADULT_MEMBERSHIP_PRICE", default=""
-    )
-    STRIPE_YOUTH_MEMBERSHIP_PRICE = config(
-        "DEVELOPMENT_STRIPE_YOUTH_MEMBERSHIP_PRICE", default=""
-    )
-    STRIPE_FAMILY_MEMBERSHIP_PRICE = config(
-        "DEVELOPMENT_STRIPE_FAMILY_MEMBERSHIP_PRICE", default=""
-    )
-    STRIPE_UMFK_MEMBERSHIP_PRICE = config(
-        "DEVELOPMENT_STRIPE_UMFK_MEMBERSHIP_PRICE", default=""
-    )
     BASE_URL = "http://localhost:8000"
 
 if ENVIRONMENT == "production":
-    STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY", default="")
-    STRIPE_ADULT_MEMBERSHIP_PRICE = config(
-        "PRODUCTION_STRIPE_ADULT_MEMBERSHIP_PRICE", default=""
-    )
-    STRIPE_YOUTH_MEMBERSHIP_PRICE = config(
-        "PRODUCTION_STRIPE_YOUTH_MEMBERSHIP_PRICE", default=""
-    )
-    STRIPE_FAMILY_MEMBERSHIP_PRICE = config(
-        "PRODUCTION_STRIPE_FAMILY_MEMBERSHIP_PRICE", default=""
-    )
-    STRIPE_UMFK_MEMBERSHIP_PRICE = config(
-        "PRODUCTION_STRIPE_UMFK_MEMBERSHIP_PRICE", default=""
-    )
     BASE_URL = "https://www.fortkentoc.org"
-    sentry_sdk.init(
-        dsn=config("SENTRY_DSN"),
-        # Set traces_sample_rate to 1.0 to capture 100%
-        # of transactions for performance monitoring.
-        traces_sample_rate=1.0,
-        # Set profiles_sample_rate to 1.0 to profile 100%
-        # of sampled transactions.
-        # We recommend adjusting this value in production.
-        profiles_sample_rate=1.0,
-    )
-
-SPATIALITE_LIBRARY_PATH = "/usr/local/lib/mod_spatialite.dylib"
