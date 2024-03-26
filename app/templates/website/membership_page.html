@@ -70,83 +70,19 @@
       </div>
   </div>
 </section>
+<section class="flex justify-center items-center flex-col mt-6 mb-6">
+<a href="https://waiver.smartwaiver.com/w/61670215255e2/web/" target="_blank" class="m-auto p-2.5 font-extrabold text-gray-800 bg-yellow-300 hover:bg-yellow-200 inline-block text-center" >Before purchasing a membership please sign our E-Waiver HERE!</a>
+</section>
 
-<section class="py-8  lg:py-0  bg-primary-600">
-  <div class="flex mx-auto max-w-screen-xl bg-white">
-      <div class="hidden w-full max-w-md p-6 lg:block bg-primary-600">
-          <div class="block p-8 text-white rounded-lg bg-primary-500">
-              <h2 class="mb-1 text-2xl font-semibold">Join Today</h2>
-              <p class="mb-4 font-light text-primary-100 sm:text-lg">Easy Membership Process</p>
-              <!-- List -->
-              <ul role="list" class="space-y-4 text-left">
-                  <li class="flex items-center">
-                      <!-- Icon -->
-                      <svg class="flex-shrink-0 w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                      <span>Purchase your 2024 Membership</span>
-                  </li>
-                  <li class="flex items-center space-x-3">
-                      <!-- Icon -->
-                      <svg class="flex-shrink-0 w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                      <span>Sign your SmartWaiver <br/> Release of Liability</span>
-                  </li>
-                  <li class="flex items-center space-x-3">
-                      <!-- Icon -->
-                      <svg class="flex-shrink-0 w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                      <span>Receive your Parking Sticker</span>
-                  </li>
-                  <li class="flex items-center space-x-3">
-                      <!-- Icon -->
-                      <svg class="flex-shrink-0 w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                      <span><span class="font-semibold">Enjoy the Facility!</span></span>
-                  </li>
-              </ul>
-          </div>
-      </div>
-      <div class="p-12" id="membership-div">
-          {% include 'website/partials/memberships/membership_type_form.html' %}
-      </div>
-  </div>
+<script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+            <stripe-pricing-table pricing-table-id="prctbl_1OyMtiCNUZB7PvDyvUFsBlWg"
+            publishable-key="pk_live_51K7Op9CNUZB7PvDyrt4Y4E7RoduQLDdUa8S0qfc2fZKdyHLcBbYXUAXAvS5UAzTWjGkIaCuxiTBLqFXYi01Xyb8N00CqrkdT6e">
+            </stripe-pricing-table>
+
+<section class="flex justify-center items-center flex-col mt-6 mb-6">
+<a href="https://waiver.smartwaiver.com/w/61670215255e2/web/" target="_blank" class="m-auto p-2.5 font-extrabold text-gray-800 bg-yellow-300 hover:bg-yellow-200 inline-block text-center" >Before purchasing a membership please sign our E-Waiver HERE!</a>
 </section>
 
 
-
-
-{#    <section class="bg-white dark:bg-gray-900">#}
-{#  <div class="py-8 px-4 max-w-screen-xl lg:py-16 lg:px-6">#}
-{#      <div class="max-w-screen-md text-center">#}
-{#          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Member Testimonials</h2>#}
-{#          <p class="mb-8 font-light text-gray-500 lg:mb-16 dark:text-gray-400 sm:text-xl">The following excerpts are words from our membership about what being an FKOC member means to them.</p>#}
-{#      </div>#}
-{#      <div class="grid gap-8 lg:grid-cols-3">#}
-{#    {% for testimonial in testimonials %}#}
-{#          <div class="space-y-6">#}
-{##}
-{#              <figure class="p-6 bg-gray-50 rounded dark:bg-gray-800">#}
-{#                  <blockquote class="text-sm text-gray-500 dark:text-gray-400">#}
-{#                      <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ testimonial.title }}</h3>#}
-{#                      {{ testimonial.testimonial|safe }}#}
-{#                  </blockquote>#}
-{#                  <figcaption class="flex items-center space-x-3">#}
-{#                      <img class="w-9 h-9 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="profile picture">#}
-{#                      <div class="space-y-0.5 font-medium dark:text-white flex justify-center items-center">#}
-{#                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 18">#}
-{#                            <path d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>#}
-{#                          </svg>#}
-{#                          <div class="ml-3">{{ testimonial.author }}</div>#}
-{##}
-{#                      </div>#}
-{#                  </figcaption>#}
-{#              </figure>#}
-{##}
-{#          </div>#}
-{#        {% if forloop.counter|divisibleby:3 and not forloop.last %}#}
-{#                </div><div class="grid gap-8 lg:grid-cols-3">#}
-{#            {% endif %}#}
-{#          {% endfor %}#}
-{##}
-{#      </div>#}
-{#  </div>#}
-{#</section>#}
-
-
+    <script src="https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=61670215255e2&webpl_title=Sign%20our%20waiver&webpl_align=Right&webpl_fontsize=20&webpl_background=%23E2FF3E&webpl_fontcolor=%23000000&webpl_font=Verdana" type="text/javascript"></script>
 {% endblock content %}

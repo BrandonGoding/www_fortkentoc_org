@@ -31,8 +31,13 @@ urlpatterns = [
     path("about-us/", website_views.AboutUsView.as_view(), name="about_us"),
     path(
         "day-passes/",
-        TemplateView.as_view(template_name="website/day_pass_page.html"),
-        name="day_passes",
+        website_views.DayPassesTemplateView.as_view(),
+        name="day-passes",
+    ),
+    path(
+        "memberships/",
+        website_views.MembershipTemplateView.as_view(),
+        name="memberships",
     ),
     path(
         "calendar/",
@@ -113,6 +118,6 @@ urlpatterns = [
     path(
         "events/usba-nationals/",
         TemplateView.as_view(template_name="website/usba_nationals_2024.html"),
-        name="usba_nationals"
+        name="usba_nationals",
     ),
 ]

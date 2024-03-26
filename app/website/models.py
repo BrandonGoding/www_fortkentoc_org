@@ -108,7 +108,10 @@ class EventCategoryTextChoices(models.TextChoices):
     AROOSTOOK_ATHLETICS = "aroostook_athletics", "Aroostook Athletics"
     MEMBERSHIP_EVENT = "membership_event", "Membership Event"
     COMMUNITY_EVENT = "community_event", "Community Event"
-    US_BIATHLON_ASSOCIATION = "us_biathlon_association", "US Biathlon Association"
+    US_BIATHLON_ASSOCIATION = (
+        "us_biathlon_association",
+        "US Biathlon Association",
+    )
     JALBERT_PROGRAM = "jalbert_program", "Jalbert Program"
 
 
