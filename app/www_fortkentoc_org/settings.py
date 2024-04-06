@@ -1,20 +1,13 @@
 import os
 from pathlib import Path
 
-import pymysql
 from decouple import config
 
-ENVIRONMENT = config("ENVIRONMENT", default="development")
-
-pymysql.install_as_MySQLdb()
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
-)
-ALLOWED_CIDR_NETS = config(
-    "ALLOWED_CIDR_NETS", cast=lambda v: [s.strip() for s in v.split(",")]
 )
 
 INSTALLED_APPS = [
@@ -29,11 +22,11 @@ INSTALLED_APPS = [
     "rest_framework",
     "storages",
     "widget_tweaks",
+    'django_distill',
 ]
 
 MIDDLEWARE = [
     "website.middleware.HealthCheckMiddleware",
-    "allow_cidr.middleware.AllowCIDRMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -63,14 +56,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "www_fortkentoc_org.wsgi.application"
 
-DATABASE_DIR = os.path.join(BASE_DIR, "db.sqlite3")
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": DATABASE_DIR,
-    }
-}
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -95,6 +80,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "static/"
+STATIC_ROOT = "../../html/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -104,54 +90,14 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 COMPRESS_ROOT = BASE_DIR / "static"
-COMPRESS_ENABLED = config("COMPRESS_ENABLED", default=False, cast=bool)
-EMAIL_BACKEND = config(
-    "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
-)
-
-
-if ENVIRONMENT == "production":
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
-    AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
-    AWS_S3_CUSTOM_DOMAIN = "%s" % AWS_STORAGE_BUCKET_NAME
-    AWS_S3_OBJECT_PARAMETERS = {
-        "CacheControl": "max-age=86400",
-    }
-    AWS_STATIC_LOCATION = "static"
-    AWS_PUBLIC_MEDIA_LOCATION = "media/public"
-    DEFAULT_FILE_STORAGE = (
-        "www_fortkentoc_org.storage_backends.PublicMediaStorage"
-    )
-    AWS_PRIVATE_MEDIA_LOCATION = "media/private"
-    PRIVATE_FILE_STORAGE = (
-        "www_fortkentoc_org.storage_backends.PrivateMediaStorage"
-    )
-    STATICFILES_STORAGE = "www_fortkentoc_org.storage_backends.StaticStorage"
-    EMAIL_HOST = config("EMAIL_HOST", default="")
-    EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
-    EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_USE_SSL = False
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-
-if ENVIRONMENT == "development":
-    MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-    MEDIA_URL = "/media/"
+COMPRESS_ENABLED = False
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/login/"
 
-CART_SESSION_ID = "fkoc_cart"
-
-if ENVIRONMENT == "development":
-    BASE_URL = "http://localhost:8000"
-
-if ENVIRONMENT == "production":
-    BASE_URL = "https://www.fortkentoc.org"
+BASE_URL = "http://localhost:8000"

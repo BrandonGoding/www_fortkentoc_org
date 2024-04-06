@@ -1,13 +1,10 @@
 from datetime import datetime
 
-from django.core.mail import BadHeaderError, send_mail
 from django.http import (
     HttpResponse,
-    HttpResponseRedirect,
     JsonResponse,
 )
 from django.shortcuts import render
-from django.urls import reverse
 from django.views.generic import TemplateView, DetailView
 
 from website.constants import (
@@ -17,7 +14,6 @@ from website.constants import (
     WINTER_SEASON,
     OFF_SEASON,
 )
-from website.forms import ContactForm, SimpleSubscribeForm
 from website.events import EVENTS
 from website.models import ColorChoices
 
@@ -249,63 +245,6 @@ def calendar_events(request):
     return JsonResponse(event_list, safe=False)
 
 
-def contact_thank_you(request):
-    return render(request, "website/partials/contact_form_thank_you.html")
 
 
-def contact_form(request):
-    if request.method == "POST":
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            # The form is valid, so send an email.
-            subject = "FKOC Contact Form"
-            body = {
-                "name": form.cleaned_data["name"],
-                "email": form.cleaned_data["email"],
-                "message": form.cleaned_data["message"],
-            }
-            message = "\n".join(body.values())
 
-            try:
-                send_mail(
-                    subject,
-                    message,
-                    "info@fortkentoc.org",
-                    ["info@fortkentoc.org"],
-                )
-            except BadHeaderError:
-                return HttpResponse("Invalid header found.")
-            return HttpResponseRedirect(
-                reverse("website:contact_form_thank_you")
-            )
-    else:
-        form = ContactForm()
-    return render(
-        request, "website/partials/contact_form.html", {"form": form}
-    )
-
-
-def process_subscribe_form(request):
-    if request.method == "POST":
-        form = SimpleSubscribeForm(request.POST)
-        if form.is_valid():
-            # The form is valid, so send an email.
-            subject = "ADD ME TO THE EMAIL LIST"
-            body = {
-                "email": form.cleaned_data["email"],
-            }
-            message = "\n".join(body.values())
-
-            try:
-                send_mail(
-                    subject,
-                    message,
-                    "info@fortkentoc.org",
-                    ["info@fortkentoc.org"],
-                )
-            except BadHeaderError:
-                return HttpResponse("Invalid header found.")
-            return HttpResponseRedirect(reverse("website:subscribe_thank_you"))
-    else:
-        form = SimpleSubscribeForm()
-    return render(request, "website/cta/email_list.html", {"form": form})

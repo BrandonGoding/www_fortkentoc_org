@@ -1,3 +1,4 @@
+{% load static %}
 <section class="bg-white dark:bg-gray-900">
     <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
         <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
@@ -20,15 +21,15 @@
                         </div>
         </div>
         <div class="grid grid-cols-2 gap-4 mt-8">
-            <a href="https://webcam.fortkentoc.org/image.jpg" target="_blank" class="group text-center pt-2 hover:opacity-75 w-full rounded-lg">
+            <a href="{% static 'unhappycamera.png' %}" target="_blank" class="group text-center pt-2 hover:opacity-75 w-full rounded-lg">
                         <img class="object-cover rounded group-hover:opacity-75 transition duration-150 ease-in-out"
-                         src="https://webcam.fortkentoc.org/image-small.jpg"
+                         src="{% static 'unhappycamera.png' %}"
                          alt="FKOC Webcam watching stadium">
                         <span class="hidden md:block">View Full Size Image</span>
                     </a>
-            <a href="https://webcam.fortkentoc.org/image2.jpg" target="_blank" class="group text-center pt-2 hover:opacity-75 mt-4 w-full lg:mt-10 rounded-lg">
+            <a href="{% static 'unhappycamera.png' %}" target="_blank" class="group text-center pt-2 hover:opacity-75 mt-4 w-full lg:mt-10 rounded-lg">
                         <img class="object-cover rounded group-hover:opacity-75 transition duration-150 ease-in-out"
-                         src="https://webcam.fortkentoc.org/image2-small.jpg"
+                         src="{% static 'unhappycamera.png' %}"
                          alt="FKOC Webcam watching trailhead">
                         <span class="hidden md:block">View Full Size Image</span>
                     </a>

@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
     <section
-            class="bg-[url('https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
+            style="background-image: url('{% static 'banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg' %}');" class=" bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
         <div class="relative py-8 px-4 mx-auto max-w-screen-xl text-white lg:py-16 xl:px-0 z-1">
             <div class="mb-6 max-w-screen-md lg:mb-0">
                 <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">
@@ -162,7 +162,7 @@
             <div class="grid grid-cols-1 gap-4 mt-8 lg:mt-16 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                 {% for board_member in board_members %}
                     <div class="relative overflow-hidden rounded-lg group">
-                        <img src="{% if board_member.imageUrl %}{{ board_member.imageUrl }}{% else %}https://cdn.fortkentoc.org/media/public/images/noimageboardmember.2e16d0ba.fill-296x369.png{% endif %}" class="object-cover object-top w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125 top-0" />
+                        <img src="{% if board_member.imageUrl %}{{ board_member.imageUrl }}{% else %}{% static 'media/public/images/noimageboardmember.2e16d0ba.fill-296x369.png' %}{% endif %}" class="object-cover object-top w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125 top-0" />
                         <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">
                             <div class="text-center">
                                 <p class="text-xl font-bold text-white">
@@ -227,7 +227,7 @@
                 marvelous gem in the St. John Valley. We are thankful for all donations, large and small! They help us
                 continue to serve as a recreation hub for the Greater Fort Kent Area. </p>
             <img class="mx-auto mb-5 lg:mb-8 border border-gray-200 rounded-lg shadow-xl dark:border-gray-600 z-1 dark:hidden"
-                 src="https://cdn.fortkentoc.org/banner_images/fort-kent-outdoor-center-lodge-fall-image.jpg"
+                 src="{% static 'banner_images/fort-kent-outdoor-center-lodge-fall-image.jpg' %}"
                  alt="fkoc lodge during fall season">
         </div>
     </section>

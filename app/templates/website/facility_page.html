@@ -3,7 +3,7 @@
 
 {% block content %}
     <section
-            class="bg-[url('https://cdn.fortkentoc.org/banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg')] bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
+            style="background-image: url('{% static 'banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg' %}');" class=" bg-no-repeat bg-cover bg-center bg-gray-700 bg-blend-multiply">
         <div class="relative py-8 px-4 mx-auto max-w-screen-xl text-white lg:py-16 xl:px-0 z-1">
             <div class="mb-6 max-w-screen-md lg:mb-0">
                 <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">
@@ -34,18 +34,6 @@
                     as separate Mens and Ladies facilities in the lower level.</p>
                 <p class="mb-4">Lodge rentals also include half price trail passes for rental participants, with showers
                     and a sauna available as well. What a relaxing, healthy way to end a meeting or seminar!</p>
-                <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:contact_form' %}"
-                   hx-swap="afterbegin" title=""
-                   class="inline-flex items-center text-base font-medium text-primary-600 hover:underline dark:text-primary-500">
-                    Inquire Today
-                    <svg aria-hidden="true" class="w-5 h-5 ml-1.5" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 20 20"
-                         fill="currentColor">
-                        <path fill-rule="evenodd"
-                              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                              clip-rule="evenodd"/>
-                    </svg>
-                </a>
             </div>
             <div class="grid grid-cols-2 gap-4 mt-8">
                 <img class="w-full rounded-lg" src="{% static 'website/img/lodge-interior.jpg' %}" alt="fkoc lodge interior">
@@ -114,7 +102,5 @@
             <img class="w-full dark:hidden" src="{% static 'website/img/10th-aerial.jpg' %}" alt="aerial view of facility">
         </div>
     </section>
-
-    {% include 'website/cta/email_list.html' %}
 
 {% endblock content %}

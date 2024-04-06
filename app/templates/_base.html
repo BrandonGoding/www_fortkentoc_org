@@ -42,7 +42,6 @@
 {% endblock %}
 </head>
 <body>
-<a href="{% url 'website:programs' %}#pg-training" style="display:block;text-align: center;padding:25px;background-color:yellow;font-weight: bolder">2024-25 PG Program applications are now live click here for details</a>
 <header>
     <nav class="hidden border-gray-200 bg-gray-800 md:block">
         <div class="flex flex-wrap justify-between items-end mx-auto max-w-screen-xl py-2.5">
@@ -52,16 +51,13 @@
                    hx-swap="afterbegin"
                    class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Webcam</a>
                 <a href="{% url 'website:trails' %}" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Trail Maps</a>
-                <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:contact_form' %}"
-                   hx-swap="afterbegin"
-                   class="text-sm font-medium sm:mr-2 text-white hover:text-gray-300">Contact us</a>
             </div>
         </div>
     </nav>
     <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="/" class="flex items-center">
-                <img src="https://cdn.fortkentoc.org/fkoc-logo.jpeg" class="mr-3 h-6 sm:h-9" alt="FKOC Logo"/>
+                <img src="{% static 'fkoc-logo.jpeg' %}" class="mr-3 h-6 sm:h-9" alt="FKOC Logo"/>
                 <span class="sr-only">Fort Kent Outdoor Center</span>
             </a>
             <div class="flex items-center lg:order-2">
@@ -247,7 +243,7 @@
     <div class="mx-auto max-w-screen-xl text-center">
         <div class="hidden md:grid lg:grid-cols-3 ">
             <a href="#" class="flex items-center mb-4 text-2xl font-semibold text-gray-900 lg:mb-0 dark:text-white">
-                <img src="https://cdn.fortkentoc.org/fkoc-logo.jpeg" class="mr-3 h-6 sm:h-9" alt="FKOC Logo"/>
+                <img src="{% static 'fkoc-logo.jpeg' %}" class="mr-3 h-6 sm:h-9" alt="FKOC Logo"/>
             </a>
             <ul class="flex flex-wrap items-center mb-4 text-sm text-gray-500 lg:mb-0 dark:text-gray-400">
                 <li>
@@ -255,10 +251,6 @@
                 </li>
                 <li>
                     <a href="{% url 'website:policies' %}" class="mr-4 hover:underline md:mr-6">Policies & Safety</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline"  hx-trigger="click" hx-target="body"
-                    hx-get="{% url 'website:contact_form' %}" hx-swap="afterbegin">Contact</a>
                 </li>
             </ul>
         </div>
@@ -286,14 +278,6 @@
     </div>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
-<!-- Begin SlickText Tag -->
-<script defer src="https://cdn.slicktext.com/scripts/stag.min.js"></script>
-<script>
-window.sTagConfig = window.sTagConfig || [];
-function sTag(){sTagConfig.push(arguments);}
-sTag("ut", "a204edb5131e1a5c3a5490233d9242a5");
-</script>
-<!-- End SlickText Tag -->
 </body>
 
 </html>
