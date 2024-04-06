@@ -8,12 +8,13 @@ from website.constants import ACTIVITIES, WINTER_SEASON, COACHES
 def get_winter_activity_slug():
     for activity in ACTIVITIES:
         if activity.get("season") == WINTER_SEASON:
-            yield {'slug': activity.get("slug")}
+            yield {"slug": activity.get("slug")}
 
 
 def get_coach_slug():
     for coach in COACHES:
-        yield {'slug': coach.get("slug")}
+        yield {"slug": coach.get("slug")}
+
 
 app_name = "website"
 
@@ -38,7 +39,9 @@ urlpatterns = [
         website_views.calendar_events,
         name="calendar-events",
     ),
-    distill_path("about-us/", website_views.AboutUsView.as_view(), name="about_us"),
+    distill_path(
+        "about-us/", website_views.AboutUsView.as_view(), name="about_us"
+    ),
     distill_path(
         "day-passes/",
         website_views.DayPassesTemplateView.as_view(),
@@ -90,7 +93,9 @@ urlpatterns = [
         name="activity_partial",
         distill_func=get_winter_activity_slug,
     ),
-    distill_path("partials/empty/", website_views.empty_route, name="empty_route"),
+    distill_path(
+        "partials/empty/", website_views.empty_route, name="empty_route"
+    ),
     distill_path(
         "partials/webcam/", website_views.webcam_partial, name="webcam_modal"
     ),

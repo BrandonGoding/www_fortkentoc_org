@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "storages",
     "widget_tweaks",
-    'django_distill',
+    "django_distill",
 ]
 
 MIDDLEWARE = [

@@ -61,25 +61,25 @@ class DayPassesTemplateView(TemplateView):
     square_links = [
         {
             "url": "https://buy.stripe.com/dR69Ep4mM0VW5Co4gh",
-            "image": "http://cdn.fortkentoc.org/media/public/original_images/DALLE_2023-12-10_12.25.00_-_An_adult_cross_country_skier_gliding_through_a.png",
+            "image": "/static/media/public/original_images/DALLE_2023-12-10_12.25.00_-_An_adult_cross_country_skier_gliding_through_a.png",
             "name": "Adult Ski Pass",
             "price": 18,
         },
         {
             "url": "https://buy.stripe.com/28o5o9cTicEE2qc4gi",
-            "image": "http://cdn.fortkentoc.org/media/public/original_images/DALLE_2023-12-10_12.34.29_-_A_youth_cross_country_skier_gliding_through_a_.png",
+            "image": "/static/media/public/original_images/DALLE_2023-12-10_12.34.29_-_A_youth_cross_country_skier_gliding_through_a_.png",
             "name": "Junior Ski Pass",
             "price": 12,
         },
         {
             "url": "https://buy.stripe.com/7sI9EpcTieMMc0MfZ1",
-            "image": "http://cdn.fortkentoc.org/media/public/original_images/DALLE_2023-12-10_12.37.47_-_An_adult_snowshoer_trekking_through_a_winter_l.png",
+            "image": "/static/media/public/original_images/DALLE_2023-12-10_12.37.47_-_An_adult_snowshoer_trekking_through_a_winter_l.png",
             "name": "Adult Snowshoe Pass",
             "price": 10,
         },
         {
             "url": "https://buy.stripe.com/6oE3g11aA6gg3ug3cg",
-            "image": "http://cdn.fortkentoc.org/media/public/original_images/DALLE_2023-12-10_12.39.40_-_A_youth_snowshoer_trekking_through_a_winter_la.png",
+            "image": "/static/media/public/original_images/DALLE_2023-12-10_12.39.40_-_A_youth_snowshoer_trekking_through_a_winter_la.png",
             "name": "Junior Snowshoe Pass",
             "price": 5,
         },
@@ -216,16 +216,6 @@ class PastEventsListView(TemplateView):
         ]
         return context
 
-    # def get_context(self, request, *args, **kwargs):
-    #     context = super().get_context(request, *args, **kwargs)
-    #     # NEED TO INCORPORATE live().child_of(self) TO FILTER OUT PAST EVENTS
-    #     context["events"] = EventDatePage.objects.filter(
-    #         date__gte=datetime.date.today(), live=True
-    #     ).order_by("date")
-    #     context["categories"] = EventCategory.objects.all().order_by("name")
-    #     context["tags"] = EventTag.objects.all().order_by("name")
-    #     return context
-
 
 def empty_route(request):
     return HttpResponse("")
@@ -243,8 +233,3 @@ def calendar_events(request):
         for date in event["program_dates"]:
             event_list.append({"title": event_title, "start": date["date"]})
     return JsonResponse(event_list, safe=False)
-
-
-
-
-
