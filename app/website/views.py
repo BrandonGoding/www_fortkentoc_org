@@ -138,6 +138,8 @@ class EventsListView(TemplateView):
                             else None,
                         },
                         "tags": event.get("tags"),
+                        "banner_image_url": event.get("banner_image_url"),
+                        "url": event.get("url")
                     }
                 )
         event_list = sorted(

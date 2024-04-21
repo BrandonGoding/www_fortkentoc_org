@@ -107,4 +107,31 @@ EVENTS = [
         "show_in_past_events": True,
         "url": "/events/usba-nationals/",
     },
+    {
+        "title": "U15 Biathlon Camp",
+        "program_dates": [
+            {"date": "2024-07-22"},
+            {"date": "2024-07-23"},
+            {"date": "2024-07-24"},
+            {"date": "2024-07-25"},
+        ],
+        "category": EventCategoryTextChoices.TRAINING_CAMP,
+        "tags": [EventTagTextChoices.BIATHLON],
+        "banner_image_url": "/website/img/biathlon_camp/campbanner.jpg",
+        "url": "/events/2024-biathlon-camp/",
+    },
+{
+        "title": "U18 Biathlon Camp",
+        "program_dates": [
+            {"date": "2024-07-27"},
+            {"date": "2024-07-28"},
+            {"date": "2024-07-29"},
+            {"date": "2024-07-30"},
+            {"date": "2024-07-31"}
+        ],
+        "category": EventCategoryTextChoices.TRAINING_CAMP,
+        "tags": [EventTagTextChoices.BIATHLON],
+        "banner_image_url": "/website/img/biathlon_camp/campbanner.jpg",
+        "url": "/events/2024-biathlon-camp/",
+    }
 ]

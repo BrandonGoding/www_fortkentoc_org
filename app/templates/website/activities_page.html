@@ -35,7 +35,30 @@
             </div>
         </div>
     </section>
-
+    
+{#    <section class="bg-white dark:bg-gray-90">#}
+{#        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">#}
+{#            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Spring, Summer and Fall Activities</h2>#}
+{#            <p class="font-light text-gray-500 sm:text-lg md:px-20 lg:px-38 xl:px-48 dark:text-gray-400">Although winter is our jam, there is plenty to do in the off season at the Fort Kent Outdoor Center</p>#}
+{#            <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">#}
+{#                {% for activity in summer_activities %}#}
+{#                    {% if activity.slug %}#}
+{#                <button  hx-trigger="click" hx-target="body" hx-get="{% url 'website:activity_partial' activity.slug %}" hx-swap="afterbegin" class="relative overflow-hidden hover:outline hover:outline-2 hover:outline-blue-900 rounded-lg group flex justify-center items-center bg-white col-span-{{ activity.col_span }} mb-4 sm:mb-0 rounded-lg bg-cover activity-button">#}
+{#                    <h3 class="absolute z-10 mb-2 text-xl font-bold text-white outline-1 p-5 learn-title">{{ activity.name }}</h3>#}
+{#                    <h3 class="hidden absolute z-10 mb-2 text-xl font-bold text-white outline-1 p-5 learn-more">Learn More...</h3>#}
+{#                    {% if activity.col_span == 2 %}#}
+{#                        <img src="{{ activity.thumbnail }}" class="z-0 object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125"  />#}
+{#                    {% elif activity.col_span == 1 %}#}
+{#                        <img src="{{ activity.thumbnail }}" class="z-0 object-cover w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125"  />#}
+{#                    {% endif %}#}
+{#                    <span class="bg-black absolute w-full h-full opacity-40">&nbsp;</span>#}
+{#                </button>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        </div>#}
+{#    </section>#}
+{##}
 
 
 

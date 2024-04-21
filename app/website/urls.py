@@ -115,4 +115,9 @@ urlpatterns = [
         TemplateView.as_view(template_name="website/usba_nationals_2024.html"),
         name="usba_nationals",
     ),
+    distill_path(
+        "events/2024-biathlon-camp/",
+        TemplateView.as_view(template_name="website/biathlon_camp_2024.html"),
+        name="2024_biathlon_camp",
+    ),
 ]

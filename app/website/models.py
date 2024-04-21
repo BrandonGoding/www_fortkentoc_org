@@ -54,7 +54,7 @@ class ColorChoices(models.TextChoices):
     GREEN = "green", "Green"
     BLUE = "blue", "Blue"
     PURPLE = "purple", "Purple"
-    Pink = "pink", "Pink"
+    PINK = "pink", "Pink"
 
     @staticmethod
     def get_category_color(category):
@@ -68,35 +68,8 @@ class ColorChoices(models.TextChoices):
             return ColorChoices.BLUE
         if category == category.JALBERT_PROGRAM:
             return ColorChoices.PURPLE
-
-    @staticmethod
-    def get_tag_color(tag):
-        if tag == tag.HIGHSCHOOL_RACE:
-            return ColorChoices.GRAY
-        if tag == tag.MIDDLE_SCHOOL_RACE:
-            return ColorChoices.RED
-        if tag == tag.INVITATIONAL:
-            return ColorChoices.YELLOW
-        if tag == tag.BOARD_ELECTIONS:
-            return ColorChoices.GREEN
-        if tag == tag.SOCIAL_EVENT:
-            return ColorChoices.BLUE
-        if tag == tag.RENTAL_SHOP:
-            return ColorChoices.PURPLE
-        if tag == tag.MEMBERSHIP_DRIVE:
-            return ColorChoices.GRAY
-        if tag == tag.HOSTED_BY_UMFK:
-            return ColorChoices.RED
-        if tag == tag.CHAMPIONSHIP_EVENT:
-            return ColorChoices.YELLOW
-        if tag == tag.SKI_LESSONS:
-            return ColorChoices.GREEN
-        if tag == tag.LADIES_ONLY:
-            return ColorChoices.BLUE
-        if tag == tag.POKER_RUN:
-            return ColorChoices.PURPLE
-        if tag == tag.BIATHLON:
-            return ColorChoices.RED
+        if category == category.TRAINING_CAMP:
+            return ColorChoices.PINK
 
     @property
     def color_code(self):
@@ -113,6 +86,7 @@ class EventCategoryTextChoices(models.TextChoices):
         "US Biathlon Association",
     )
     JALBERT_PROGRAM = "jalbert_program", "Jalbert Program"
+    TRAINING_CAMP = "training_camp", "Training Camp"
 
 
 class EventTagTextChoices(models.TextChoices):
@@ -130,3 +104,32 @@ class EventTagTextChoices(models.TextChoices):
     LADIES_ONLY = "ladies_only", "Ladies Only"
     POKER_RUN = "poker_run", "Poker Run"
     BIATHLON = "biathlon", "Biathlon"
+
+    @property
+    def tag_color(tag):
+        if tag == EventTagTextChoices.HIGH_SCHOOL_RACE:
+            return ColorChoices.GRAY
+        if tag == EventTagTextChoices.MIDDLE_SCHOOL_RACE:
+            return ColorChoices.RED
+        if tag == EventTagTextChoices.INVITATIONAL:
+            return ColorChoices.YELLOW
+        if tag == EventTagTextChoices.BOARD_ELECTIONS:
+            return ColorChoices.GREEN
+        if tag == EventTagTextChoices.SOCIAL_EVENT:
+            return ColorChoices.BLUE
+        if tag == EventTagTextChoices.RENTAL_SHOP:
+            return ColorChoices.PURPLE
+        if tag == EventTagTextChoices.MEMBERSHIP_DRIVE:
+            return ColorChoices.GRAY
+        if tag == EventTagTextChoices.HOSTED_BY_UMFK:
+            return ColorChoices.RED
+        if tag == EventTagTextChoices.CHAMPIONSHIP_EVENT:
+            return ColorChoices.YELLOW
+        if tag == EventTagTextChoices.SKI_LESSONS:
+            return ColorChoices.GREEN
+        if tag == EventTagTextChoices.LADIES_ONLY:
+            return ColorChoices.BLUE
+        if tag == EventTagTextChoices.POKER_RUN:
+            return ColorChoices.PURPLE
+        if tag == EventTagTextChoices.BIATHLON:
+            return ColorChoices.RED

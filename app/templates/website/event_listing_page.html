@@ -26,10 +26,9 @@
                 <span class="text-white text-5xl font-bold rotate-45">CANCELLED</span>
             </div>
             {% endif %}
-              {% if event.url %}<a href="{{ event.url }}">{% endif %}
-                  {% if false %}
-                      <h1>IMAGE GOES HERE</h1>
-{#                  {% image event.get_parent.specific.banner_image fill-355x132 crop="center" class="mb-5 rounded-lg" %}#}
+              {% if event.url %}<a href="{{ event.url }}">{% endif %}   
+                  {% if event.banner_image_url %}
+                  <img class="mb-5 rounded-lg" src="{% static event.banner_image_url %}" alt="Fort Kent Outdoor Center During biathlon event">
                   {% else %}
                   <img class="mb-5 rounded-lg" src="{% static 'banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg' %}" alt="Fort Kent Outdoor Center During biathlon event">
                   {% endif %}
@@ -38,7 +37,7 @@
                     <span class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded ">&nbsp;</span>
                 {% endif %}
               {% for tag in event.tags %}
-              <span class="text-xs font-semibold mr-0.5 px-5 py-0.5 rounded" style="background-color:{{ tag.color_code.100 }};color:{{ tag.color_code.800 }};">{{ tag.label }}</span>
+              <span class="text-xs font-semibold mr-0.5 px-5 py-0.5 rounded" style="background-color:{{ tag.tag_color.color_code.100 }};color:{{ tag.tag_color.color_code.800 }};">{{ tag.label }}</span>
               {% endfor %}
               <h2 class="my-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {% if event.url %}<a href="{{ event.url }}">{% endif %}{{ event.title }}{% if event.url %}</a>{% endif %}
