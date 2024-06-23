@@ -1,0 +1,28 @@
+{% extends "../_base.html" %}
+{% load static %}
+{% block content %}
+
+
+    <section class="bg-white dark:bg-gray-900">
+    <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+        <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">2024 Summer Nordic Camp<br/>June 28-July 1:</h2>
+            <p class="mb-4">Join us June 28-July 1 for our 2024 Summer Nordic Camp. We will have four days of rollerskiing, strength, and endurance training coached by some of Maine’s finest coaches at the exceptional facilities here in Fort Kent. The camp is open to all high school aged kids and recent graduates, and lodging and meals will be provided. Registration is not open yet, but should open up on the Fort Kent Outdoor Center website sometime next week. Any questions can be sent to info@fortkentoc.org</p>
+            <h4 class="font-medium">Camp Fee: $350</h4>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScvmC4_JMiCsKF7AW1ukLHNv0LPe847ZQseAjR5e4Jru2xD6Q/viewform?usp=sf_link" target="_blank" class="inline-flex items-center font-medium text-primary-600 hover:text-primary-800 dark:text-primary-500 dark:hover:text-primary-700">
+                  Register for Nordic Camp
+                  <svg class="ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+              </a>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-8">
+            <img class="w-full rounded-lg" src="{% static 'website/img/biathlon_camp/IMG_5146.JPG' %}" alt="campers at shooting range">
+
+        </div>
+    </div>
+</section>
+
+
+
+    
+
+{% endblock content %}

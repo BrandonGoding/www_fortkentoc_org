@@ -104,6 +104,7 @@ class EventTagTextChoices(models.TextChoices):
     LADIES_ONLY = "ladies_only", "Ladies Only"
     POKER_RUN = "poker_run", "Poker Run"
     BIATHLON = "biathlon", "Biathlon"
+    NORDIC = "nordic", "Nordic"
 
     @property
     def tag_color(tag):
@@ -133,3 +134,5 @@ class EventTagTextChoices(models.TextChoices):
             return ColorChoices.PURPLE
         if tag == EventTagTextChoices.BIATHLON:
             return ColorChoices.RED
+        if tag == EventTagTextChoices.NORDIC:
+            return ColorChoices.PURPLE

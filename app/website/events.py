@@ -133,5 +133,18 @@ EVENTS = [
         "tags": [EventTagTextChoices.BIATHLON],
         "banner_image_url": "/website/img/biathlon_camp/campbanner.jpg",
         "url": "/events/2024-biathlon-camp/",
+    },
+{
+        "title": "2024 Summer Nordic Camp",
+        "program_dates": [
+            {"date": "2024-06-28"},
+            {"date": "2024-06-29"},
+            {"date": "2024-06-30"},
+            {"date": "2024-07-01"},
+        ],
+        "category": EventCategoryTextChoices.TRAINING_CAMP,
+        "tags": [EventTagTextChoices.NORDIC],
+        "banner_image_url": "/website/img/biathlon_camp/campbanner.jpg",
+        "url": "/events/2024-nordic-camp/",
     }
 ]
