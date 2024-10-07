@@ -146,5 +146,47 @@ EVENTS = [
         "tags": [EventTagTextChoices.NORDIC],
         "banner_image_url": "/website/img/biathlon_camp/campbanner.jpg",
         "url": "/events/2024-nordic-camp/",
+    },
+{
+        "title": "2024 Diamond Trail Hikes",
+        "program_dates": [
+            {"date": "2024-07-11"},
+            {"date": "2024-07-25"},
+            {"date": "2024-08-08"},
+            {"date": "2024-08-22"},
+            {"date": "2024-09-05"},
+            {"date": "2024-09-19"},
+        ],
+        "category": EventCategoryTextChoices.COMMUNITY_EVENT,
+        "tags": [EventTagTextChoices.SOCIAL_EVENT],
+        "url": "https://www.fortkentoc.org/website/2024diamonhikes.jpeg",
+    },
+{
+        "title": "BBQ & Band Fundraiser",
+        "program_dates": [
+            {"date": "2024-08-17"},
+        ],
+        "category": EventCategoryTextChoices.COMMUNITY_EVENT,
+        "tags": [EventTagTextChoices.SOCIAL_EVENT],
+        "url": "https://www.fortkentoc.org/website/2024diamonhikes.jpeg",
+    },
+{
+        "title": "Disc Golf Tournament",
+        "program_dates": [
+            {"date": "2024-08-17"},
+        ],
+        "category": EventCategoryTextChoices.COMMUNITY_EVENT,
+        "tags": [EventTagTextChoices.SOCIAL_EVENT],
+        "url": "https://www.fortkentoc.org/website/2024diamonhikes.jpeg",
+    },
+{
+        "title": "Raffle & Silent Auction",
+        "program_dates": [
+            {"date": "2024-08-17"},
+        ],
+        "category": EventCategoryTextChoices.COMMUNITY_EVENT,
+        "tags": [EventTagTextChoices.SOCIAL_EVENT],
+        "url": "https://www.fortkentoc.org/website/2024diamonhikes.jpeg",
     }
+
 ]

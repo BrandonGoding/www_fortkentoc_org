@@ -136,3 +136,18 @@ class EventTagTextChoices(models.TextChoices):
             return ColorChoices.RED
         if tag == EventTagTextChoices.NORDIC:
             return ColorChoices.PURPLE
+
+
+class Event(models.Model):
+    title = models.CharField(max_length=255)
+    category = models.CharField(max_length=255, choices=ColorChoices.choices)
+    show_in_past_events = models.BooleanField(default=False)
+    banner_image = models.ImageField("banner_images")
+    url_field = models.URLField()
+
+
+class ProgramDate(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
