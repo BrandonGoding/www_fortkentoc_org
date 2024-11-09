@@ -120,21 +120,21 @@ EVENTS = [
         "banner_image_url": "/website/img/biathlon_camp/campbanner.jpg",
         "url": "/events/2024-biathlon-camp/",
     },
-{
+    {
         "title": "U18 Biathlon Camp",
         "program_dates": [
             {"date": "2024-07-27"},
             {"date": "2024-07-28"},
             {"date": "2024-07-29"},
             {"date": "2024-07-30"},
-            {"date": "2024-07-31"}
+            {"date": "2024-07-31"},
         ],
         "category": EventCategoryTextChoices.TRAINING_CAMP,
         "tags": [EventTagTextChoices.BIATHLON],
         "banner_image_url": "/website/img/biathlon_camp/campbanner.jpg",
         "url": "/events/2024-biathlon-camp/",
     },
-{
+    {
         "title": "2024 Summer Nordic Camp",
         "program_dates": [
             {"date": "2024-06-28"},
@@ -147,7 +147,7 @@ EVENTS = [
         "banner_image_url": "/website/img/biathlon_camp/campbanner.jpg",
         "url": "/events/2024-nordic-camp/",
     },
-{
+    {
         "title": "2024 Diamond Trail Hikes",
         "program_dates": [
             {"date": "2024-07-11"},
@@ -161,7 +161,7 @@ EVENTS = [
         "tags": [EventTagTextChoices.SOCIAL_EVENT],
         "url": "https://www.fortkentoc.org/website/2024diamonhikes.jpeg",
     },
-{
+    {
         "title": "BBQ & Band Fundraiser",
         "program_dates": [
             {"date": "2024-08-17"},
@@ -170,7 +170,7 @@ EVENTS = [
         "tags": [EventTagTextChoices.SOCIAL_EVENT],
         "url": "https://www.fortkentoc.org/website/2024diamonhikes.jpeg",
     },
-{
+    {
         "title": "Disc Golf Tournament",
         "program_dates": [
             {"date": "2024-08-17"},
@@ -179,7 +179,7 @@ EVENTS = [
         "tags": [EventTagTextChoices.SOCIAL_EVENT],
         "url": "https://www.fortkentoc.org/website/2024diamonhikes.jpeg",
     },
-{
+    {
         "title": "Raffle & Silent Auction",
         "program_dates": [
             {"date": "2024-08-17"},
@@ -188,7 +188,7 @@ EVENTS = [
         "tags": [EventTagTextChoices.SOCIAL_EVENT],
         "url": "https://www.fortkentoc.org/website/2024diamonhikes.jpeg",
     },
-{
+    {
         "title": "Seasonal Ski Rental",
         "program_dates": [
             {"date": "2024-11-16", "start_time": "13:00", "end_time": "15:00"},

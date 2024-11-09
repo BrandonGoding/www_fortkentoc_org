@@ -116,51 +116,39 @@ class EventsListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        event_list = []
-        data = EVENTS
-        for event in data:
-            event_title = event["title"]
-            for event_date in event["program_dates"]:
-                program_date = datetime.strptime(
-                    event_date["date"], "%Y-%m-%d"
-                ).date()
-                event_list.append(
-                    {
-                        "title": event_title,
-                        "date": program_date,
-                        "cancelled": event_date.get("cancelled", False),
-                        "category": {
-                            "category": event.get("category"),
-                            "category_color": ColorChoices.get_category_color(
-                                event["category"]
-                            )
-                            if event.get("category")
-                            else None,
-                        },
-                        "tags": event.get("tags"),
-                        "banner_image_url": event.get("banner_image_url"),
-                        "url": event.get("url")
-                    }
-                )
-        event_list = sorted(
-            event_list, key=lambda event_block: event_block["date"]
-        )
-        context["events"] = [
-            event_date
-            for event_date in event_list
-            if event_date["date"] > datetime.now().date()
-        ]
-        return context
 
-    # def get_context(self, request, *args, **kwargs):
-    #     context = super().get_context(request, *args, **kwargs)
-    #     # NEED TO INCORPORATE live().child_of(self) TO FILTER OUT PAST EVENTS
-    #     context["events"] = EventDatePage.objects.filter(
-    #         date__gte=datetime.date.today(), live=True
-    #     ).order_by("date")
-    #     context["categories"] = EventCategory.objects.all().order_by("name")
-    #     context["tags"] = EventTag.objects.all().order_by("name")
-    #     return context
+        event_list = [
+            {
+                "title": event["title"],
+                "date": datetime.strptime(
+                    event_date["date"], "%Y-%m-%d"
+                ).date(),
+                "cancelled": event_date.get("cancelled", False),
+                "category": {
+                    "category": event.get("category"),
+                    "category_color": ColorChoices.get_category_color(
+                        event["category"]
+                    )
+                    if event.get("category")
+                    else None,
+                },
+                "tags": event.get("tags"),
+                "banner_image_url": event.get("banner_image_url"),
+                "url": event.get("url"),
+            }
+            for event in EVENTS
+            for event_date in event["program_dates"]
+        ]
+
+        # Filter and sort events
+        upcoming_events = [
+            event
+            for event in sorted(event_list, key=lambda e: e["date"])
+            if event["date"] > datetime.now().date()
+        ]
+        context["events"] = upcoming_events
+
+        return context
 
 
 class MembershipTemplateView(TemplateView):

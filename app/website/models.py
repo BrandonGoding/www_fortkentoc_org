@@ -140,7 +140,9 @@ class EventTagTextChoices(models.TextChoices):
 
 class Event(models.Model):
     title = models.CharField(max_length=255)
-    category = models.CharField(max_length=255, choices=EventCategoryTextChoices.choices)
+    category = models.CharField(
+        max_length=255, choices=EventCategoryTextChoices.choices
+    )
 
 
 class ProgramDate(models.Model):
