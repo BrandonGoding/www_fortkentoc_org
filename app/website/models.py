@@ -140,10 +140,7 @@ class EventTagTextChoices(models.TextChoices):
 
 class Event(models.Model):
     title = models.CharField(max_length=255)
-    category = models.CharField(max_length=255, choices=ColorChoices.choices)
-    show_in_past_events = models.BooleanField(default=False)
-    banner_image = models.ImageField("banner_images")
-    url_field = models.URLField()
+    category = models.CharField(max_length=255, choices=EventCategoryTextChoices.choices)
 
 
 class ProgramDate(models.Model):

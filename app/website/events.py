@@ -187,6 +187,92 @@ EVENTS = [
         "category": EventCategoryTextChoices.COMMUNITY_EVENT,
         "tags": [EventTagTextChoices.SOCIAL_EVENT],
         "url": "https://www.fortkentoc.org/website/2024diamonhikes.jpeg",
-    }
-
+    },
+{
+        "title": "Seasonal Ski Rental",
+        "program_dates": [
+            {"date": "2024-11-16", "start_time": "13:00", "end_time": "15:00"},
+            {"date": "2024-12-08", "start_time": "13:00", "end_time": "15:00"},
+        ],
+    },
+    {
+        "title": "Ford Sayre Ski Camp",
+        "program_dates": [
+            {"date": "2024-11-23"},
+            {"date": "2024-11-24"},
+            {"date": "2024-11-25"},
+            {"date": "2024-11-26"},
+            {"date": "2024-11-27"},
+            {"date": "2024-11-28"},
+            {"date": "2024-11-29"},
+            {"date": "2024-11-30"},
+        ],
+        "category": EventCategoryTextChoices.TRAINING_CAMP,
+        "tags": [EventTagTextChoices.NORDIC],
+    },
+    {
+        "title": "Welcome Winter",
+        "program_dates": [
+            {"date": "2024-12-07", "start_time": "17:00", "end_time": "20:00"},
+        ],
+    },
+    {
+        "title": "High School Nordic Race",
+        "program_dates": [
+            {"date": "2024-12-10", "start_time": "15:00", "end_time": "17:00"},
+        ],
+    },
+    {
+        "title": "UMFK Laser Biathlon",
+        "program_dates": [
+            {"date": "2024-12-13"},
+            {"date": "2024-12-14"},
+        ],
+        "category": EventCategoryTextChoices.COMMUNITY_EVENT,
+        "tags": [EventTagTextChoices.HOSTED_BY_UMFK],
+    },
+    {
+        "title": "Christmas Ski Camp",
+        "program_dates": [
+            {"date": "2024-12-26"},
+            {"date": "2024-12-27"},
+            {"date": "2024-12-28"},
+            {"date": "2024-12-29"},
+            {"date": "2024-12-30"},
+        ],
+        "category": EventCategoryTextChoices.TRAINING_CAMP,
+        "tags": [EventTagTextChoices.NORDIC],
+    },
+    {
+        "title": "Ben Paradis Invitational Race",
+        "program_dates": [
+            {"date": "2024-12-27", "start_time": "13:00", "end_time": "15:00"},
+        ],
+    },
+    {
+        "title": "IBU Regional Biathlon Cup",
+        "program_dates": [
+            {"date": "2025-01-31"},
+            {"date": "2025-02-01"},
+            {"date": "2025-02-02"},
+        ],
+        "category": EventCategoryTextChoices.COMMUNITY_EVENT,
+        "tags": [EventTagTextChoices.NORDIC],
+    },
+    {
+        "title": "Frosty Bites",
+        "program_dates": [
+            {"date": "2025-02-09", "start_time": "13:00", "end_time": "15:30"},
+        ],
+        "category": EventCategoryTextChoices.COMMUNITY_EVENT,
+        "tags": [EventTagTextChoices.NORDIC],
+    },
+    {
+        "title": "Pat’s Ride",
+        "program_dates": [
+            {"date": "2025-02-27"},
+        ],
+        "category": EventCategoryTextChoices.COMMUNITY_EVENT,
+        "tags": [EventTagTextChoices.SOCIAL_EVENT],
+    },
 ]
