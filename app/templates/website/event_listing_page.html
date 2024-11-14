@@ -47,7 +47,12 @@
                   <img class="w-10 h-10 rounded-full" src="{% static 'fkoc-logo.jpeg' %}" alt="FKOC LOGO">
                   <div class="font-medium dark:text-white">
                       <div>Fort Kent Outdoor Center</div>
-                      <div class="text-sm font-normal text-gray-500 dark:text-gray-400"><strong>Event Date:</strong> {{ event.date }}</div>
+                      <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                          <strong>Event Date:</strong> {{ event.date }}
+                          {% if event.start_time %}
+                          <br/>Event Time: {{ event.start_time }}{% if event.end_time %} - {{ event.end_time  }}{% endif %}
+                          {% endif %}
+                      </div>
                   {% if event.category %}
                        <span class="text-xs font-semibold mr-0.5 px-5 py-0.5 rounded" style="background-color:{{ event.category.category_color.color_code.200 }};color:{{ event.category.category_color.color_code.900 }};">{{ event.category.category.label }}</span>
                   {% endif %}

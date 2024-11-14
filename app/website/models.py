@@ -56,97 +56,36 @@ class ColorChoices(models.TextChoices):
     PURPLE = "purple", "Purple"
     PINK = "pink", "Pink"
 
-    @staticmethod
-    def get_category_color(category):
-        if category == category.AROOSTOOK_ATHLETICS:
-            return ColorChoices.RED
-        if category == category.MEMBERSHIP_EVENT:
-            return ColorChoices.YELLOW
-        if category == category.COMMUNITY_EVENT:
-            return ColorChoices.GREEN
-        if category == category.US_BIATHLON_ASSOCIATION:
-            return ColorChoices.BLUE
-        if category == category.JALBERT_PROGRAM:
-            return ColorChoices.PURPLE
-        if category == category.TRAINING_CAMP:
-            return ColorChoices.PINK
-
     @property
     def color_code(self):
         color = self.value
         return COLOR_CODES[color]
 
 
-class EventCategoryTextChoices(models.TextChoices):
-    AROOSTOOK_ATHLETICS = "aroostook_athletics", "Aroostook Athletics"
-    MEMBERSHIP_EVENT = "membership_event", "Membership Event"
-    COMMUNITY_EVENT = "community_event", "Community Event"
-    US_BIATHLON_ASSOCIATION = (
-        "us_biathlon_association",
-        "US Biathlon Association",
-    )
-    JALBERT_PROGRAM = "jalbert_program", "Jalbert Program"
-    TRAINING_CAMP = "training_camp", "Training Camp"
+class EventTag(models.Model):
+    name = models.CharField(max_length=65)
+    color = models.CharField(max_length=15, choices=ColorChoices.choices)
+    slug = models.SlugField()
 
 
-class EventTagTextChoices(models.TextChoices):
-    HIGH_SCHOOL_RACE = "high_school_race", "High School Race"
-    MIDDLE_SCHOOL_RACE = "middle_school_race", "Middle School Race"
-    INVITATIONAL = "invitational", "Invitational"
-    BOARD_ELECTIONS = "board_elections", "Board Elections"
-    SOCIAL_EVENT = "social_event", "Social Event"
-    RENTAL_SHOP = "rental_shop", "Rental Shop"
-    MEMBERSHIP_DRIVE = "membership_drive", "Membership Drive"
-    HOSTED_BY_UMFK = "hosted_by_umfk", "Hosted By UMFK"
-    CHAMPIONSHIP_EVENT = "championship_event", "Championship Event"
-    FUNDRAISER = "fundraiser", "Fundraiser"
-    SKI_LESSONS = "ski_lessons", "Ski Lessons"
-    LADIES_ONLY = "ladies_only", "Ladies Only"
-    POKER_RUN = "poker_run", "Poker Run"
-    BIATHLON = "biathlon", "Biathlon"
-    NORDIC = "nordic", "Nordic"
-
-    @property
-    def tag_color(tag):
-        if tag == EventTagTextChoices.HIGH_SCHOOL_RACE:
-            return ColorChoices.GRAY
-        if tag == EventTagTextChoices.MIDDLE_SCHOOL_RACE:
-            return ColorChoices.RED
-        if tag == EventTagTextChoices.INVITATIONAL:
-            return ColorChoices.YELLOW
-        if tag == EventTagTextChoices.BOARD_ELECTIONS:
-            return ColorChoices.GREEN
-        if tag == EventTagTextChoices.SOCIAL_EVENT:
-            return ColorChoices.BLUE
-        if tag == EventTagTextChoices.RENTAL_SHOP:
-            return ColorChoices.PURPLE
-        if tag == EventTagTextChoices.MEMBERSHIP_DRIVE:
-            return ColorChoices.GRAY
-        if tag == EventTagTextChoices.HOSTED_BY_UMFK:
-            return ColorChoices.RED
-        if tag == EventTagTextChoices.CHAMPIONSHIP_EVENT:
-            return ColorChoices.YELLOW
-        if tag == EventTagTextChoices.SKI_LESSONS:
-            return ColorChoices.GREEN
-        if tag == EventTagTextChoices.LADIES_ONLY:
-            return ColorChoices.BLUE
-        if tag == EventTagTextChoices.POKER_RUN:
-            return ColorChoices.PURPLE
-        if tag == EventTagTextChoices.BIATHLON:
-            return ColorChoices.RED
-        if tag == EventTagTextChoices.NORDIC:
-            return ColorChoices.PURPLE
+class EventCategory(models.Model):
+    name = models.CharField(max_length=65)
+    color = models.CharField(max_length=15, choices=ColorChoices.choices)
+    slug = models.SlugField()
 
 
 class Event(models.Model):
     title = models.CharField(max_length=255)
-    category = models.CharField(
-        max_length=255, choices=EventCategoryTextChoices.choices
-    )
+    banner_image = models.ImageField(null=True, blank=True)
+    category = models.ForeignKey(to=EventCategory, null=True, on_delete=models.RESTRICT)
+    tags = models.ManyToManyField(to=EventTag)
+    url = models.URLField(null=True, blank=True)
+    show_in_past_events = models.BooleanField(default=False)
 
 
 class ProgramDate(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     date = models.DateField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    start_time = models.TimeField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
+    canceled = models.BooleanField(default=False)

@@ -5,6 +5,7 @@ from django.http import (
     JsonResponse,
 )
 from django.shortcuts import render
+from django.utils import timezone
 from django.views.generic import TemplateView, DetailView
 
 from website.constants import (
@@ -14,8 +15,7 @@ from website.constants import (
     WINTER_SEASON,
     OFF_SEASON,
 )
-from website.events import EVENTS
-from website.models import ColorChoices
+from website.models import ColorChoices, Event, ProgramDate
 
 
 class AboutUsView(TemplateView):
@@ -110,43 +110,51 @@ class CoachDetailView(DetailView):
         return None  # Return None if no coach with the given slug is found
 
 
+class ProgramDates:
+    pass
+
+
 class EventsListView(TemplateView):
     template_name = "website/event_listing_page.html"
     json_file_path = "website/events.json"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        event_list = ProgramDate.objects.filter(date__gte=timezone.now()).order_by("date")
 
         event_list = [
             {
-                "title": event["title"],
-                "date": datetime.strptime(
-                    event_date["date"], "%Y-%m-%d"
-                ).date(),
-                "cancelled": event_date.get("cancelled", False),
-                "category": {
-                    "category": event.get("category"),
-                    "category_color": ColorChoices.get_category_color(
-                        event["category"]
-                    )
-                    if event.get("category")
-                    else None,
-                },
-                "tags": event.get("tags"),
-                "banner_image_url": event.get("banner_image_url"),
-                "url": event.get("url"),
+                "title": event.event.title,
+                "date": event.date,
+                "start_time": event.start_time,
+                "end_time": event.end_time,
+                "cancelled": event.canceled,
+                # "category": {
+                #     "category": event.get("category"),
+                #     "category_color": ColorChoices.get_category_color(
+                #         event["category"]
+                #     )
+                #     if event.get("category")
+                #     else None,
+                # },
+                # "tags": event.get("tags"),
+                # "banner_image_url": event.get("banner_image_url"),
+                # "url": event.get("url"),
             }
-            for event in EVENTS
-            for event_date in event["program_dates"]
+            for event in event_list
         ]
 
-        # Filter and sort events
-        upcoming_events = [
-            event
-            for event in sorted(event_list, key=lambda e: e["date"])
-            if event["date"] > datetime.now().date()
-        ]
-        context["events"] = upcoming_events
+        context["events"] = event_list
+
+
+
+        # # Filter and sort events
+        # upcoming_events = [
+        #     event
+        #     for event in sorted(event_list, key=lambda e: e["date"])
+        #     if event["date"] > datetime.now().date()
+        # ]
+
 
         return context
 
