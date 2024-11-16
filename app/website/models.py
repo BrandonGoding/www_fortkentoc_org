@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
 
@@ -60,6 +61,7 @@ class ColorChoices(models.TextChoices):
     def color_code(color: str) -> str:
         return COLOR_CODES[color]
 
+
 class EventTag(models.Model):
     name = models.CharField(max_length=65)
     color = models.CharField(max_length=15, choices=ColorChoices.choices)
@@ -69,6 +71,9 @@ class EventTag(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         return super(EventTag, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 
 class EventCategory(models.Model):
@@ -81,6 +86,9 @@ class EventCategory(models.Model):
             self.slug = slugify(self.name)
         return super(EventCategory, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.name
+
 
 class Event(models.Model):
     title = models.CharField(max_length=255)
@@ -90,10 +98,18 @@ class Event(models.Model):
     show_in_past_events = models.BooleanField(default=False)
     slug = models.SlugField(null=True, blank=True)
 
+    def clean(self):
+        super().clean()
+        if not self.program_dates.exists():
+            raise ValidationError("An event must have at least one program date.")
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
         return super(Event, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
 
 
 class ProgramDate(models.Model):
