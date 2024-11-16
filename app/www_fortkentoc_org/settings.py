@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 
 from decouple import config
+import pymysql
+pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
@@ -22,7 +24,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "storages",
     "widget_tweaks",
-    "django_distill",
 ]
 
 MIDDLEWARE = [
@@ -40,8 +41,12 @@ ROOT_URLCONF = "www_fortkentoc_org.urls"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  # BASE_DIR is usually defined as the base directory of your Django project
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config("MYSQL_DB"),
+        'USER': config("MYSQL_USER"),
+        'PASSWORD': config("MYSQL_PASSWORD"),
+        'HOST': config("MYSQL_HOST"),
+        'PORT': config("MYSQL_PORT"),
     }
 }
 
