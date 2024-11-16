@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.text import slugify
 
 COLOR_CODES = {
     "gray": {
@@ -56,16 +56,19 @@ class ColorChoices(models.TextChoices):
     PURPLE = "purple", "Purple"
     PINK = "pink", "Pink"
 
-    @property
-    def color_code(self):
-        color = self.value
+    @staticmethod
+    def color_code(color: str) -> str:
         return COLOR_CODES[color]
-
 
 class EventTag(models.Model):
     name = models.CharField(max_length=65)
     color = models.CharField(max_length=15, choices=ColorChoices.choices)
     slug = models.SlugField()
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(EventTag, self).save(*args, **kwargs)
 
 
 class EventCategory(models.Model):
@@ -73,19 +76,30 @@ class EventCategory(models.Model):
     color = models.CharField(max_length=15, choices=ColorChoices.choices)
     slug = models.SlugField()
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(EventCategory, self).save(*args, **kwargs)
+
 
 class Event(models.Model):
     title = models.CharField(max_length=255)
     banner_image = models.ImageField(null=True, blank=True)
     category = models.ForeignKey(to=EventCategory, null=True, on_delete=models.RESTRICT)
     tags = models.ManyToManyField(to=EventTag)
-    url = models.URLField(null=True, blank=True)
     show_in_past_events = models.BooleanField(default=False)
+    slug = models.SlugField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super(Event, self).save(*args, **kwargs)
 
 
 class ProgramDate(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='program_dates')
     date = models.DateField()
     start_time = models.TimeField(null=True, blank=True)
     end_time = models.TimeField(null=True, blank=True)
     canceled = models.BooleanField(default=False)
+

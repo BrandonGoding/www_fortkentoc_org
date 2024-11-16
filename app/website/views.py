@@ -129,21 +129,19 @@ class EventsListView(TemplateView):
                 "start_time": event.start_time,
                 "end_time": event.end_time,
                 "cancelled": event.canceled,
-                # "category": {
-                #     "category": event.get("category"),
-                #     "category_color": ColorChoices.get_category_color(
-                #         event["category"]
-                #     )
-                #     if event.get("category")
-                #     else None,
-                # },
+                "category": {
+                    "category": event.event.category,
+                    "category_color": ColorChoices.color_code(event.event.category.color)
+                    if event.event.category
+                    else None,
+                },
                 # "tags": event.get("tags"),
                 # "banner_image_url": event.get("banner_image_url"),
                 # "url": event.get("url"),
             }
             for event in event_list
         ]
-
+        print(event_list)
         context["events"] = event_list
 
 
@@ -225,9 +223,8 @@ def webcam_partial(request):
 
 def calendar_events(request):
     event_list = []
-    data = EVENTS
-    for event in data:
-        event_title = event["title"]
-        for date in event["program_dates"]:
-            event_list.append({"title": event_title, "start": date["date"]})
+    for event in Event.objects.all():
+        event_title = event.title
+        for date in event.program_dates.all():
+            event_list.append({"title": event_title, "start": date.date})
     return JsonResponse(event_list, safe=False)
