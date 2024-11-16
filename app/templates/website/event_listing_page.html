@@ -54,7 +54,7 @@
                           {% endif %}
                       </div>
                   {% if event.category %}
-                       <span class="text-xs font-semibold mr-0.5 px-5 py-0.5 rounded" style="background-color:{{ event.category.category_color.color_code.200 }};color:{{ event.category.category_color.color_code.900 }};">{{ event.category.category.label }}</span>
+                       <span class="text-xs font-semibold mr-0.5 px-5 py-0.5 rounded" style="background-color:{{ event.category.category_color.200 }};color:{{ event.category.category_color.900 }};">{{ event.category.category.name }}</span>
                   {% endif %}
                   </div>
               </div>
