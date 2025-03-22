@@ -1,5 +1,5 @@
 from wagtail import hooks
-from .models import BoardMember, Coach
+from .models import BoardMember, Coach, EventTag, Event, EventCategory
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
 
@@ -32,6 +32,29 @@ class CoachViewSet(SnippetViewSet):
     menu_name = "coaches"
     menu_order = 301
     add_to_admin_menu = True
+    
+class EventTagViewSet(SnippetViewSet):
+    model = EventTag
+    icon = "tag"
+    copy_view_enabled = False
+    inspect_view_enabled = True
+    menu_label = "Event Tags"
+    menu_name = "event_tags"
+    menu_order = 303
+    add_to_admin_menu = True
+    
+class EventCategoryViewSet(SnippetViewSet):
+    model = EventCategory
+    icon = "tag"
+    copy_view_enabled = False
+    inspect_view_enabled = True
+    menu_label = "Event Categories"
+    menu_name = "event_categories"
+    menu_order = 302
+    add_to_admin_menu = True
+    
 
 register_snippet(BoardMemberViewSet)
 register_snippet(CoachViewSet)
+register_snippet(EventTagViewSet)
+register_snippet(EventCategoryViewSet)

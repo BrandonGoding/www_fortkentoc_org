@@ -52,15 +52,22 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "www_fortkentoc_org.urls"
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': config("MYSQL_DB"),
+#         'USER': config("MYSQL_USER"),
+#         'PASSWORD': config("MYSQL_PASSWORD"),
+#         'HOST': config("MYSQL_HOST"),
+#         'PORT': config("MYSQL_PORT"),
+#     }
+# }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config("MYSQL_DB"),
-        'USER': config("MYSQL_USER"),
-        'PASSWORD': config("MYSQL_PASSWORD"),
-        'HOST': config("MYSQL_HOST"),
-        'PORT': config("MYSQL_PORT"),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -105,8 +112,17 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATIC_URL = '/static/'
+
+# Add these if you are using custom static files
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # if you have a static folder at the project level
+]
+
+# For production, ensure this is set up
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

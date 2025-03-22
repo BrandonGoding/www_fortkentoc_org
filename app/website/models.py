@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
+from wagtail.snippets.models import register_snippet
 
 COLOR_CODES = {
     "gray": {
@@ -74,7 +75,6 @@ class EventTag(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class EventCategory(models.Model):
     name = models.CharField(max_length=65)
