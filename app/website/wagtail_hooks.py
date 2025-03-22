@@ -1,16 +1,16 @@
 from wagtail import hooks
-from .models import BoardMember, Coach, EventTag, Event, EventCategory
+from .models import BoardMember, Coach, EventTag, EventCategory
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
 
 @hooks.register('construct_main_menu')
 def remove_unwanted_main_menu_items(request, menu_items):
-    items_to_remove = ['explorer', 'help', 'search', 'documents', 'reports', 'images']
+    items_to_remove = ['help', 'documents', 'reports', 'images']
     menu_items[:] = [item for item in menu_items if item.name not in items_to_remove]
 
-@hooks.register('construct_settings_menu')
-def keep_only_users_in_settings_menu(request, menu_items):
-    menu_items[:] = [item for item in menu_items if item.name == 'users']
+# @hooks.register('construct_settings_menu')
+# def keep_only_users_in_settings_menu(request, menu_items):
+#     menu_items[:] = [item for item in menu_items if item.name == 'users']
 
 
 class BoardMemberViewSet(SnippetViewSet):

@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
+from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
 
 COLOR_CODES = {
@@ -90,35 +91,6 @@ class EventCategory(models.Model):
         return self.name
 
 
-class Event(models.Model):
-    title = models.CharField(max_length=255)
-    banner_image = models.ImageField(null=True, blank=True)
-    category = models.ForeignKey(to=EventCategory, null=True, on_delete=models.RESTRICT)
-    tags = models.ManyToManyField(to=EventTag)
-    show_in_past_events = models.BooleanField(default=False)
-    slug = models.SlugField(null=True, blank=True)
-
-    def clean(self):
-        super().clean()
-        if not self.program_dates.exists():
-            raise ValidationError("An event must have at least one program date.")
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        return super(Event, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.title
-
-
-class ProgramDate(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='program_dates')
-    date = models.DateField()
-    start_time = models.TimeField(null=True, blank=True)
-    end_time = models.TimeField(null=True, blank=True)
-    canceled = models.BooleanField(default=False)
-
 class BoardMember(models.Model):
     name = models.CharField(max_length=255)
     role = models.CharField(max_length=255, null=True, blank=True)
@@ -147,3 +119,30 @@ class Coach(models.Model):
 
     def __str__(self):
         return self.name
+
+class HomePage(Page):
+    max_count = 1
+    subpage_types = [
+        'website.UpcomingListingPage',
+    ]
+
+class UpcomingListingPage(Page):
+    parent_page_types = ['website.HomePage']
+    subpage_types = ['website.EventPage']
+    max_count = 2
+    
+class EventPage(Page):
+    parent_page_types = ['website.UpcomingListingPage']
+    subpage_types = []
+    tags = models.ManyToManyField(EventTag, blank=True)
+    categories = models.ForeignKey(EventCategory, blank=True, on_delete=models.SET_NULL, null=True)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    def __str__(self):
+        return self.title

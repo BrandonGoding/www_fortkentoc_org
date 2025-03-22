@@ -15,7 +15,6 @@ from website.constants import (
     WINTER_SEASON,
     OFF_SEASON,
 )
-from website.models import ColorChoices, Event, ProgramDate
 
 
 class AboutUsView(TemplateView):
@@ -114,104 +113,12 @@ class ProgramDates:
     pass
 
 
-class EventsListView(TemplateView):
-    template_name = "website/event_listing_page.html"
-    json_file_path = "website/events.json"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        event_list = ProgramDate.objects.filter(date__gte=timezone.now()).order_by("date")
-
-        event_list = [
-            {
-                "title": event.event.title,
-                "date": event.date,
-                "start_time": event.start_time,
-                "end_time": event.end_time,
-                "cancelled": event.canceled,
-                "category": {
-                    "category": event.event.category,
-                    "category_color": ColorChoices.color_code(event.event.category.color)
-                    if event.event.category
-                    else None,
-                },
-                # "tags": event.get("tags"),
-                # "banner_image_url": event.get("banner_image_url"),
-                # "url": event.get("url"),
-            }
-            for event in event_list
-        ]
-        print(event_list)
-        context["events"] = event_list
-
-
-
-        # # Filter and sort events
-        # upcoming_events = [
-        #     event
-        #     for event in sorted(event_list, key=lambda e: e["date"])
-        #     if event["date"] > datetime.now().date()
-        # ]
-
-
-        return context
-
-
 class MembershipTemplateView(TemplateView):
     template_name = "website/membership_page.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-
-class PastEventsListView(TemplateView):
-    template_name = "website/event_listing_page.html"
-    json_file_path = "website/events.json"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        event_list = []
-        data = EVENTS
-        for event in data:
-            event_title = event["title"]
-            for event_date in event["program_dates"]:
-                program_date = datetime.strptime(
-                    event_date["date"], "%Y-%m-%d"
-                ).date()
-                event_list.append(
-                    {
-                        "title": event_title,
-                        "date": program_date,
-                        "cancelled": event_date.get("cancelled", False),
-                        "category": {
-                            "category": event.get("category"),
-                            "category_color": ColorChoices.get_category_color(
-                                event["category"]
-                            )
-                            if event.get("category")
-                            else None,
-                        },
-                        "tags": event.get("tags"),
-                        "show_in_past_events": event.get(
-                            "show_in_past_events"
-                        ),
-                        "url": event.get("url"),
-                    }
-                )
-        event_list = sorted(
-            event_list,
-            key=lambda event_block: event_block["date"],
-            reverse=True,
-        )
-        context["events"] = [
-            event_date
-            for event_date in event_list
-            if event_date["date"] < datetime.now().date()
-            and event_date["show_in_past_events"]
-        ]
-        return context
-
 
 def empty_route(request):
     return HttpResponse("")
@@ -221,10 +128,10 @@ def webcam_partial(request):
     return render(request, "website/partials/webcam_modal_partial.html")
 
 
-def calendar_events(request):
-    event_list = []
-    for event in Event.objects.all():
-        event_title = event.title
-        for date in event.program_dates.all():
-            event_list.append({"title": event_title, "start": date.date})
-    return JsonResponse(event_list, safe=False)
+# def calendar_events(request):
+#     event_list = []
+#     for event in EventPage.objects.all():
+#         event_title = event.title
+#         for date in event.program_dates.all():
+#             event_list.append({"title": event_title, "start": date.date})
+#     return JsonResponse(event_list, safe=False)

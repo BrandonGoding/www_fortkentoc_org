@@ -22,7 +22,7 @@ URL: https://flowbite.com/docs/components/typography/
               <div class="flex items-center space-x-3 text-gray-500 dark:text-gray-400 text-base mb-2 lg:mb-0">
                   <span>By <a href="#" class="text-gray-900 dark:text-white hover:underline no-underline font-semibold">{% if not page.author %}FKOC{% else %}{{ page.author }}{% endif %}</a></span>
                   <span class="bg-gray-300 dark:bg-gray-400 w-2 h-2 rounded-full"></span>
-                  <span><strong class="text-gray-900 dark:text-white hover:underline no-underline font-semibold">Event Date:</strong> {{ page.date }}</span>
+                  <span><strong class="text-gray-900 dark:text-white hover:underline no-underline font-semibold">EventPage Date:</strong> {{ page.date }}</span>
                 {% if page.start_time %}<span class="bg-gray-300 dark:bg-gray-400 w-2 h-2 rounded-full"></span>
               <span><strong class="text-gray-900 dark:text-white hover:underline no-underline font-semibold">Time:</strong> {{ page.start_time }}{% if page.end_time %} - {{ page.end_time }}{% endif %}</span>{% endif %}
               </div>
@@ -40,7 +40,7 @@ URL: https://flowbite.com/docs/components/typography/
                 <div class="mx-auto max-w-screen-sm text-center">
                     <h2 class="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-white">Help Spread the Word!</h2>
                     <p class="mb-6 font-light text-gray-400 md:text-lg">You can help us promote this event by printing the event flyer and sharing in your office, or anywhere else it may be seen.<br/> Thanks for helping  make The Fort Kent Outdoor Center successful.</p>
-                    <a href="{{ page.get_parent.specific.flyer.url }}" target="_blank" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Download Event Flyer</a>
+                    <a href="{{ page.get_parent.specific.flyer.url }}" target="_blank" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Download EventPage Flyer</a>
                 </div>
             </div>
         </section>

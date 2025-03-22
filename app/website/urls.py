@@ -7,11 +7,6 @@ app_name = "website"
 urlpatterns = [
 
     path(
-        "",
-        TemplateView.as_view(template_name="website/home_page.html"),
-        name="home",
-    ),
-    path(
         "activities/",
         website_views.ActivitiesTemplateView.as_view(),
         name="activities",
@@ -21,11 +16,11 @@ urlpatterns = [
         website_views.ProgramsTemplateView.as_view(),
         name="programs",
     ),
-    path(
-        "api/calendar-events/",
-        website_views.calendar_events,
-        name="calendar-events",
-    ),
+    # path(
+    #     "api/calendar-events/",
+    #     website_views.calendar_events,
+    #     name="calendar-events",
+    # ),
     path(
         "about-us/", website_views.AboutUsView.as_view(), name="about_us"
     ),
@@ -43,16 +38,6 @@ urlpatterns = [
         "calendar/",
         TemplateView.as_view(template_name="website/event_calendar.html"),
         name="calendar",
-    ),
-    path(
-        "events/",
-        website_views.EventsListView.as_view(),
-        name="events",
-    ),
-    path(
-        "events/past/",
-        website_views.PastEventsListView.as_view(),
-        name="past-events",
     ),
     path(
         "facilities/",
