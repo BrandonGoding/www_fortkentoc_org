@@ -119,3 +119,31 @@ class ProgramDate(models.Model):
     end_time = models.TimeField(null=True, blank=True)
     canceled = models.BooleanField(default=False)
 
+class BoardMember(models.Model):
+    name = models.CharField(max_length=255)
+    role = models.CharField(max_length=255, null=True, blank=True)
+    profile_picture = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    def __str__(self):
+        return self.name
+
+class Coach(models.Model):
+    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    profile_picture = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    biography = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
