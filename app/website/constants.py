@@ -89,10 +89,6 @@ BOARD_MEMBERS = [
         "imageUrl": "/static/media/public/images/board-members-47.2e16d0ba.fill-296x369.jpg",
     },
     {
-        "name": "Brandon Goding",
-        "imageUrl": "/static/media/public/images/board-members-36_yrFRg68.2e16d0ba.fill-296x369.jpg",
-    },
-    {
         "name": "Mike Tanguay",
     },
 ]

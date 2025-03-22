@@ -2,10 +2,10 @@ from django.urls import path
 from django.views.generic import TemplateView
 from website import views as website_views
 
-
 app_name = "website"
 
 urlpatterns = [
+
     path(
         "",
         TemplateView.as_view(template_name="website/home_page.html"),

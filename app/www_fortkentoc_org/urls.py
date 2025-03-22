@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from wagtail.admin import urls as wagtailadmin_urls
 
 
 urlpatterns = [
     path("", include("website.urls")),
-    path("admin/", admin.site.urls)
+    path('cms/', include(wagtailadmin_urls)),
 ]
