@@ -1,8 +1,10 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
+from wagtail.admin.panels import FieldPanel
 from wagtail.models import Page
 from wagtail.snippets.models import register_snippet
+from .fields import TemplateChoiceWidget
 
 COLOR_CODES = {
     "gray": {
@@ -64,7 +66,7 @@ class ColorChoices(models.TextChoices):
         return COLOR_CODES[color]
 
 
-class EventTag(models.Model):
+class TagCategoryBase(models.Model):
     name = models.CharField(max_length=65)
     color = models.CharField(max_length=15, choices=ColorChoices.choices)
     slug = models.SlugField()
@@ -72,25 +74,21 @@ class EventTag(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        return super(EventTag, self).save(*args, **kwargs)
+        return super(TagCategoryBase, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
 
-class EventCategory(models.Model):
-    name = models.CharField(max_length=65)
-    color = models.CharField(max_length=15, choices=ColorChoices.choices)
-    slug = models.SlugField()
+@register_snippet
+class EventCategory(TagCategoryBase):
+    pass
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        return super(EventCategory, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
+@register_snippet
+class EventTag(TagCategoryBase):
+    pass
 
 
+@register_snippet
 class BoardMember(models.Model):
     name = models.CharField(max_length=255)
     role = models.CharField(max_length=255, null=True, blank=True)
@@ -105,6 +103,7 @@ class BoardMember(models.Model):
     def __str__(self):
         return self.name
 
+@register_snippet
 class Coach(models.Model):
     name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
@@ -124,6 +123,7 @@ class HomePage(Page):
     max_count = 1
     subpage_types = [
         'website.UpcomingListingPage',
+        'website.LegacyPage',
     ]
 
 class UpcomingListingPage(Page):
@@ -146,3 +146,16 @@ class EventPage(Page):
 
     def __str__(self):
         return self.title
+    
+#################### OLD PAGES ####################
+class LegacyPage(Page):
+    subpage_types = ['website.HomePage']
+    template_name = models.CharField(max_length=255, default='default_template.html')
+    
+    content_panels = Page.content_panels + [
+        FieldPanel('template_name', widget=TemplateChoiceWidget()),
+    ]
+    
+    def get_template(self, request, *args, **kwargs):
+        return self.template_name
+
