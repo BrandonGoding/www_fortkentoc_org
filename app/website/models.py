@@ -1,8 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
-from wagtail.admin.panels import FieldPanel
-from wagtail.models import Page
+from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.models import Page, Orderable
 from wagtail.snippets.models import register_snippet
 from .fields import TemplateChoiceWidget
 
@@ -89,21 +90,6 @@ class EventTag(TagCategoryBase):
 
 
 @register_snippet
-class BoardMember(models.Model):
-    name = models.CharField(max_length=255)
-    role = models.CharField(max_length=255, null=True, blank=True)
-    profile_picture = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    def __str__(self):
-        return self.name
-
-@register_snippet
 class Coach(models.Model):
     name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
@@ -124,6 +110,7 @@ class HomePage(Page):
     subpage_types = [
         'website.UpcomingListingPage',
         'website.LegacyPage',
+        'website.AboutUsPage',
     ]
 
 class UpcomingListingPage(Page):
@@ -159,3 +146,38 @@ class LegacyPage(Page):
     def get_template(self, request, *args, **kwargs):
         return self.template_name
 
+
+class BoardMember(Orderable):
+    page = ParentalKey("website.AboutUsPage", related_name="board_members")
+    name = models.CharField(max_length=255)
+    role = models.CharField(max_length=255, null=True, blank=True)
+    profile_picture = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('role'),
+        FieldPanel('profile_picture'),
+    ]
+
+class AboutUsPage(Page):
+    parent_page_types = ['website.HomePage']
+    subpage_types = []
+    max_count = 1
+    
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [InlinePanel("board_members", max_num=10, min_num=1, label="Board Member")],
+            heading="Board Members",
+        ),
+    ]
+    
+    def get_template(self, request, *args, **kwargs):
+        return 'website/about_page.html'
+    
+    
