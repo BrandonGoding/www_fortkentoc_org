@@ -5,60 +5,11 @@ from website import views as website_views
 app_name = "website"
 
 urlpatterns = [
-
-    path(
-        "activities/",
-        website_views.ActivitiesTemplateView.as_view(),
-        name="activities",
-    ),
-    path(
-        "programs/",
-        website_views.ProgramsTemplateView.as_view(),
-        name="programs",
-    ),
     # path(
     #     "api/calendar-events/",
     #     website_views.calendar_events,
     #     name="calendar-events",
     # ),
-    path(
-        "about-us/", website_views.AboutUsView.as_view(), name="about_us"
-    ),
-    path(
-        "day-passes/",
-        website_views.DayPassesTemplateView.as_view(),
-        name="day-passes",
-    ),
-    path(
-        "memberships/",
-        website_views.MembershipTemplateView.as_view(),
-        name="memberships",
-    ),
-    path(
-        "calendar/",
-        TemplateView.as_view(template_name="website/event_calendar.html"),
-        name="calendar",
-    ),
-    path(
-        "facilities/",
-        TemplateView.as_view(template_name="website/facility_page.html"),
-        name="facilities",
-    ),
-    path(
-        "location/",
-        TemplateView.as_view(template_name="website/location_page.html"),
-        name="location",
-    ),
-    path(
-        "rentals/",
-        TemplateView.as_view(template_name="website/rentals_page.html"),
-        name="rentals",
-    ),
-    path(
-        "trails/",
-        TemplateView.as_view(template_name="website/trails_page.html"),
-        name="trails",
-    ),
     path(
         "partials/activity/<slug:slug>/",
         website_views.ActivitiesDetailView.as_view(),
@@ -74,10 +25,5 @@ urlpatterns = [
         "partials/coach/<slug:slug>/",
         website_views.CoachDetailView.as_view(),
         name="coach_modal",
-    ),
-    path(
-        "policies/",
-        TemplateView.as_view(template_name="website/policies_page.html"),
-        name="policies",
     ),
 ]

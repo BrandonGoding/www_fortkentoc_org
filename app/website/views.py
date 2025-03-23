@@ -17,33 +17,6 @@ from website.constants import (
 )
 
 
-class AboutUsView(TemplateView):
-    template_name = "website/about_page.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["board_members"] = BOARD_MEMBERS
-        return context
-
-
-class ActivitiesTemplateView(TemplateView):
-    template_name = "website/activities_page.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        winter_activities = []
-        for activity in ACTIVITIES:
-            if activity.get("season") == WINTER_SEASON:
-                winter_activities.append(activity)
-        context["winter_activities"] = winter_activities
-        summer_activities = []
-        for activity in ACTIVITIES:
-            if activity.get("season") == OFF_SEASON:
-                summer_activities.append(activity)
-        context["summer_activities"] = summer_activities
-        return context
-
-
 class ActivitiesDetailView(DetailView):
     template_name = "website/partials/activity_partial.html"
 
@@ -90,14 +63,6 @@ class DayPassesTemplateView(TemplateView):
         return context
 
 
-class ProgramsTemplateView(TemplateView):
-    template_name = "website/program_page.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["coaches"] = COACHES
-        return context
-
 
 class CoachDetailView(DetailView):
     template_name = "website/partials/coach_bio.html"
@@ -112,13 +77,6 @@ class CoachDetailView(DetailView):
 class ProgramDates:
     pass
 
-
-class MembershipTemplateView(TemplateView):
-    template_name = "website/membership_page.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
 def empty_route(request):
     return HttpResponse("")

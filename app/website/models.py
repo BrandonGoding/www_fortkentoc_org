@@ -88,29 +88,13 @@ class EventCategory(TagCategoryBase):
 class EventTag(TagCategoryBase):
     pass
 
-
-@register_snippet
-class Coach(models.Model):
-    name = models.CharField(max_length=255)
-    title = models.CharField(max_length=255)
-    profile_picture = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    biography = models.TextField(null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
 class HomePage(Page):
     max_count = 1
     subpage_types = [
         'website.UpcomingListingPage',
         'website.LegacyPage',
         'website.AboutUsPage',
+        'website.ProgramsPage',
     ]
 
 class UpcomingListingPage(Page):
@@ -180,4 +164,38 @@ class AboutUsPage(Page):
     def get_template(self, request, *args, **kwargs):
         return 'website/about_page.html'
     
-    
+
+class Coach(Orderable):
+    page = ParentalKey("website.AboutUsPage", related_name="coaches")
+    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    profile_picture = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    biography = models.TextField(null=True, blank=True)
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('title'),
+        FieldPanel('profile_picture'),
+        FieldPanel('biography')
+    ]
+
+class ProgramsPage(Page):
+    parent_page_types = ['website.HomePage']
+    subpage_types = []
+    max_count = 1
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [InlinePanel("coaches", max_num=10, min_num=1, label="Program Coaches")],
+            heading="Program Coaches",
+        ),
+    ]
+
+    def get_template(self, request, *args, **kwargs):
+        return 'website/program_page.html'
