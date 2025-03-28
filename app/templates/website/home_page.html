@@ -1,5 +1,5 @@
 {% extends "../_base.html" %}
-{% load static %}
+{% load static wagtailimages_tags %}
 {% block content %}
     <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0" nonce="xPkSZksn"></script>
@@ -28,22 +28,13 @@
 <section class="bg-white dark:bg-gray-900">
     <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
         <div class="mr-auto place-self-center lg:col-span-7">
-            <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">Seasonal Ski Rentals</h1>
+            <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">{{ page.main_title }}</h1>
             <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-                Welcome to the 2024-2025 season at the Fort Kent Outdoor Center! Our seasonal ski rentals are here to make winter adventures accessible and enjoyable for all our members. With two convenient rental pickup dates, November 16th and December 8th 1pm - 3pm, our members can be ready to hit the trails as soon as the snow arrives. Our rental program ensures that everyone has the equipment they need to make the most of the season, whether you’re new to skiing or a seasoned enthusiast.
-                <br/><br/>
-                Don’t forget, it’s also time to secure your 2025 membership! Membership at Fort Kent Outdoor Center supports year-round outdoor activities and offers exclusive benefits like trail access, social events, and more. Join our community of outdoor enthusiasts and experience the best of Fort Kent’s winter wonderland.
+                {{ page.main_content }}
             </p>
-            <a href="{% url 'website:memberships' %}#pg-training" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
-                Purchase your membership
-                <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            </a>
-            <a href="{% static 'website/2025Rentals.jpg' %}" class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                View our Rental Pricing
-            </a>
         </div>
         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <img src="{% static 'website/img/10th-mtn-lodge.jpg' %}" class="object-cover object-center w-full h-full" alt="athletes at biathlon range">
+            {% image page.main_image width-500 class="object-cover object-center w-full h-full"  %}
         </div>
     </div>
 </section>
@@ -88,7 +79,7 @@
                     keeping our trails in great condition all year round. So when planning your visit to the Fort Kent
                     Outdoor center, don’t forget to check out our regularly updated trail maps and trail conditions.</p>
                 <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
-                    <a href="{% url 'website:day-passes' %}"
+                    <a href=""
                        class="inline-flex items-center justify-center px-4 py-2.5 text-base font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-900">
                         View our day pass prices
                     </a>

@@ -96,6 +96,22 @@ class HomePage(Page):
         'website.AboutUsPage',
         'website.ProgramsPage',
     ]
+    main_title = models.CharField(max_length=100, blank=True, null=True)
+    main_content = models.TextField(blank=True)
+    main_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('main_title'),
+        FieldPanel('main_content'),
+        FieldPanel('main_image'),
+    ]
+
 
 class UpcomingListingPage(Page):
     parent_page_types = ['website.HomePage']
@@ -166,7 +182,7 @@ class AboutUsPage(Page):
     
 
 class Coach(Orderable):
-    page = ParentalKey("website.AboutUsPage", related_name="coaches")
+    page = ParentalKey("website.ProgramsPage", related_name="coaches")
     name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
     profile_picture = models.ForeignKey(
