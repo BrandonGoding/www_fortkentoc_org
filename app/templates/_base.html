@@ -1,7 +1,7 @@
 <!-- templates/_base.html -->
-
+{% load wagtailcore_tags %}
 {% load compress static  %}
-
+{% load wagtailuserbar %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,6 +42,7 @@
 {% endblock %}
 </head>
 <body>
+{% wagtailuserbar %}
 <header>
     <nav class="hidden border-gray-200 bg-gray-800 md:block">
         <div class="flex flex-wrap justify-between items-end mx-auto max-w-screen-xl py-2.5">
