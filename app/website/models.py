@@ -14,6 +14,7 @@ class HomePage(Page):
         'website.LegacyPage',
         'website.AboutUsPage',
         'website.ProgramsPage',
+        'website.ActivitiesPage',
     ]
     main_title = models.CharField(max_length=100, blank=True, null=True)
     main_content = models.TextField(blank=True)
@@ -188,3 +189,12 @@ class ProgramsPage(Page):
 
     def get_template(self, request, *args, **kwargs):
         return 'website/program_page.html'
+
+
+class ActivitiesPage(Page):
+    parent_page_types = ['website.HomePage']
+    subpage_types = []
+    max_count = 1
+
+    def get_template(self, request, *args, **kwargs):
+        return 'website/activities_page.html'
