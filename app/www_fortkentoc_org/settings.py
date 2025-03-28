@@ -64,13 +64,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -113,16 +106,21 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = '/static/'
+AWS_STORAGE_BUCKET_NAME = 'cdn.fortkentoc.org'
+AWS_CLOUDFRONT_DOMAIN = 'cdn.fortkentoc.org'
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
 
-# Add these if you are using custom static files
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # if you have a static folder at the project level
-]
+AWS_PUBLIC_MEDIA_LOCATION = 'media'
+AWS_PRIVATE_MEDIA_LOCATION = 'private-media'
+MEDIA_ROOT = '/%s/' % AWS_PUBLIC_MEDIA_LOCATION
+MEDIA_URL = '//%s/%s/' % (AWS_CLOUDFRONT_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
+DEFAULT_FILE_STORAGE = 'website.storage_backends.PublicMediaStorage'
 
-# For production, ensure this is set up
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
+STATICFILES_LOCATION = 'static'
+STATIC_ROOT = '/%s/' % STATICFILES_LOCATION
+STATIC_URL = '//%s/%s/' % (AWS_CLOUDFRONT_DOMAIN, STATICFILES_LOCATION)
+STATICFILES_STORAGE = 'website.storage_backends.StaticStorage'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -132,8 +130,6 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10_000
 

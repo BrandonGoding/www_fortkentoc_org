@@ -24,4 +24,4 @@ urlpatterns = [
     path("", include("website.urls")),
     path('carl/', include(wagtailadmin_urls)),
     path('', include(wagtail_urls)),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
