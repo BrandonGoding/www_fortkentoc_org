@@ -21,9 +21,5 @@ urlpatterns = [
     path(
         "partials/webcam/", website_views.webcam_partial, name="webcam_modal"
     ),
-    path(
-        "partials/coach/<slug:slug>/",
-        website_views.CoachDetailView.as_view(),
-        name="coach_modal",
-    ),
+    path('partials/<int:page_id>/coach/<int:coach_id>/', website_views.CoachDetailsView.as_view(), name='coach_modal'),
 ]

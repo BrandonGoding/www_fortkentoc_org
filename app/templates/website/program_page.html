@@ -29,8 +29,8 @@
                 {% for coach in page.coaches.all %}
                     <div class="text-center text-gray-500">
                         <a href="#" hx-trigger="click" hx-target="body"
-                           hx-get="{% url 'website:coach_modal' coach.slug %}" hx-swap="afterbegin">
-                            <img src="{{ coach.imageUrl }}"  class="mx-auto mb-4 w-36 h-36 rounded-lg" />
+                           hx-get="{% url 'website:coach_modal' page.pk coach.pk %}" hx-swap="afterbegin">
+                        {% image coach.profile_picture fill-144x144   class="mx-auto mb-4 w-36 h-36 rounded-lg" %}
                             <h5 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ coach.name }}</h5>
 
                                 <span>

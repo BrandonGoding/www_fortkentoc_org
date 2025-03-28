@@ -4,7 +4,7 @@ from django.http import (
     HttpResponse,
     JsonResponse,
 )
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views.generic import TemplateView, DetailView
 
@@ -15,6 +15,7 @@ from website.constants import (
     WINTER_SEASON,
     OFF_SEASON,
 )
+from website.models import ProgramsPage
 
 
 class ActivitiesDetailView(DetailView):
@@ -63,15 +64,21 @@ class DayPassesTemplateView(TemplateView):
         return context
 
 
-
-class CoachDetailView(DetailView):
+class CoachDetailsView(DetailView):
     template_name = "website/partials/coach_bio.html"
+    model = ProgramsPage
+    context_object_name = "object"
 
     def get_object(self, queryset=None):
-        for coach in COACHES:
-            if coach["slug"] == self.kwargs["slug"]:
-                return coach
-        return None  # Return None if no coach with the given slug is found
+        page = get_object_or_404(ProgramsPage, id=self.kwargs["page_id"])
+        return get_object_or_404(page.coaches, id=self.kwargs["coach_id"])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        coach = self.get_object()
+        context['next_coach'] = coach.get_next()
+        context['prev_coach'] = coach.get_prev()
+        return context
 
 
 class ProgramDates:

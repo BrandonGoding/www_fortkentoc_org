@@ -175,6 +175,17 @@ class Coach(Orderable):
         FieldPanel('profile_picture'),
         FieldPanel('biography')
     ]
+    
+    def get_next(self):
+        next_coach = self.page.coaches.filter(sort_order__gt=self.sort_order).order_by(
+            'sort_order').first()
+        return next_coach
+    
+    def get_prev(self):
+        prev_coach = self.page.coaches.filter(sort_order__lt=self.sort_order).order_by(
+            '-sort_order').first()
+        return prev_coach
+
 
 class ProgramsPage(MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
