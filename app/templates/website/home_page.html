@@ -1,5 +1,11 @@
 {% extends "../_base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
+
+{% block meta_tag %}
+  {% meta_tags %}
+{% endblock %}
+
+
 {% block content %}
     <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0" nonce="xPkSZksn"></script>
