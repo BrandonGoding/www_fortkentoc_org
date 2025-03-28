@@ -5,9 +5,10 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel, Field
 from wagtail.fields import RichTextField
 from wagtail.models import Page, Orderable
 from .fields import TemplateChoiceWidget
+from wagtailmetadata.models import MetadataPageMixin
 
 
-class HomePage(Page):
+class HomePage(MetadataPageMixin, Page):
     max_count = 1
     subpage_types = [
         'website.UpcomingListingPage',
@@ -33,7 +34,7 @@ class HomePage(Page):
     ]
 
 
-class UpcomingListingPage(Page):
+class UpcomingListingPage(MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = ['website.EventPage']
     max_count = 2
@@ -62,7 +63,7 @@ class EventSession(Orderable):
     def __str__(self):
         return self.title
 
-class EventPage(Page):
+class EventPage(MetadataPageMixin, Page):
     parent_page_types = ['website.UpcomingListingPage']
     subpage_types = []
     banner_image = models.ForeignKey(
@@ -109,7 +110,7 @@ class EventPage(Page):
         return self.title
     
 #################### OLD PAGES ####################
-class LegacyPage(Page):
+class LegacyPage(MetadataPageMixin, Page):
     subpage_types = ['website.HomePage']
     template_name = models.CharField(max_length=255, default='default_template.html')
     
@@ -139,7 +140,7 @@ class BoardMember(Orderable):
         FieldPanel('profile_picture'),
     ]
 
-class AboutUsPage(Page):
+class AboutUsPage(MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = []
     max_count = 1
@@ -175,7 +176,7 @@ class Coach(Orderable):
         FieldPanel('biography')
     ]
 
-class ProgramsPage(Page):
+class ProgramsPage(MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = []
     max_count = 1
@@ -191,7 +192,7 @@ class ProgramsPage(Page):
         return 'website/program_page.html'
 
 
-class ActivitiesPage(Page):
+class ActivitiesPage(MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = []
     max_count = 1
