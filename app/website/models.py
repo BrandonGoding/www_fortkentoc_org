@@ -16,6 +16,7 @@ class HomePage(MetadataPageMixin, Page):
         'website.AboutUsPage',
         'website.ProgramsPage',
         'website.ActivitiesPage',
+        'website.DayPassesPage',
     ]
     main_title = models.CharField(max_length=100, blank=True, null=True)
     main_content = models.TextField(blank=True)
@@ -210,3 +211,38 @@ class ActivitiesPage(MetadataPageMixin, Page):
 
     def get_template(self, request, *args, **kwargs):
         return 'website/activities_page.html'
+
+
+class DayPassLink(Orderable):
+    page = ParentalKey("website.DayPassesPage", related_name="day_passes")
+    background_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    url = models.URLField()
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('price'),
+        FieldPanel('url'),
+        FieldPanel('background_image'),
+    ]
+
+
+
+class DayPassesPage(MetadataPageMixin, Page):
+    parent_page_types = ['website.HomePage']
+    subpage_types = []
+    max_count = 1
+
+    def get_template(self, request, *args, **kwargs):
+        return 'website/day_pass_page.html'
+    
+    content_panels = Page.content_panels + [
+        InlinePanel("day_passes", max_num=10, min_num=1, label="Day Passes")
+    ]
