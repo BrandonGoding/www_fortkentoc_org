@@ -49,6 +49,10 @@ class UpcomingListingPage(MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = ['website.EventPage']
     max_count = 2
+    
+    def get_template(self, request, *args, **kwargs):
+        return 'website/event_listing_page.html'
+    
 
 class EventSession(Orderable):
     page = ParentalKey("website.EventPage", related_name="sessions")
