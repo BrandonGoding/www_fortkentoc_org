@@ -27,11 +27,21 @@ class HomePage(MetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    cta_text = models.CharField(max_length=100, blank=True, null=True)
+    cta_page = models.ForeignKey(
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('main_title'),
         FieldPanel('main_content'),
         FieldPanel('main_image'),
+        FieldPanel('cta_text'),
+        FieldPanel('cta_page'),
     ]
 
 
@@ -39,8 +49,10 @@ class UpcomingListingPage(MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = ['website.EventPage']
     max_count = 2
+
     def get_template(self, request, *args, **kwargs):
         return 'website/event_listing_page.html'
+
 
 class EventSession(Orderable):
     page = ParentalKey("website.EventPage", related_name="sessions")
