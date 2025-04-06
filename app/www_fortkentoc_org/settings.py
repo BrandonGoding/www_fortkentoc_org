@@ -6,6 +6,7 @@ import pymysql
 pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+ENVIRONMENT = config("ENVIRONMENT", cast=str, default="development")
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 ALLOWED_HOSTS = config(
@@ -41,7 +42,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "website.middleware.HealthCheckMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -54,16 +54,25 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "www_fortkentoc_org.urls"
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config("MYSQL_DB"),
-        'USER': config("MYSQL_USER"),
-        'PASSWORD': config("MYSQL_PASSWORD"),
-        'HOST': config("MYSQL_HOST"),
-        'PORT': config("MYSQL_PORT"),
+if ENVIRONMENT == "production":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': config("MYSQL_DB"),
+            'USER': config("MYSQL_USER"),
+            'PASSWORD': config("MYSQL_PASSWORD"),
+            'HOST': config("MYSQL_HOST"),
+            'PORT': config("MYSQL_PORT"),
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+
 
 TEMPLATES = [
     {
@@ -80,6 +89,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = "www_fortkentoc_org.wsgi.application"
 
@@ -106,23 +116,26 @@ USE_I18N = True
 
 USE_TZ = True
 
+if ENVIRONMENT == "production":
+    AWS_STORAGE_BUCKET_NAME = 'cdn.fortkentoc.org'
+    AWS_CLOUDFRONT_DOMAIN = 'cdn.fortkentoc.org'
+    AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
 
-AWS_STORAGE_BUCKET_NAME = 'cdn.fortkentoc.org'
-AWS_CLOUDFRONT_DOMAIN = 'cdn.fortkentoc.org'
-AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+    AWS_PUBLIC_MEDIA_LOCATION = 'media'
+    AWS_PRIVATE_MEDIA_LOCATION = 'private-media'
+    MEDIA_ROOT = '/%s/' % AWS_PUBLIC_MEDIA_LOCATION
+    MEDIA_URL = '//%s/%s/' % (AWS_CLOUDFRONT_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
+    DEFAULT_FILE_STORAGE = 'website.storage_backends.PublicMediaStorage'
 
-AWS_PUBLIC_MEDIA_LOCATION = 'media'
-AWS_PRIVATE_MEDIA_LOCATION = 'private-media'
-MEDIA_ROOT = '/%s/' % AWS_PUBLIC_MEDIA_LOCATION
-MEDIA_URL = '//%s/%s/' % (AWS_CLOUDFRONT_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
-DEFAULT_FILE_STORAGE = 'website.storage_backends.PublicMediaStorage'
-
-STATICFILES_LOCATION = 'static'
-STATIC_ROOT = '/%s/' % STATICFILES_LOCATION
-STATIC_URL = '//%s/%s/' % (AWS_CLOUDFRONT_DOMAIN, STATICFILES_LOCATION)
-STATICFILES_STORAGE = 'website.storage_backends.StaticStorage'
-
+    STATICFILES_LOCATION = 'static'
+    STATIC_ROOT = '/%s/' % STATICFILES_LOCATION
+    STATIC_URL = '//%s/%s/' % (AWS_CLOUDFRONT_DOMAIN, STATICFILES_LOCATION)
+    STATICFILES_STORAGE = 'website.storage_backends.StaticStorage'
+else:
+    STATIC_URL = 'static/'
+    MEDIA_URL = 'media/'
+    
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STATICFILES_FINDERS = [
@@ -141,6 +154,6 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/login/"
 
 WAGTAIL_SITE_NAME = 'Fort Kent Outdoor Center'
-WAGTAILADMIN_BASE_URL = 'http://localhost:8000'
-BASE_URL = "http://localhost:8000"
+WAGTAILADMIN_BASE_URL = config("BASE_URL")
+BASE_URL = config("BASE_URL")
 WAGTAILDOCS_EXTENSIONS = ['pdf']
