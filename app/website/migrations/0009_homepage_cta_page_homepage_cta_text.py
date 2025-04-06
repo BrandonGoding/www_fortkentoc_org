@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
     dependencies = [
         ("wagtailcore", "0089_log_entry_data_json_null_to_object"),
-        ("website", "0007_daypasslink_background_image"),
+        ("website", "0008_activity_winteractivity_summeractivity"),
     ]
 
     operations = [

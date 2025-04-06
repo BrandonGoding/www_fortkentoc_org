@@ -49,10 +49,10 @@ class UpcomingListingPage(MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = ['website.EventPage']
     max_count = 2
-    
+
     def get_template(self, request, *args, **kwargs):
         return 'website/event_listing_page.html'
-    
+
 
 class EventSession(Orderable):
     page = ParentalKey("website.EventPage", related_name="sessions")
@@ -72,8 +72,9 @@ class EventSession(Orderable):
     ]
 
     def clean(self):
-        if self.start_time > self.end_time:
-            raise ValidationError("Start time must be before end time.")
+        if self.start_time and self.end_time:
+            if self.start_time > self.end_time:
+                raise ValidationError("Start time must be before end time.")
 
     def __str__(self):
         return self.title
@@ -217,11 +218,49 @@ class ProgramsPage(MetadataPageMixin, Page):
     def get_template(self, request, *args, **kwargs):
         return 'website/program_page.html'
 
+class Activity(Orderable):
+    name = models.CharField(max_length=100)
+    description = RichTextField(blank=True)
+    activity_photo = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('description'),
+        FieldPanel('activity_photo'),
+    ]
+
+class SummerActivity(Activity):
+    page = ParentalKey("website.ActivitiesPage", related_name="summer_activities")
+
+class WinterActivity(Activity):
+    page = ParentalKey("website.ActivitiesPage", related_name="winter_activities")
+
 
 class ActivitiesPage(MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = []
     max_count = 1
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                InlinePanel("winter_activities")
+            ],
+            heading="Winter Activities"
+        ),
+        MultiFieldPanel(
+            [
+                InlinePanel("summer_activities")
+            ],
+            heading="Summer Activities"
+        )
+    ]
 
     def get_template(self, request, *args, **kwargs):
         return 'website/activities_page.html'

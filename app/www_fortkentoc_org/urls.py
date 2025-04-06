@@ -19,9 +19,11 @@ from django.conf.urls.static import static
 from django.urls import include, path
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
 
 urlpatterns = [
     path("", include("website.urls")),
+    path('documents/', include(wagtaildocs_urls)),
     path('carl/', include(wagtailadmin_urls)),
     path('', include(wagtail_urls)),
 ]
