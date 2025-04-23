@@ -32,12 +32,12 @@ class CoachDetailsView(DetailView):
     def get_object(self, queryset=None):
         page = get_object_or_404(ProgramsPage, id=self.kwargs["page_id"])
         return get_object_or_404(page.coaches, id=self.kwargs["coach_id"])
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         coach = self.get_object()
-        context['next_coach'] = coach.get_next()
-        context['prev_coach'] = coach.get_prev()
+        context["next_coach"] = coach.get_next()
+        context["prev_coach"] = coach.get_prev()
         return context
 
 

@@ -15,11 +15,13 @@ urlpatterns = [
         website_views.ActivitiesDetailView.as_view(),
         name="activity_partial",
     ),
-    path(
-        "partials/empty/", website_views.empty_route, name="empty_route"
-    ),
+    path("partials/empty/", website_views.empty_route, name="empty_route"),
     path(
         "partials/webcam/", website_views.webcam_partial, name="webcam_modal"
     ),
-    path('partials/<int:page_id>/coach/<int:coach_id>/', website_views.CoachDetailsView.as_view(), name='coach_modal'),
+    path(
+        "partials/<int:page_id>/coach/<int:coach_id>/",
+        website_views.CoachDetailsView.as_view(),
+        name="coach_modal",
+    ),
 ]

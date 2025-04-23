@@ -23,10 +23,12 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 urlpatterns = [
     path("", include("website.urls")),
-    path('documents/', include(wagtaildocs_urls)),
-    path('carl/', include(wagtailadmin_urls)),
-    path('', include(wagtail_urls)),
+    path("documents/", include(wagtaildocs_urls)),
+    path("carl/", include(wagtailadmin_urls)),
+    path("", include(wagtail_urls)),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )

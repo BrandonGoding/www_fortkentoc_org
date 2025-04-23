@@ -1,7 +1,12 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel, FieldRowPanel
+from wagtail.admin.panels import (
+    FieldPanel,
+    MultiFieldPanel,
+    InlinePanel,
+    FieldRowPanel,
+)
 from wagtail.fields import RichTextField
 from wagtail.models import Page, Orderable
 from .fields import TemplateChoiceWidget
@@ -12,47 +17,51 @@ from .mixins import SeasonalFieldsMixin
 class HomePage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     max_count = 1
     subpage_types = [
-        'website.UpcomingListingPage',
-        'website.LegacyPage',
-        'website.AboutUsPage',
-        'website.ProgramsPage',
-        'website.ActivitiesPage',
-        'website.DayPassesPage',
+        "website.UpcomingListingPage",
+        "website.LegacyPage",
+        "website.AboutUsPage",
+        "website.ProgramsPage",
+        "website.ActivitiesPage",
+        "website.DayPassesPage",
     ]
     main_title = models.CharField(max_length=100, blank=True, null=True)
     main_content = models.TextField(blank=True)
     main_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
     cta_text = models.CharField(max_length=100, blank=True, null=True)
     cta_page = models.ForeignKey(
-        'wagtailcore.Page',
+        "wagtailcore.Page",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
-        FieldPanel('main_title'),
-        FieldPanel('main_content'),
-        FieldPanel('main_image'),
-        FieldPanel('cta_text'),
-        FieldPanel('cta_page'),
-    ]
+    content_panels = (
+        Page.content_panels
+        + SeasonalFieldsMixin.get_seasonal_panels()
+        + [
+            FieldPanel("main_title"),
+            FieldPanel("main_content"),
+            FieldPanel("main_image"),
+            FieldPanel("cta_text"),
+            FieldPanel("cta_page"),
+        ]
+    )
 
 
 class UpcomingListingPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
-    parent_page_types = ['website.HomePage']
-    subpage_types = ['website.EventPage']
+    parent_page_types = ["website.HomePage"]
+    subpage_types = ["website.EventPage"]
     max_count = 2
 
     def get_template(self, request, *args, **kwargs):
-        return 'website/event_listing_page.html'
+        return "website/event_listing_page.html"
 
 
 class EventSession(Orderable):
@@ -63,11 +72,10 @@ class EventSession(Orderable):
 
     panels = [
         FieldRowPanel(
-            children=
-            [
-            FieldPanel('date'),
-            FieldPanel('start_time'),
-            FieldPanel('end_time'),
+            children=[
+                FieldPanel("date"),
+                FieldPanel("start_time"),
+                FieldPanel("end_time"),
             ]
         ),
     ]
@@ -80,60 +88,72 @@ class EventSession(Orderable):
     def __str__(self):
         return self.title
 
+
 class EventPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
-    parent_page_types = ['website.UpcomingListingPage']
+    parent_page_types = ["website.UpcomingListingPage"]
     subpage_types = []
     banner_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
     main_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
     pdf = models.ForeignKey(
-        'wagtaildocs.Document',
+        "wagtaildocs.Document",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
     details = RichTextField(blank=True)
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
-        FieldPanel('details'),
-        MultiFieldPanel(
-            [
-                FieldRowPanel(
-                    [
-                        FieldPanel('banner_image'),
-                        FieldPanel('main_image'),
-                        FieldPanel('pdf'),
-                    ],
-                )
-            ],
-            heading="Event Media"
-        ),
-        InlinePanel("sessions", max_num=10, min_num=1, label="Event Date"),
-    ]
+    content_panels = (
+        Page.content_panels
+        + SeasonalFieldsMixin.get_seasonal_panels()
+        + [
+            FieldPanel("details"),
+            MultiFieldPanel(
+                [
+                    FieldRowPanel(
+                        [
+                            FieldPanel("banner_image"),
+                            FieldPanel("main_image"),
+                            FieldPanel("pdf"),
+                        ],
+                    )
+                ],
+                heading="Event Media",
+            ),
+            InlinePanel("sessions", max_num=10, min_num=1, label="Event Date"),
+        ]
+    )
 
     def __str__(self):
         return self.title
 
+
 #################### OLD PAGES ####################
 class LegacyPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
-    subpage_types = ['website.HomePage']
-    template_name = models.CharField(max_length=255, default='default_template.html')
+    subpage_types = ["website.HomePage"]
+    template_name = models.CharField(
+        max_length=255, default="default_template.html"
+    )
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
-        FieldPanel('template_name', widget=TemplateChoiceWidget()),
-    ]
+    content_panels = (
+        Page.content_panels
+        + SeasonalFieldsMixin.get_seasonal_panels()
+        + [
+            FieldPanel("template_name", widget=TemplateChoiceWidget()),
+        ]
+    )
 
     def get_template(self, request, *args, **kwargs):
         return self.template_name
@@ -144,33 +164,45 @@ class BoardMember(Orderable):
     name = models.CharField(max_length=255)
     role = models.CharField(max_length=255, null=True, blank=True)
     profile_picture = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
 
     panels = [
-        FieldPanel('name'),
-        FieldPanel('role'),
-        FieldPanel('profile_picture'),
+        FieldPanel("name"),
+        FieldPanel("role"),
+        FieldPanel("profile_picture"),
     ]
 
+
 class AboutUsPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
-    parent_page_types = ['website.HomePage']
+    parent_page_types = ["website.HomePage"]
     subpage_types = []
     max_count = 1
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
-        MultiFieldPanel(
-            [InlinePanel("board_members", max_num=10, min_num=1, label="Board Member")],
-            heading="Board Members",
-        ),
-    ]
+    content_panels = (
+        Page.content_panels
+        + SeasonalFieldsMixin.get_seasonal_panels()
+        + [
+            MultiFieldPanel(
+                [
+                    InlinePanel(
+                        "board_members",
+                        max_num=10,
+                        min_num=1,
+                        label="Board Member",
+                    )
+                ],
+                heading="Board Members",
+            ),
+        ]
+    )
 
     def get_template(self, request, *args, **kwargs):
-        return 'website/about_page.html'
+        return "website/about_page.html"
 
 
 class Coach(Orderable):
@@ -178,124 +210,152 @@ class Coach(Orderable):
     name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
     profile_picture = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
     biography = models.TextField(null=True, blank=True)
 
     panels = [
-        FieldPanel('name'),
-        FieldPanel('title'),
-        FieldPanel('profile_picture'),
-        FieldPanel('biography')
+        FieldPanel("name"),
+        FieldPanel("title"),
+        FieldPanel("profile_picture"),
+        FieldPanel("biography"),
     ]
 
     def get_next(self):
-        next_coach = self.page.coaches.filter(sort_order__gt=self.sort_order).order_by(
-            'sort_order').first()
+        next_coach = (
+            self.page.coaches.filter(sort_order__gt=self.sort_order)
+            .order_by("sort_order")
+            .first()
+        )
         return next_coach
 
     def get_prev(self):
-        prev_coach = self.page.coaches.filter(sort_order__lt=self.sort_order).order_by(
-            '-sort_order').first()
+        prev_coach = (
+            self.page.coaches.filter(sort_order__lt=self.sort_order)
+            .order_by("-sort_order")
+            .first()
+        )
         return prev_coach
 
 
 class ProgramsPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
-    parent_page_types = ['website.HomePage']
+    parent_page_types = ["website.HomePage"]
     subpage_types = []
     max_count = 1
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
-        MultiFieldPanel(
-            [InlinePanel("coaches", max_num=10, min_num=1, label="Program Coaches")],
-            heading="Program Coaches",
-        ),
-    ]
+    content_panels = (
+        Page.content_panels
+        + SeasonalFieldsMixin.get_seasonal_panels()
+        + [
+            MultiFieldPanel(
+                [
+                    InlinePanel(
+                        "coaches",
+                        max_num=10,
+                        min_num=1,
+                        label="Program Coaches",
+                    )
+                ],
+                heading="Program Coaches",
+            ),
+        ]
+    )
 
     def get_template(self, request, *args, **kwargs):
-        return 'website/program_page.html'
+        return "website/program_page.html"
+
 
 class Activity(SeasonalFieldsMixin, Orderable):
     name = models.CharField(max_length=100)
     description = RichTextField(blank=True)
     activity_photo = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
 
     panels = [
-        FieldPanel('name'),
-        FieldPanel('description'),
-        FieldPanel('activity_photo'),
+        FieldPanel("name"),
+        FieldPanel("description"),
+        FieldPanel("activity_photo"),
     ]
 
+
 class SummerActivity(Activity):
-    page = ParentalKey("website.ActivitiesPage", related_name="summer_activities")
+    page = ParentalKey(
+        "website.ActivitiesPage", related_name="summer_activities"
+    )
+
 
 class WinterActivity(Activity):
-    page = ParentalKey("website.ActivitiesPage", related_name="winter_activities")
+    page = ParentalKey(
+        "website.ActivitiesPage", related_name="winter_activities"
+    )
 
 
 class ActivitiesPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
-    parent_page_types = ['website.HomePage']
+    parent_page_types = ["website.HomePage"]
     subpage_types = []
     max_count = 1
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
-        MultiFieldPanel(
-            [
-                InlinePanel("winter_activities")
-            ],
-            heading="Winter Activities"
-        ),
-        MultiFieldPanel(
-            [
-                InlinePanel("summer_activities")
-            ],
-            heading="Summer Activities"
-        )
-    ]
+    content_panels = (
+        Page.content_panels
+        + SeasonalFieldsMixin.get_seasonal_panels()
+        + [
+            MultiFieldPanel(
+                [InlinePanel("winter_activities")], heading="Winter Activities"
+            ),
+            MultiFieldPanel(
+                [InlinePanel("summer_activities")], heading="Summer Activities"
+            ),
+        ]
+    )
 
     def get_template(self, request, *args, **kwargs):
-        return 'website/activities_page.html'
+        return "website/activities_page.html"
 
 
 class DayPassLink(Orderable):
     page = ParentalKey("website.DayPassesPage", related_name="day_passes")
     background_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
     url = models.URLField()
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
     panels = [
-        FieldPanel('name'),
-        FieldPanel('price'),
-        FieldPanel('url'),
-        FieldPanel('background_image'),
+        FieldPanel("name"),
+        FieldPanel("price"),
+        FieldPanel("url"),
+        FieldPanel("background_image"),
     ]
 
 
 class DayPassesPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
-    parent_page_types = ['website.HomePage']
+    parent_page_types = ["website.HomePage"]
     subpage_types = []
     max_count = 1
 
     def get_template(self, request, *args, **kwargs):
-        return 'website/day_pass_page.html'
+        return "website/day_pass_page.html"
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
-        InlinePanel("day_passes", max_num=10, min_num=1, label="Day Passes")
-    ]
+    content_panels = (
+        Page.content_panels
+        + SeasonalFieldsMixin.get_seasonal_panels()
+        + [
+            InlinePanel(
+                "day_passes", max_num=10, min_num=1, label="Day Passes"
+            )
+        ]
+    )

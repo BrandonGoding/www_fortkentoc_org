@@ -3,6 +3,7 @@ from pathlib import Path
 
 from decouple import config
 import pymysql
+
 pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,20 +26,20 @@ INSTALLED_APPS = [
     "rest_framework",
     "storages",
     "widget_tweaks",
-    'wagtail.contrib.forms',
-    'wagtail.contrib.redirects',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
-    'wagtail',
-    'modelcluster',
-    'taggit',
-    'wagtailmetadata',
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.search",
+    "wagtail.admin",
+    "wagtail",
+    "modelcluster",
+    "taggit",
+    "wagtailmetadata",
 ]
 
 MIDDLEWARE = [
@@ -49,20 +50,20 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 ROOT_URLCONF = "www_fortkentoc_org.urls"
 
 if ENVIRONMENT == "production":
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': config("MYSQL_DB"),
-            'USER': config("MYSQL_USER"),
-            'PASSWORD': config("MYSQL_PASSWORD"),
-            'HOST': config("MYSQL_HOST"),
-            'PORT': config("MYSQL_PORT"),
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": config("MYSQL_DB"),
+            "USER": config("MYSQL_USER"),
+            "PASSWORD": config("MYSQL_PASSWORD"),
+            "HOST": config("MYSQL_HOST"),
+            "PORT": config("MYSQL_PORT"),
         }
     }
 else:
@@ -117,26 +118,26 @@ USE_I18N = True
 USE_TZ = True
 
 if ENVIRONMENT == "production":
-    AWS_STORAGE_BUCKET_NAME = 'cdn.fortkentoc.org'
-    AWS_CLOUDFRONT_DOMAIN = 'cdn.fortkentoc.org'
+    AWS_STORAGE_BUCKET_NAME = "cdn.fortkentoc.org"
+    AWS_CLOUDFRONT_DOMAIN = "cdn.fortkentoc.org"
     AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
 
-    AWS_PUBLIC_MEDIA_LOCATION = 'media'
-    AWS_PRIVATE_MEDIA_LOCATION = 'private-media'
-    MEDIA_ROOT = '/%s/' % AWS_PUBLIC_MEDIA_LOCATION
-    MEDIA_URL = '//%s/%s/' % (AWS_CLOUDFRONT_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
-    DEFAULT_FILE_STORAGE = 'website.storage_backends.PublicMediaStorage'
+    AWS_PUBLIC_MEDIA_LOCATION = "media"
+    AWS_PRIVATE_MEDIA_LOCATION = "private-media"
+    MEDIA_ROOT = "/%s/" % AWS_PUBLIC_MEDIA_LOCATION
+    MEDIA_URL = "//%s/%s/" % (AWS_CLOUDFRONT_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
+    DEFAULT_FILE_STORAGE = "website.storage_backends.PublicMediaStorage"
 
-    STATICFILES_LOCATION = 'static'
-    STATIC_ROOT = '/%s/' % STATICFILES_LOCATION
-    STATIC_URL = '//%s/%s/' % (AWS_CLOUDFRONT_DOMAIN, STATICFILES_LOCATION)
-    STATICFILES_STORAGE = 'website.storage_backends.StaticStorage'
+    STATICFILES_LOCATION = "static"
+    STATIC_ROOT = "/%s/" % STATICFILES_LOCATION
+    STATIC_URL = "//%s/%s/" % (AWS_CLOUDFRONT_DOMAIN, STATICFILES_LOCATION)
+    STATICFILES_STORAGE = "website.storage_backends.StaticStorage"
 else:
-    STATIC_URL = 'static/'
-    MEDIA_URL = 'media/'
+    STATIC_URL = "static/"
+    MEDIA_URL = "media/"
     MEDIA_ROOT = BASE_DIR / "media"
-    
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STATICFILES_FINDERS = [
@@ -154,7 +155,7 @@ COMPRESS_ENABLED = False
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/login/"
 
-WAGTAIL_SITE_NAME = 'Fort Kent Outdoor Center'
+WAGTAIL_SITE_NAME = "Fort Kent Outdoor Center"
 WAGTAILADMIN_BASE_URL = config("BASE_URL")
 BASE_URL = config("BASE_URL")
-WAGTAILDOCS_EXTENSIONS = ['pdf']
+WAGTAILDOCS_EXTENSIONS = ["pdf"]
