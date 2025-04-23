@@ -6,9 +6,10 @@ from wagtail.fields import RichTextField
 from wagtail.models import Page, Orderable
 from .fields import TemplateChoiceWidget
 from wagtailmetadata.models import MetadataPageMixin
+from .mixins import SeasonalFieldsMixin
 
 
-class HomePage(MetadataPageMixin, Page):
+class HomePage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     max_count = 1
     subpage_types = [
         'website.UpcomingListingPage',
@@ -36,7 +37,7 @@ class HomePage(MetadataPageMixin, Page):
         related_name='+',
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
         FieldPanel('main_title'),
         FieldPanel('main_content'),
         FieldPanel('main_image'),
@@ -45,7 +46,7 @@ class HomePage(MetadataPageMixin, Page):
     ]
 
 
-class UpcomingListingPage(MetadataPageMixin, Page):
+class UpcomingListingPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = ['website.EventPage']
     max_count = 2
@@ -59,7 +60,7 @@ class EventSession(Orderable):
     date = models.DateField("Session date")
     start_time = models.TimeField("Session start time", null=True, blank=True)
     end_time = models.TimeField("Session end time", null=True, blank=True)
-    
+
     panels = [
         FieldRowPanel(
             children=
@@ -79,7 +80,7 @@ class EventSession(Orderable):
     def __str__(self):
         return self.title
 
-class EventPage(MetadataPageMixin, Page):
+class EventPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     parent_page_types = ['website.UpcomingListingPage']
     subpage_types = []
     banner_image = models.ForeignKey(
@@ -104,8 +105,8 @@ class EventPage(MetadataPageMixin, Page):
         related_name='+'
     )
     details = RichTextField(blank=True)
-    
-    content_panels = Page.content_panels + [
+
+    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
         FieldPanel('details'),
         MultiFieldPanel(
             [
@@ -124,16 +125,16 @@ class EventPage(MetadataPageMixin, Page):
 
     def __str__(self):
         return self.title
-    
+
 #################### OLD PAGES ####################
-class LegacyPage(MetadataPageMixin, Page):
+class LegacyPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     subpage_types = ['website.HomePage']
     template_name = models.CharField(max_length=255, default='default_template.html')
-    
-    content_panels = Page.content_panels + [
+
+    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
         FieldPanel('template_name', widget=TemplateChoiceWidget()),
     ]
-    
+
     def get_template(self, request, *args, **kwargs):
         return self.template_name
 
@@ -156,21 +157,21 @@ class BoardMember(Orderable):
         FieldPanel('profile_picture'),
     ]
 
-class AboutUsPage(MetadataPageMixin, Page):
+class AboutUsPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = []
     max_count = 1
-    
-    content_panels = Page.content_panels + [
+
+    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
         MultiFieldPanel(
             [InlinePanel("board_members", max_num=10, min_num=1, label="Board Member")],
             heading="Board Members",
         ),
     ]
-    
+
     def get_template(self, request, *args, **kwargs):
         return 'website/about_page.html'
-    
+
 
 class Coach(Orderable):
     page = ParentalKey("website.ProgramsPage", related_name="coaches")
@@ -191,24 +192,24 @@ class Coach(Orderable):
         FieldPanel('profile_picture'),
         FieldPanel('biography')
     ]
-    
+
     def get_next(self):
         next_coach = self.page.coaches.filter(sort_order__gt=self.sort_order).order_by(
             'sort_order').first()
         return next_coach
-    
+
     def get_prev(self):
         prev_coach = self.page.coaches.filter(sort_order__lt=self.sort_order).order_by(
             '-sort_order').first()
         return prev_coach
 
 
-class ProgramsPage(MetadataPageMixin, Page):
+class ProgramsPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = []
     max_count = 1
 
-    content_panels = Page.content_panels + [
+    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
         MultiFieldPanel(
             [InlinePanel("coaches", max_num=10, min_num=1, label="Program Coaches")],
             heading="Program Coaches",
@@ -218,7 +219,7 @@ class ProgramsPage(MetadataPageMixin, Page):
     def get_template(self, request, *args, **kwargs):
         return 'website/program_page.html'
 
-class Activity(Orderable):
+class Activity(SeasonalFieldsMixin, Orderable):
     name = models.CharField(max_length=100)
     description = RichTextField(blank=True)
     activity_photo = models.ForeignKey(
@@ -242,12 +243,12 @@ class WinterActivity(Activity):
     page = ParentalKey("website.ActivitiesPage", related_name="winter_activities")
 
 
-class ActivitiesPage(MetadataPageMixin, Page):
+class ActivitiesPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = []
     max_count = 1
 
-    content_panels = Page.content_panels + [
+    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
         MultiFieldPanel(
             [
                 InlinePanel("winter_activities")
@@ -287,15 +288,14 @@ class DayPassLink(Orderable):
     ]
 
 
-
-class DayPassesPage(MetadataPageMixin, Page):
+class DayPassesPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     parent_page_types = ['website.HomePage']
     subpage_types = []
     max_count = 1
 
     def get_template(self, request, *args, **kwargs):
         return 'website/day_pass_page.html'
-    
-    content_panels = Page.content_panels + [
+
+    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
         InlinePanel("day_passes", max_num=10, min_num=1, label="Day Passes")
     ]
