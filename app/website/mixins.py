@@ -1,6 +1,6 @@
 import datetime
 from django.db import models
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, FieldRowPanel
 
 
 class SeasonalFieldsMixin(models.Model):
@@ -27,10 +27,14 @@ class SeasonalFieldsMixin(models.Model):
     @classmethod
     def get_seasonal_panels(cls):
         return [
-            FieldPanel('fall_banner_image'),
-            FieldPanel('winter_banner_image'),
-            FieldPanel('spring_banner_image'),
-            FieldPanel('summer_banner_image'),
+            MultiFieldPanel([
+                FieldRowPanel([
+                    FieldPanel('fall_banner_image'),
+                    FieldPanel('winter_banner_image'),
+                    FieldPanel('spring_banner_image'),
+                    FieldPanel('summer_banner_image'),
+                ]),
+            ], heading='Seasonal Banner Images')
         ]
 
     @staticmethod
@@ -51,7 +55,9 @@ class SeasonalFieldsMixin(models.Model):
         else:
             return "fall"
 
-    def get_current_season_banner_image(self, date=None):
+    def get_current_season_banner_image(self):
         """Return the banner image appropriate for the current season."""
-        season = self.get_season(date)
+        today = datetime.date.today()
+        season = self.get_season(today)
+        print(season)
         return getattr(self, f"{season}_banner_image", None)

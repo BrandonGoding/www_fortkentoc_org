@@ -37,7 +37,7 @@ class HomePage(SeasonalFieldsMixin, MetadataPageMixin, Page):
         related_name='+',
     )
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
+    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
         FieldPanel('main_title'),
         FieldPanel('main_content'),
         FieldPanel('main_image'),
@@ -106,7 +106,7 @@ class EventPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     )
     details = RichTextField(blank=True)
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
+    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
         FieldPanel('details'),
         MultiFieldPanel(
             [
@@ -131,7 +131,7 @@ class LegacyPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     subpage_types = ['website.HomePage']
     template_name = models.CharField(max_length=255, default='default_template.html')
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
+    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
         FieldPanel('template_name', widget=TemplateChoiceWidget()),
     ]
 
@@ -162,7 +162,7 @@ class AboutUsPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     subpage_types = []
     max_count = 1
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
+    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
         MultiFieldPanel(
             [InlinePanel("board_members", max_num=10, min_num=1, label="Board Member")],
             heading="Board Members",
@@ -209,7 +209,7 @@ class ProgramsPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     subpage_types = []
     max_count = 1
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
+    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
         MultiFieldPanel(
             [InlinePanel("coaches", max_num=10, min_num=1, label="Program Coaches")],
             heading="Program Coaches",
@@ -248,7 +248,7 @@ class ActivitiesPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     subpage_types = []
     max_count = 1
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
+    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
         MultiFieldPanel(
             [
                 InlinePanel("winter_activities")
@@ -296,6 +296,6 @@ class DayPassesPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     def get_template(self, request, *args, **kwargs):
         return 'website/day_pass_page.html'
 
-    content_panels = Page.content_panels + SeasonalFieldsMixin.seasonal_panels() + [
+    content_panels = Page.content_panels + SeasonalFieldsMixin.get_seasonal_panels() + [
         InlinePanel("day_passes", max_num=10, min_num=1, label="Day Passes")
     ]
