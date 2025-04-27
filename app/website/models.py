@@ -99,13 +99,6 @@ class EventPage(MetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    main_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
     pdf = models.ForeignKey(
         "wagtaildocs.Document",
         null=True,
@@ -124,7 +117,6 @@ class EventPage(MetadataPageMixin, Page):
                     FieldRowPanel(
                         [
                             FieldPanel("banner_image"),
-                            FieldPanel("main_image"),
                             FieldPanel("pdf"),
                         ],
                     )
