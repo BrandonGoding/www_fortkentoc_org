@@ -89,7 +89,7 @@ class EventSession(Orderable):
         return self.title
 
 
-class EventPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
+class EventPage(MetadataPageMixin, Page):
     parent_page_types = ["website.UpcomingListingPage"]
     subpage_types = []
     banner_image = models.ForeignKey(
@@ -117,7 +117,6 @@ class EventPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
 
     content_panels = (
         Page.content_panels
-        + SeasonalFieldsMixin.get_seasonal_panels()
         + [
             FieldPanel("details"),
             MultiFieldPanel(
