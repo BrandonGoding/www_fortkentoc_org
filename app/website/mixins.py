@@ -1,6 +1,10 @@
 import datetime
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, FieldRowPanel
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
+
+from website.widgets import OpacitySliderWidget
 
 
 class SeasonalFieldsMixin(models.Model):
@@ -11,12 +15,20 @@ class SeasonalFieldsMixin(models.Model):
         on_delete=models.SET_NULL,
         related_name="+",
     )
+    fall_banner_opacity = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        default=60,
+    )
     winter_banner_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
+    )
+    winter_banner_opacity = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        default=60,
     )
     spring_banner_image = models.ForeignKey(
         "wagtailimages.Image",
@@ -25,12 +37,20 @@ class SeasonalFieldsMixin(models.Model):
         on_delete=models.SET_NULL,
         related_name="+",
     )
+    spring_banner_opacity = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        default=60,
+    )
     summer_banner_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
+    )
+    summer_banner_opacity = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        default=60,
     )
 
     class Meta:
@@ -43,14 +63,34 @@ class SeasonalFieldsMixin(models.Model):
                 [
                     FieldRowPanel(
                         [
-                            FieldPanel("fall_banner_image"),
-                            FieldPanel("winter_banner_image"),
+                            MultiFieldPanel(
+                                [
+                                    FieldPanel("fall_banner_image"),
+                                    FieldPanel("fall_banner_opacity", widget=OpacitySliderWidget)
+                                ]
+                            ),
+                            MultiFieldPanel(
+                                [
+                                    FieldPanel("winter_banner_image"),
+                                    FieldPanel("winter_banner_opacity", widget=OpacitySliderWidget)
+                                ]
+                            )
                         ]
                     ),
                     FieldRowPanel(
                         [
-                            FieldPanel("spring_banner_image"),
-                            FieldPanel("summer_banner_image"),
+                            MultiFieldPanel(
+                                [
+                                    FieldPanel("spring_banner_image"),
+                                    FieldPanel("spring_banner_opacity", widget=OpacitySliderWidget)
+                                ]
+                            ),
+                            MultiFieldPanel(
+                                [
+                                    FieldPanel("summer_banner_image"),
+                                    FieldPanel("summer_banner_opacity", widget=OpacitySliderWidget)
+                                ]
+                            )
                         ]
                     ),
                 ],
@@ -94,3 +134,12 @@ class SeasonalFieldsMixin(models.Model):
         season = self.get_season(today)
         print(season)
         return getattr(self, f"{season}_banner_image", None)
+
+    def get_current_season_opacity(self):
+        """Return the banner image appropriate for the current season."""
+        today = datetime.date.today()
+        season = self.get_season(today)
+        try:
+            return getattr(self, f"{season}_banner_opacity", 100) / 100
+        except ZeroDivisionError:
+            return 0
