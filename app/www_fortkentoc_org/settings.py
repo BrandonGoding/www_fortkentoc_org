@@ -8,6 +8,7 @@ pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENVIRONMENT = config("ENVIRONMENT", cast=str, default="development")
+DATABASE = config("DATABASE", cast=str, default=None)
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 ALLOWED_HOSTS = config(
@@ -55,7 +56,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "www_fortkentoc_org.urls"
 
-if ENVIRONMENT == "production":
+if DATABASE == "MYSQL" or ENVIRONMENT == "production":
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
