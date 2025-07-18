@@ -12,6 +12,7 @@ from wagtail.models import Page, Orderable
 from .fields import TemplateChoiceWidget
 from wagtailmetadata.models import MetadataPageMixin
 from .mixins import SeasonalFieldsMixin
+from datetime import date
 
 
 class HomePage(SeasonalFieldsMixin, MetadataPageMixin, Page):
@@ -62,6 +63,23 @@ class UpcomingListingPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
 
     def get_template(self, request, *args, **kwargs):
         return "website/event_listing_page.html"
+    
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+
+        today = date.today()
+        events = self.get_children().live().specific()
+
+        session_items = []
+        for event in events:
+            for session in event.sessions.filter(date__gte=today).order_by("date", "start_time"):
+                session_items.append({
+                    "event": event,
+                    "session": session,
+                })
+
+        context["event_sessions"] = session_items
+        return context
 
 
 class EventSession(Orderable):
@@ -85,8 +103,8 @@ class EventSession(Orderable):
             if self.start_time > self.end_time:
                 raise ValidationError("Start time must be before end time.")
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.title
 
 
 class EventPage(MetadataPageMixin, Page):
@@ -127,8 +145,8 @@ class EventPage(MetadataPageMixin, Page):
         ]
     )
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.title
 
 
 #################### OLD PAGES ####################

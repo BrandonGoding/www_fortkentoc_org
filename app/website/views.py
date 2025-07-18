@@ -11,7 +11,7 @@ from django.views.generic import TemplateView, DetailView
 from website.constants import (
     ACTIVITIES,
 )
-from website.models import ProgramsPage
+from website.models import ProgramsPage, EventPage
 
 
 class ActivitiesDetailView(DetailView):
@@ -53,10 +53,11 @@ def webcam_partial(request):
     return render(request, "website/partials/webcam_modal_partial.html")
 
 
-# def calendar_events(request):
-#     event_list = []
-#     for event in EventPage.objects.all():
-#         event_title = event.title
-#         for date in event.program_dates.all():
-#             event_list.append({"title": event_title, "start": date.date})
-#     return JsonResponse(event_list, safe=False)
+def calendar_events(request):
+    event_list = []
+    for event in EventPage.objects.all():
+        event_title = event.title
+        print(event_title)
+        for session in event.sessions.all():
+            event_list.append({"title": event_title, "start": session.date})
+    return JsonResponse(event_list, safe=False)

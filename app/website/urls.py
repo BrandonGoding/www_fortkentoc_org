@@ -5,11 +5,11 @@ from website import views as website_views
 app_name = "website"
 
 urlpatterns = [
-    # path(
-    #     "api/calendar-events/",
-    #     website_views.calendar_events,
-    #     name="calendar-events",
-    # ),
+    path(
+        "api/calendar-events/",
+        website_views.calendar_events,
+        name="calendar-events",
+    ),
     path(
         "partials/activity/<slug:slug>/",
         website_views.ActivitiesDetailView.as_view(),
