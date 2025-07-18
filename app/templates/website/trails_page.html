@@ -12,10 +12,10 @@
                 <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">
                     Trails at Fort Kent Outdoor Center</h1>
                 <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">Welcome to Fort Kent's Outdoor Center, where adventure awaits on our Nordic ski, snowshoe, mountain biking, and hiking trails. Explore the beauty of each season, from the thrill of winter sports to the tranquility of forested paths. Embrace the outdoors and discover the extraordinary landscapes that make our trails unforgettable.</p>
-                <a href="#interactive"
+                {% comment %} <a href="#interactive"
                    class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                     Interactive Nordic Map
-                </a>
+                </a> {% endcomment %}
 {#                <a href=""#}
 {#                   class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">#}
 {#                    Downloadable Trail Maps#}
@@ -39,7 +39,7 @@
 </section>
 
 
-<section class="bg-gray-900">
+{% comment %} <section class="bg-gray-900">
     <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
         <div>
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Get The Latest Trail Conditions On Your Mobile Device</h2>
@@ -61,9 +61,9 @@
         </div>
         <img class="hidden mx-auto w-64 md:flex rounded" src="{% static 'website/img/luciskiing.png' %}" alt="dog skiing and looking at phone">
     </div>
-</section>
+</section> {% endcomment %}
 
-        <section class="bg-white" id="conditions">
+        {% comment %} <section class="bg-white" id="conditions">
         <div class="py-8 px-4 flex mx-auto max-w-screen-xl sm:py-16 lg:px-6 justify-center items-center flex-col">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 text-center">Trail Conditions</h2>
                 <div class="relative w-full h-[calc(100vh-5rem)]">
@@ -85,20 +85,73 @@
     </iframe>
 </div>
             </div>
-    </section>
+    </section> {% endcomment %}
+
+
+<section class="bg-white dark:bg-gray-900" id="biathlon-maps">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
+        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">General Trail Maps</h2>
+        <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">
+            <a href="{% static 'course-maps/map1.jpg' %}" target="_blank">
+                <h3>Diamond Trail Map</h3>
+                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map1.jpg' %}" alt="diamond map">
+            </a>
+            <a href="{% static 'course-maps/map1.jpg' %}" target="_blank">
+                <h3>Snowshoe Trail Map</h3>
+                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map1.jpg' %}" alt="snowshoe map">
+            </a>
+            <a href="{% static 'course-maps/map1.jpg' %}" target="_blank">
+                <h3>Mountain Bike Trails</h3>
+                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map1.jpg' %}" alt="mountain bike map">
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="bg-white dark:bg-gray-900" id="biathlon-maps">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
+        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Nordic Trail Maps</h2>
+        <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">
+        </div>
+    </div>
+</section>
 
 <section class="bg-white dark:bg-gray-900" id="biathlon-maps">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
         <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Biathlon Course Maps</h2>
         <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">
-            <a href="{% static 'course-maps/map1.jpg' %}" target="_blank"><img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map1.jpg' %}" alt="biathlon map 1"></a>
-            <a href="{% static 'course-maps/map2.jpg' %}" target="_blank"><img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map2.jpg' %}" alt="biathlon map 2"></a>
-            <a href="{% static 'course-maps/map3.jpg' %}" target="_blank"><img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map3.jpg' %}" alt="biathlon map 3"></a>
-           <a href="{% static 'course-maps/map4.jpg' %}" target="_blank"> <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map4.jpg' %}" alt="biathlon map 4"></a>
-           <a href="{% static 'course-maps/map5.jpg' %}" target="_blank"> <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map5.jpg' %}" alt="biathlon map 5"></a>
-            <a href="{% static 'course-maps/map6.jpg' %}" target="_blank"><img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map6.jpg' %}" alt="biathlon map 6"></a>
-            <a href="{% static 'course-maps/map7.jpg' %}" target="_blank"><img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map7.jpg' %}" alt="biathlon map 7"></a>
-            <a href="{% static 'course-maps/map8.jpg' %}" target="_blank"><img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map8.jpg' %}" alt="biathlon map 8"></a>
+            <a href="{% static 'course-maps/map1.jpg' %}" target="_blank">
+                <h3>1.0 Km Biathlon Course</h3>
+                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map1.jpg' %}" alt="biathlon map 1">
+            </a>
+            <a href="{% static 'course-maps/map2.jpg' %}" target="_blank">
+                <h3>Composite Biathon Course</h3>
+                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map2.jpg' %}" alt="biathlon map 2">
+            </a>
+            <a href="{% static 'course-maps/map3.jpg' %}" target="_blank">
+                <h3>1.5 Km Biathlon Course</h3>
+                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map3.jpg' %}" alt="biathlon map 3">
+            </a>
+           <a href="{% static 'course-maps/map4.jpg' %}" target="_blank">
+            <h3>3.3 Km Biathlon Course</h3>
+             <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map4.jpg' %}" alt="biathlon map 4">
+            </a>
+           <a href="{% static 'course-maps/map5.jpg' %}" target="_blank"> 
+            <h3>3.0 Km Biathlon Course</h3>
+            <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map5.jpg' %}" alt="biathlon map 5">
+        </a>
+            <a href="{% static 'course-maps/map6.jpg' %}" target="_blank">
+                <h3>2.0 Km Biathlon Course</h3>
+                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map6.jpg' %}" alt="biathlon map 6">
+            </a>
+            <a href="{% static 'course-maps/map7.jpg' %}" target="_blank">
+                <h3>4.0 Km Biathlon Course</h3>
+                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map7.jpg' %}" alt="biathlon map 7">
+            </a>
+            <a href="{% static 'course-maps/map8.jpg' %}" target="_blank">
+                <h3>2.5 Km Biathlon Course</h3>
+                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map8.jpg' %}" alt="biathlon map 8">
+            </a>
         </div>
     </div>
 </section>
