@@ -11,11 +11,10 @@ from wagtail.fields import RichTextField
 from wagtail.models import Page, Orderable
 from .fields import TemplateChoiceWidget
 from wagtailmetadata.models import MetadataPageMixin
-from .mixins import SeasonalFieldsMixin
 from datetime import date
 from wagtail.snippets.models import register_snippet
 
-class HomePage(SeasonalFieldsMixin, MetadataPageMixin, Page):
+class HomePage(MetadataPageMixin, Page):
     max_count = 1
     subpage_types = [
         "website.UpcomingListingPage",
@@ -24,7 +23,6 @@ class HomePage(SeasonalFieldsMixin, MetadataPageMixin, Page):
         "website.ProgramsPage",
         "website.ActivitiesPage",
         "website.DayPassesPage",
-        "website.TrailsPage",
     ]
     main_title = models.CharField(max_length=100, blank=True, null=True)
     main_content = models.TextField(blank=True)
@@ -46,7 +44,7 @@ class HomePage(SeasonalFieldsMixin, MetadataPageMixin, Page):
 
     content_panels = (
         Page.content_panels
-        + SeasonalFieldsMixin.get_seasonal_panels()
+
         + [
             FieldPanel("main_title"),
             FieldPanel("main_content"),
@@ -57,7 +55,7 @@ class HomePage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     )
 
 
-class UpcomingListingPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
+class UpcomingListingPage(MetadataPageMixin, Page):
     parent_page_types = ["website.HomePage"]
     subpage_types = ["website.EventPage"]
     max_count = 2
@@ -107,49 +105,7 @@ class EventSession(Orderable):
     # def __str__(self):
     #     return self.title
 
-@register_snippet
-class MapCategory(models.Model):
-    name = models.CharField(max_length=65)
     
-    def __str__(self):
-        return self.name
-
-class Map(Orderable):
-    page = ParentalKey("website.TrailsPage", related_name="maps")
-    title = models.CharField(max_length=100)
-    category = models.ForeignKey(to=MapCategory, on_delete=models.RESTRICT)
-    image_file = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    
-    panel = [
-        FieldRowPanel(
-            children=[
-                FieldPanel("category"),
-                FieldPanel("image_file"),
-            ]
-        )
-    ]
-    
-class TrailsPage(MetadataPageMixin, Page):
-    parent_page_type = ["website.HomePage"]
-    subpage_type = []
-    
-    show_trail_info = models.BooleanField(default=False)
-    
-    content_panels = (
-        Page.content_panels
-        + [
-            FieldPanel("show_trail_info"),
-            InlinePanel("maps", max_num=50, min_num=0, label="Maps")
-        ]
-    )
-    
-
 class EventPage(MetadataPageMixin, Page):
     parent_page_types = ["website.UpcomingListingPage"]
     subpage_types = []
@@ -193,7 +149,7 @@ class EventPage(MetadataPageMixin, Page):
 
 
 #################### OLD PAGES ####################
-class LegacyPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
+class LegacyPage(MetadataPageMixin, Page):
     subpage_types = ["website.HomePage"]
     template_name = models.CharField(
         max_length=255, default="default_template.html"
@@ -201,7 +157,7 @@ class LegacyPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
 
     content_panels = (
         Page.content_panels
-        + SeasonalFieldsMixin.get_seasonal_panels()
+
         + [
             FieldPanel("template_name", widget=TemplateChoiceWidget()),
         ]
@@ -211,117 +167,35 @@ class LegacyPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
         return self.template_name
 
 
-class BoardMember(Orderable):
-    page = ParentalKey("website.AboutUsPage", related_name="board_members")
-    name = models.CharField(max_length=255)
-    role = models.CharField(max_length=255, null=True, blank=True)
-    profile_picture = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("role"),
-        FieldPanel("profile_picture"),
-    ]
-
-
-class AboutUsPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
+class AboutUsPage(MetadataPageMixin, Page):
     parent_page_types = ["website.HomePage"]
     subpage_types = []
     max_count = 1
 
     content_panels = (
         Page.content_panels
-        + SeasonalFieldsMixin.get_seasonal_panels()
-        + [
-            MultiFieldPanel(
-                [
-                    InlinePanel(
-                        "board_members",
-                        max_num=10,
-                        min_num=1,
-                        label="Board Member",
-                    )
-                ],
-                heading="Board Members",
-            ),
-        ]
+
     )
 
     def get_template(self, request, *args, **kwargs):
         return "website/about_page.html"
 
 
-class Coach(Orderable):
-    page = ParentalKey("website.ProgramsPage", related_name="coaches")
-    name = models.CharField(max_length=255)
-    title = models.CharField(max_length=255)
-    profile_picture = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    biography = models.TextField(null=True, blank=True)
-
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("title"),
-        FieldPanel("profile_picture"),
-        FieldPanel("biography"),
-    ]
-
-    def get_next(self):
-        next_coach = (
-            self.page.coaches.filter(sort_order__gt=self.sort_order)
-            .order_by("sort_order")
-            .first()
-        )
-        return next_coach
-
-    def get_prev(self):
-        prev_coach = (
-            self.page.coaches.filter(sort_order__lt=self.sort_order)
-            .order_by("-sort_order")
-            .first()
-        )
-        return prev_coach
-
-
-class ProgramsPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
+class ProgramsPage(MetadataPageMixin, Page):
     parent_page_types = ["website.HomePage"]
     subpage_types = []
     max_count = 1
 
     content_panels = (
         Page.content_panels
-        + SeasonalFieldsMixin.get_seasonal_panels()
-        + [
-            MultiFieldPanel(
-                [
-                    InlinePanel(
-                        "coaches",
-                        max_num=10,
-                        min_num=1,
-                        label="Program Coaches",
-                    )
-                ],
-                heading="Program Coaches",
-            ),
-        ]
+
     )
 
     def get_template(self, request, *args, **kwargs):
         return "website/program_page.html"
 
 
-class Activity(SeasonalFieldsMixin, Orderable):
+class Activity(Orderable):
     name = models.CharField(max_length=100)
     description = RichTextField(blank=True)
     activity_photo = models.ForeignKey(
@@ -351,14 +225,14 @@ class WinterActivity(Activity):
     )
 
 
-class ActivitiesPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
+class ActivitiesPage(MetadataPageMixin, Page):
     parent_page_types = ["website.HomePage"]
     subpage_types = []
     max_count = 1
 
     content_panels = (
         Page.content_panels
-        + SeasonalFieldsMixin.get_seasonal_panels()
+
         + [
             MultiFieldPanel(
                 [InlinePanel("winter_activities")], heading="Winter Activities"
@@ -394,7 +268,7 @@ class DayPassLink(Orderable):
     ]
 
 
-class DayPassesPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
+class DayPassesPage(MetadataPageMixin, Page):
     parent_page_types = ["website.HomePage"]
     subpage_types = []
     max_count = 1
@@ -404,10 +278,106 @@ class DayPassesPage(SeasonalFieldsMixin, MetadataPageMixin, Page):
 
     content_panels = (
         Page.content_panels
-        + SeasonalFieldsMixin.get_seasonal_panels()
         + [
             InlinePanel(
                 "day_passes", max_num=10, min_num=1, label="Day Passes"
             )
         ]
     )
+
+# MODELS/Snippets BELOW HERE:
+
+@register_snippet
+class BoardMember(models.Model):
+    name = models.CharField(max_length=255)
+    role = models.CharField(max_length=255, null=True, blank=True)
+    profile_picture = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("role"),
+        FieldPanel("profile_picture"),
+    ]
+    
+    def __str__(self):
+        return self.name
+    
+@register_snippet
+class Coach(models.Model):
+    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    profile_picture = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    biography = models.TextField(null=True, blank=True)
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("title"),
+        FieldPanel("profile_picture"),
+        FieldPanel("biography"),
+    ]
+
+    # def get_next(self):
+    #     next_coach = (
+    #         self.page.coaches.filter(sort_order__gt=self.sort_order)
+    #         .order_by("sort_order")
+    #         .first()
+    #     )
+    #     return next_coach
+
+    # def get_prev(self):
+    #     prev_coach = (
+    #         self.page.coaches.filter(sort_order__lt=self.sort_order)
+    #         .order_by("-sort_order")
+    #         .first()
+    #     )
+    #     return prev_coach
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = "Coaches"
+        ordering = ["name"]
+
+@register_snippet
+class MapCategory(models.Model):
+    name = models.CharField(max_length=65)
+    
+    def __str__(self):
+        return self.name
+
+@register_snippet
+class Map(models.Model):
+    title = models.CharField(max_length=100)
+    category = models.ForeignKey(to=MapCategory, on_delete=models.RESTRICT)
+    image_file = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    
+    panel = [
+        FieldRowPanel(
+            children=[
+                FieldPanel("category"),
+                FieldPanel("image_file"),
+            ]
+        )
+    ]
+    
+    def __str__(self):
+        return self.title
