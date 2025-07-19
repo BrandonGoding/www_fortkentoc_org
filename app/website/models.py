@@ -13,7 +13,7 @@ from .fields import TemplateChoiceWidget
 from wagtailmetadata.models import MetadataPageMixin
 from .mixins import SeasonalFieldsMixin
 from datetime import date
-
+from wagtail.snippets.models import register_snippet
 
 class HomePage(SeasonalFieldsMixin, MetadataPageMixin, Page):
     max_count = 1
@@ -24,6 +24,7 @@ class HomePage(SeasonalFieldsMixin, MetadataPageMixin, Page):
         "website.ProgramsPage",
         "website.ActivitiesPage",
         "website.DayPassesPage",
+        "website.TrailsPage",
     ]
     main_title = models.CharField(max_length=100, blank=True, null=True)
     main_content = models.TextField(blank=True)
@@ -106,6 +107,48 @@ class EventSession(Orderable):
     # def __str__(self):
     #     return self.title
 
+@register_snippet
+class MapCategory(models.Model):
+    name = models.CharField(max_length=65)
+    
+    def __str__(self):
+        return self.name
+
+class Map(Orderable):
+    page = ParentalKey("website.TrailsPage", related_name="maps")
+    title = models.CharField(max_length=100)
+    category = models.ForeignKey(to=MapCategory, on_delete=models.RESTRICT)
+    image_file = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    
+    panel = [
+        FieldRowPanel(
+            children=[
+                FieldPanel("category"),
+                FieldPanel("image_file"),
+            ]
+        )
+    ]
+    
+class TrailsPage(MetadataPageMixin, Page):
+    parent_page_type = ["website.HomePage"]
+    subpage_type = []
+    
+    show_trail_info = models.BooleanField(default=False)
+    
+    content_panels = (
+        Page.content_panels
+        + [
+            FieldPanel("show_trail_info"),
+            InlinePanel("maps", max_num=50, min_num=0, label="Maps")
+        ]
+    )
+    
 
 class EventPage(MetadataPageMixin, Page):
     parent_page_types = ["website.UpcomingListingPage"]
