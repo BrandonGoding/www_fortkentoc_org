@@ -13,6 +13,8 @@ from .fields import TemplateChoiceWidget
 from wagtailmetadata.models import MetadataPageMixin
 from datetime import date
 from wagtail.snippets.models import register_snippet
+import uuid
+from modelcluster.models import ClusterableModel
 
 class HomePage(MetadataPageMixin, Page):
     max_count = 1
@@ -57,7 +59,7 @@ class HomePage(MetadataPageMixin, Page):
 
 class UpcomingListingPage(MetadataPageMixin, Page):
     parent_page_types = ["website.HomePage"]
-    subpage_types = ["website.EventPage"]
+    subpage_types = []
     max_count = 2
 
     def get_template(self, request, *args, **kwargs):
@@ -67,7 +69,7 @@ class UpcomingListingPage(MetadataPageMixin, Page):
         context = super().get_context(request, *args, **kwargs)
 
         today = date.today()
-        events = self.get_children().live().specific()
+        events = Event.objects.all()
 
         session_items = []
         for event in events:
@@ -79,73 +81,6 @@ class UpcomingListingPage(MetadataPageMixin, Page):
 
         context["event_sessions"] = session_items
         return context
-
-
-class EventSession(Orderable):
-    page = ParentalKey("website.EventPage", related_name="sessions")
-    date = models.DateField("Session date")
-    start_time = models.TimeField("Session start time", null=True, blank=True)
-    end_time = models.TimeField("Session end time", null=True, blank=True)
-
-    panels = [
-        FieldRowPanel(
-            children=[
-                FieldPanel("date"),
-                FieldPanel("start_time"),
-                FieldPanel("end_time"),
-            ]
-        ),
-    ]
-
-    def clean(self):
-        if self.start_time and self.end_time:
-            if self.start_time > self.end_time:
-                raise ValidationError("Start time must be before end time.")
-
-    # def __str__(self):
-    #     return self.title
-
-    
-class EventPage(MetadataPageMixin, Page):
-    parent_page_types = ["website.UpcomingListingPage"]
-    subpage_types = []
-    banner_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    pdf = models.ForeignKey(
-        "wagtaildocs.Document",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    details = RichTextField(blank=True)
-
-    content_panels = (
-        Page.content_panels
-        + [
-            FieldPanel("details"),
-            MultiFieldPanel(
-                [
-                    FieldRowPanel(
-                        [
-                            FieldPanel("banner_image"),
-                            FieldPanel("pdf"),
-                        ],
-                    )
-                ],
-                heading="Event Media",
-            ),
-            InlinePanel("sessions", max_num=10, min_num=1, label="Event Date"),
-        ]
-    )
-
-    # def __str__(self):
-    #     return self.title
 
 
 #################### OLD PAGES ####################
@@ -247,27 +182,6 @@ class ActivitiesPage(MetadataPageMixin, Page):
         return "website/activities_page.html"
 
 
-class DayPassLink(Orderable):
-    page = ParentalKey("website.DayPassesPage", related_name="day_passes")
-    background_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    url = models.URLField()
-    name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("price"),
-        FieldPanel("url"),
-        FieldPanel("background_image"),
-    ]
-
-
 class DayPassesPage(MetadataPageMixin, Page):
     parent_page_types = ["website.HomePage"]
     subpage_types = []
@@ -276,14 +190,7 @@ class DayPassesPage(MetadataPageMixin, Page):
     def get_template(self, request, *args, **kwargs):
         return "website/day_pass_page.html"
 
-    content_panels = (
-        Page.content_panels
-        + [
-            InlinePanel(
-                "day_passes", max_num=10, min_num=1, label="Day Passes"
-            )
-        ]
-    )
+    
 
 # MODELS/Snippets BELOW HERE:
 
@@ -350,6 +257,81 @@ class Coach(models.Model):
     class Meta:
         verbose_name_plural = "Coaches"
         ordering = ["name"]
+
+@register_snippet
+class DayPassLink(models.Model):
+    background_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+    url = models.URLField()
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("price"),
+        FieldPanel("url"),
+        FieldPanel("background_image"),
+    ]
+
+    def __str__(self):
+        return self.name
+
+class EventSession(Orderable):
+    event = ParentalKey(to="website.Event", on_delete=models.CASCADE, related_name="sessions")
+    date = models.DateField("Session date")
+    start_time = models.TimeField("Session start time", null=True, blank=True)
+    end_time = models.TimeField("Session end time", null=True, blank=True)
+
+    panels = [
+        FieldRowPanel(
+            children=[
+                FieldPanel("date"),
+                FieldPanel("start_time"),
+                FieldPanel("end_time"),
+            ]
+        ),
+    ]
+
+    def clean(self):
+        if self.start_time and self.end_time:
+            if self.start_time > self.end_time:
+                raise ValidationError("Start time must be before end time.")
+
+
+@register_snippet
+class Event(ClusterableModel):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=65)
+    pdf = models.ForeignKey(
+        "wagtaildocs.Document",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    panels = [
+            MultiFieldPanel(
+                [
+                    FieldRowPanel(
+                        [
+                            FieldPanel("name"),
+                            FieldPanel("pdf"),
+                        ],
+                    )
+                ],
+                heading="Event Media",
+            ),
+            InlinePanel("sessions", max_num=10, min_num=1, label="Event Date"),
+        ]
+    
+    def __str__(self):
+        return self.name
 
 @register_snippet
 class MapCategory(models.Model):
