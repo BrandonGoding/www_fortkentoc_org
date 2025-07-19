@@ -316,7 +316,6 @@ class EventSession(Orderable):
                 raise ValidationError("Start time must be before end time.")
 
 
-@register_snippet
 class Event(ClusterableModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=65)
@@ -340,7 +339,7 @@ class Event(ClusterableModel):
                 ],
                 heading="Event Media",
             ),
-            InlinePanel("sessions", max_num=10, min_num=1, label="Event Date"),
+            InlinePanel("sessions", max_num=15, min_num=1, label="Event Date"),
         ]
     
     def __str__(self):
