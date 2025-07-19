@@ -1,4 +1,4 @@
-from .models import Map, BoardMember
+from .models import Map, BoardMember, Coach
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin,
     modeladmin_register,
@@ -8,10 +8,20 @@ class BoardMemberAdmin(ModelAdmin):
     model = BoardMember
     menu_label = "Board Members"
     menu_icon = "user"
-    menu_order = 199
+    menu_order = 198
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("name", "role")
+    search_fields = ("name")
+    
+class CoachAdmin(ModelAdmin):
+    model = Coach
+    menu_label = "Coaches"
+    menu_icon = "users"
+    menu_order = 199
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    list_display = ("name", "title")
     search_fields = ("name")
     
 class MapAdmin(ModelAdmin):
@@ -25,4 +35,5 @@ class MapAdmin(ModelAdmin):
     search_fields = ("title",)
     
 modeladmin_register(BoardMemberAdmin)
+modeladmin_register(CoachAdmin)
 modeladmin_register(MapAdmin)

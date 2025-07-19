@@ -219,7 +219,6 @@ class BoardMember(models.Model):
     def __str__(self):
         return self.name
     
-@register_snippet
 class Coach(models.Model):
     name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
