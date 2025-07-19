@@ -114,6 +114,11 @@ class AboutUsPage(MetadataPageMixin, Page):
 
     def get_template(self, request, *args, **kwargs):
         return "website/about_page.html"
+    
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['board_members'] = BoardMember.objects.all()
+        return context
 
 
 class ProgramsPage(MetadataPageMixin, Page):
@@ -194,7 +199,6 @@ class DayPassesPage(MetadataPageMixin, Page):
 
 # MODELS/Snippets BELOW HERE:
 
-@register_snippet
 class BoardMember(models.Model):
     name = models.CharField(max_length=255)
     role = models.CharField(max_length=255, null=True, blank=True)
@@ -340,7 +344,7 @@ class MapCategory(models.Model):
     def __str__(self):
         return self.name
 
-@register_snippet
+
 class Map(models.Model):
     title = models.CharField(max_length=100)
     category = models.ForeignKey(to=MapCategory, on_delete=models.RESTRICT)
