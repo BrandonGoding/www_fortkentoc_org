@@ -1,7 +1,7 @@
 {% extends "../_base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags wagtailmetadata_tags %}
 {% block meta_tag %}
-  {% meta_tags %}
+  {% comment %} {% meta_tags %} {% endcomment %}
 {% endblock %}
 {% block content %}
     <section
@@ -27,13 +27,12 @@
                 <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">Guiding Our Athlete's Outdoor Journey With Expertise and Passion!</p>
             </div>
             <div class="grid gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-                {% for coach in page.coaches.all %}
+                {% for coach in coaches %}
                     <div class="text-center text-gray-500">
                         <a href="#" hx-trigger="click" hx-target="body"
-                           hx-get="{% url 'website:coach_modal' page.pk coach.pk %}" hx-swap="afterbegin">
+                           hx-get="{% url 'website:coach_modal' coach.pk %}" hx-swap="afterbegin">
                         {% image coach.profile_picture fill-144x144   class="mx-auto mb-4 w-36 h-36 rounded-lg" %}
                             <h5 class="mb-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ coach.name }}</h5>
-
                                 <span>
                                 {% if coach.title %}
                                     {{ coach.title }}&nbsp;&nbsp;

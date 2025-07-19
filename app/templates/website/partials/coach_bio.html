@@ -10,7 +10,7 @@
     </button>
 
 
-    <button {% if prev_coach %} hx-get="{% url "website:coach_modal" object.page.id prev_coach.id %}" hx-trigger="click"
+    <button {% if prev_coach %} hx-get="{% url "website:coach_modal" prev_coach.id %}" hx-trigger="click"
                                 hx-target="#coach-modal" hx-swap="innerHTML" {% else %}class="opacity-0"{% endif %}>
         <svg class="w-[48px] h-[48px] text-white hover:text-gray-300" aria-hidden="true"
              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
@@ -33,7 +33,7 @@
 
         </div>
     </div>
-    <button {% if next_coach %} hx-get="{% url "website:coach_modal"  object.page.id next_coach.id %}" hx-trigger="click"
+    <button {% if next_coach %} hx-get="{% url "website:coach_modal" next_coach.id %}" hx-trigger="click"
                                 hx-target="#coach-modal" hx-swap="innerHTML"{% else %}class="opacity-0"{% endif %}>
         <svg class="w-[48px] h-[48px] text-white hover:text-gray-300" aria-hidden="true"
              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">

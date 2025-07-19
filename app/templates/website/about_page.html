@@ -164,7 +164,7 @@
             </div>
 
             <div class="grid grid-cols-1 gap-4 mt-8 lg:mt-16 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-                {% for board_member in page.board_members.all %}
+                {% for board_member in board_members  %}
                     <div class="relative overflow-hidden rounded-lg group">
                         {% if board_member.profile_picture %}{% image board_member.profile_picture fill-296x369 class="object-cover object-top w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125 top-0" %}{% else %}<img src="{% static 'media/public/images/noimageboardmember.2e16d0ba.fill-296x369.png' %}" class="object-cover object-top w-full h-[320px] lg:h-auto scale-100 ease-in duration-300 group-hover:scale-125 top-0" />{% endif %}
                         <div class="absolute inset-0 grid items-end justify-center p-4 bg-gradient-to-b from-transparent to-black/60">

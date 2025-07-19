@@ -31,10 +31,6 @@
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Embark on a journey through Fort Kent's premier Outdoor Center, where every trail unveils a unique adventure</h2>
             <p class="mb-4">Welcome to the breathtaking outdoor trails of Fort Kent's premier Outdoor Center! Nestled in the heart of nature's splendor, our diverse trail system offers an adventure for every season and enthusiast. Whether you're an avid Nordic skier seeking the thrill of gliding through pristine snow, a snowshoer craving the tranquility of winter landscapes, a mountain biker ready to conquer challenging terrain, or a hiker yearning to explore the wonders of the great outdoors, our trails are your gateway to unforgettable experiences. With meticulously maintained paths winding through forests and meadows, each trail promises a unique journey that immerses you in the natural beauty of Fort Kent. Discover the joy of outdoor exploration at our Outdoor Center – where every step, pedal, or glide is a celebration of the extraordinary landscapes that define our region.</p>
         </div>
-        <div class="grid grid-cols-2 gap-4 mt-8">
-            <img class="w-full rounded-lg" src="{% static 'website/img/skitrail1.png' %}" alt="ski trails 1">
-            <img class="mt-4 w-full lg:mt-10 rounded-lg" src="{% static 'website/img/skitrail2.png' %}" alt="ski trails 2">
-        </div>
     </div>
 </section>
 
@@ -87,73 +83,20 @@
             </div>
     </section> {% endcomment %}
 
-
-<section class="bg-white dark:bg-gray-900" id="biathlon-maps">
+{% for type in map_types%}
+<section class="bg-white dark:bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
-        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">General Trail Maps</h2>
+        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{ type.name }}</h2>
         <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">
-            <a href="{% static 'course-maps/map1.jpg' %}" target="_blank">
-                <h3>Diamond Trail Map</h3>
-                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map1.jpg' %}" alt="diamond map">
+            {% for map in type.map_set.all %}
+            <a href="{{ map.image_file.file.url }}" target="_blank">
+                <h3>{{ map.title }}</h3>
+                {% image map.image_file fill-800x600 class="col-span-1 sm:block rounded-lg" %}
             </a>
-            <a href="{% static 'course-maps/map1.jpg' %}" target="_blank">
-                <h3>Snowshoe Trail Map</h3>
-                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map1.jpg' %}" alt="snowshoe map">
-            </a>
-            <a href="{% static 'course-maps/map1.jpg' %}" target="_blank">
-                <h3>Mountain Bike Trails</h3>
-                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map1.jpg' %}" alt="mountain bike map">
-            </a>
+            {% endfor %}
         </div>
     </div>
 </section>
-
-<section class="bg-white dark:bg-gray-900" id="biathlon-maps">
-    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
-        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Nordic Trail Maps</h2>
-        <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">
-        </div>
-    </div>
-</section>
-
-<section class="bg-white dark:bg-gray-900" id="biathlon-maps">
-    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
-        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Biathlon Course Maps</h2>
-        <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">
-            <a href="{% static 'course-maps/map1.jpg' %}" target="_blank">
-                <h3>1.0 Km Biathlon Course</h3>
-                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map1.jpg' %}" alt="biathlon map 1">
-            </a>
-            <a href="{% static 'course-maps/map2.jpg' %}" target="_blank">
-                <h3>Composite Biathon Course</h3>
-                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map2.jpg' %}" alt="biathlon map 2">
-            </a>
-            <a href="{% static 'course-maps/map3.jpg' %}" target="_blank">
-                <h3>1.5 Km Biathlon Course</h3>
-                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map3.jpg' %}" alt="biathlon map 3">
-            </a>
-           <a href="{% static 'course-maps/map4.jpg' %}" target="_blank">
-            <h3>3.3 Km Biathlon Course</h3>
-             <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map4.jpg' %}" alt="biathlon map 4">
-            </a>
-           <a href="{% static 'course-maps/map5.jpg' %}" target="_blank"> 
-            <h3>3.0 Km Biathlon Course</h3>
-            <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map5.jpg' %}" alt="biathlon map 5">
-        </a>
-            <a href="{% static 'course-maps/map6.jpg' %}" target="_blank">
-                <h3>2.0 Km Biathlon Course</h3>
-                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map6.jpg' %}" alt="biathlon map 6">
-            </a>
-            <a href="{% static 'course-maps/map7.jpg' %}" target="_blank">
-                <h3>4.0 Km Biathlon Course</h3>
-                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map7.jpg' %}" alt="biathlon map 7">
-            </a>
-            <a href="{% static 'course-maps/map8.jpg' %}" target="_blank">
-                <h3>2.5 Km Biathlon Course</h3>
-                <img class="col-span-1 sm:block rounded-lg" src="{% static 'course-maps/map8.jpg' %}" alt="biathlon map 8">
-            </a>
-        </div>
-    </div>
-</section>
+{% endfor %}
 
 {% endblock content %}

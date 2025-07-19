@@ -11,7 +11,7 @@ from django.views.generic import TemplateView, DetailView
 from website.constants import (
     ACTIVITIES,
 )
-from website.models import ProgramsPage
+from website.models import Coach
 
 
 class ActivitiesDetailView(DetailView):
@@ -26,12 +26,11 @@ class ActivitiesDetailView(DetailView):
 
 class CoachDetailsView(DetailView):
     template_name = "website/partials/coach_bio.html"
-    model = ProgramsPage
+    model = Coach
     context_object_name = "object"
 
     def get_object(self, queryset=None):
-        page = get_object_or_404(ProgramsPage, id=self.kwargs["page_id"])
-        return get_object_or_404(page.coaches, id=self.kwargs["coach_id"])
+        return get_object_or_404(Coach, id=self.kwargs["coach_id"])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

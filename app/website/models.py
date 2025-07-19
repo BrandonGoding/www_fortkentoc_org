@@ -25,6 +25,7 @@ class HomePage(MetadataPageMixin, Page):
         "website.ProgramsPage",
         "website.ActivitiesPage",
         "website.DayPassesPage",
+        "website.TrailsPage",
     ]
     main_title = models.CharField(max_length=100, blank=True, null=True)
     main_content = models.TextField(blank=True)
@@ -119,6 +120,16 @@ class AboutUsPage(MetadataPageMixin, Page):
         context = super().get_context(request, *args, **kwargs)
         context['board_members'] = BoardMember.objects.all()
         return context
+    
+class TrailsPage(MetadataPageMixin, Page):
+    parent_page_types = ["website.HomePage"]
+    subpage_types = []
+    max_count = 1
+    
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["map_types"] = MapCategory.objects.all()
+        return context
 
 
 class ProgramsPage(MetadataPageMixin, Page):
@@ -133,6 +144,11 @@ class ProgramsPage(MetadataPageMixin, Page):
 
     def get_template(self, request, *args, **kwargs):
         return "website/program_page.html"
+    
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["coaches"] = Coach.objects.all()
+        return context
 
 
 class Activity(Orderable):
@@ -238,21 +254,11 @@ class Coach(models.Model):
         FieldPanel("biography"),
     ]
 
-    # def get_next(self):
-    #     next_coach = (
-    #         self.page.coaches.filter(sort_order__gt=self.sort_order)
-    #         .order_by("sort_order")
-    #         .first()
-    #     )
-    #     return next_coach
+    def get_next(self):
+        return Coach.objects.filter(name__gt=self.name).order_by('name').first()
 
-    # def get_prev(self):
-    #     prev_coach = (
-    #         self.page.coaches.filter(sort_order__lt=self.sort_order)
-    #         .order_by("-sort_order")
-    #         .first()
-    #     )
-    #     return prev_coach
+    def get_prev(self):
+        return Coach.objects.filter(name__lt=self.name).order_by('-name').first()
     
     def __str__(self):
         return self.name
