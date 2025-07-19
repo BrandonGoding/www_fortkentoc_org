@@ -210,6 +210,11 @@ class DayPassesPage(MetadataPageMixin, Page):
 
     def get_template(self, request, *args, **kwargs):
         return "website/day_pass_page.html"
+    
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["day_passes"] = DayPassLink.objects.all()
+        return context
 
     
 
@@ -267,7 +272,6 @@ class Coach(models.Model):
         verbose_name_plural = "Coaches"
         ordering = ["name"]
 
-@register_snippet
 class DayPassLink(models.Model):
     background_image = models.ForeignKey(
         "wagtailimages.Image",

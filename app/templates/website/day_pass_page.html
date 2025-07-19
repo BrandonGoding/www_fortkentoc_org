@@ -16,23 +16,54 @@
         </div>
     </section>
     <script src="https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=61670215255e2&webpl_title=Sign%20our%20waiver&webpl_align=Right&webpl_fontsize=20&webpl_background=%23E2FF3E&webpl_fontcolor=%23000000&webpl_font=Verdana" type="text/javascript"></script>
- <section class="bg-white dark:bg-gray-900">
-    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
-        <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Get Trail Ready!</h2>
-        <p class="mb-8 font-light text-gray-500 sm:text-lg md:px-20 lg:px-38 xl:px-48 dark:text-gray-400">Purchase your day pass online to go from the parking lot to the trails. <strong>Alternatively</strong> you can place your day pass fee in our donation box found at each of our trailheads.</p>
-        <a href="https://waiver.smartwaiver.com/w/61670215255e2/web/" target="_blank" class="mt-8 p-2.5 font-extrabold text-gray-800 bg-yellow-300 hover:bg-yellow-200 inline-block text-center" >Before purchasing a day pass please sign our E-Waiver HERE!</a>
-        <div class="flex  mt-8  flex-col md:flex-row items-center justify-center">
-            {% for trail_pass in page.day_passes.all %}
-               <a href="{{ trail_pass.url }}" target="_blank" class="m-5 inline-block relative group bg-gray-900 col-span-1 sm:block rounded-lg hover:outline hover:outline-blue-500 hover:outline-offset-2">
-                   <div class="flex justify-center items-center text-white z-10 absolute top-0 bottom-0 left-0 right-0">
-                       <h3>{{ trail_pass.name }}<br /><strong>${{ trail_pass.price }}/day</strong><br/><span class="opacity-0 group-hover:opacity-100 font-bold text-blue-500">PURCHASE</span></h3>
-                   </div>
-                   {% image trail_pass.background_image width-400  class="z-0 col-span-1 sm:block rounded-lg opacity-20" %}
-               </a>
-            {% endfor %}
-        </div>
-    </div>
+
+
+
+<section class="bg-white dark:bg-gray-900">
+  <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
+    <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Get Trail Ready!</h2>
+    <p class="mb-8 font-light text-gray-500 sm:text-lg md:px-20 lg:px-38 xl:px-48 dark:text-gray-400">
+      Purchase your day pass online to go from the parking lot to the trails.
+      <strong>Alternatively</strong> you can place your day pass fee in our donation box found at each of our trailheads.
+    </p>
+    <a href="https://waiver.smartwaiver.com/w/61670215255e2/web/" target="_blank"
+       class="mt-8 p-2.5 font-extrabold text-gray-800 bg-yellow-300 hover:bg-yellow-200 inline-block text-center">
+      Before purchasing a day pass please sign our E-Waiver HERE!
+    </a>
+
+   <div class="flex flex-wrap justify-center gap-6 mt-12">
+  {% for trail_pass in day_passes %}
+    <a href="{{ trail_pass.url }}" target="_blank"
+       class="relative group rounded-lg overflow-hidden shadow-lg flex items-center justify-center
+              w-[250px] h-[500px] bg-gray-900">
+
+      {% if trail_pass.background_image %}
+        {% image trail_pass.background_image width-400 class="absolute inset-0 w-full h-full object-cover z-0" %}
+      {% endif %}
+
+      <!-- Dark overlay for better text contrast -->
+      <div class="absolute inset-0 bg-black bg-opacity-50 z-0"></div>
+
+      <!-- Text content -->
+      <div class="relative z-10 text-white text-center px-4 flex flex-col items-center justify-center">
+        <h3 class="text-lg font-semibold">{{ trail_pass.name }}</h3>
+        <strong class="text-xl">${{ trail_pass.price }}/day</strong>
+        <span class="opacity-0 group-hover:opacity-100 font-bold text-blue-500 mt-2 transition-opacity">
+          PURCHASE
+        </span>
+      </div>
+
+    </a>
+  {% endfor %}
+</div>
+
+
+
+
+  </div>
 </section>
+
+
 
     <section class="bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
