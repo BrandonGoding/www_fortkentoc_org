@@ -16,6 +16,7 @@ from wagtail.snippets.models import register_snippet
 import uuid
 from modelcluster.models import ClusterableModel
 
+
 class HomePage(MetadataPageMixin, Page):
     max_count = 1
     subpage_types = [
@@ -45,17 +46,13 @@ class HomePage(MetadataPageMixin, Page):
         related_name="+",
     )
 
-    content_panels = (
-        Page.content_panels
-
-        + [
-            FieldPanel("main_title"),
-            FieldPanel("main_content"),
-            FieldPanel("main_image"),
-            FieldPanel("cta_text"),
-            FieldPanel("cta_page"),
-        ]
-    )
+    content_panels = Page.content_panels + [
+        FieldPanel("main_title"),
+        FieldPanel("main_content"),
+        FieldPanel("main_image"),
+        FieldPanel("cta_text"),
+        FieldPanel("cta_page"),
+    ]
 
 
 class UpcomingListingPage(MetadataPageMixin, Page):
@@ -65,7 +62,7 @@ class UpcomingListingPage(MetadataPageMixin, Page):
 
     def get_template(self, request, *args, **kwargs):
         return "website/event_listing_page.html"
-    
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
@@ -73,12 +70,16 @@ class UpcomingListingPage(MetadataPageMixin, Page):
         events = Event.objects.all()
 
         session_items = []
-        for event in events:
-            for session in event.sessions.filter(date__gte=today).order_by("date", "start_time"):
-                session_items.append({
-                    "event": event,
-                    "session": session,
-                })
+        for event in []:
+            for session in event.sessions.filter(date__gte=today).order_by(
+                "date", "start_time"
+            ):
+                session_items.append(
+                    {
+                        "event": event,
+                        "session": session,
+                    }
+                )
 
         context["event_sessions"] = session_items
         return context
@@ -91,13 +92,9 @@ class LegacyPage(MetadataPageMixin, Page):
         max_length=255, default="default_template.html"
     )
 
-    content_panels = (
-        Page.content_panels
-
-        + [
-            FieldPanel("template_name", widget=TemplateChoiceWidget()),
-        ]
-    )
+    content_panels = Page.content_panels + [
+        FieldPanel("template_name", widget=TemplateChoiceWidget()),
+    ]
 
     def get_template(self, request, *args, **kwargs):
         return self.template_name
@@ -108,24 +105,22 @@ class AboutUsPage(MetadataPageMixin, Page):
     subpage_types = []
     max_count = 1
 
-    content_panels = (
-        Page.content_panels
-
-    )
+    content_panels = Page.content_panels
 
     def get_template(self, request, *args, **kwargs):
         return "website/about_page.html"
-    
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['board_members'] = BoardMember.objects.all()
+        context["board_members"] = BoardMember.objects.all()
         return context
-    
+
+
 class TrailsPage(MetadataPageMixin, Page):
     parent_page_types = ["website.HomePage"]
     subpage_types = []
     max_count = 1
-    
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["map_types"] = MapCategory.objects.all()
@@ -137,14 +132,11 @@ class ProgramsPage(MetadataPageMixin, Page):
     subpage_types = []
     max_count = 1
 
-    content_panels = (
-        Page.content_panels
-
-    )
+    content_panels = Page.content_panels
 
     def get_template(self, request, *args, **kwargs):
         return "website/program_page.html"
-    
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["coaches"] = Coach.objects.all()
@@ -186,18 +178,14 @@ class ActivitiesPage(MetadataPageMixin, Page):
     subpage_types = []
     max_count = 1
 
-    content_panels = (
-        Page.content_panels
-
-        + [
-            MultiFieldPanel(
-                [InlinePanel("winter_activities")], heading="Winter Activities"
-            ),
-            MultiFieldPanel(
-                [InlinePanel("summer_activities")], heading="Summer Activities"
-            ),
-        ]
-    )
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [InlinePanel("winter_activities")], heading="Winter Activities"
+        ),
+        MultiFieldPanel(
+            [InlinePanel("summer_activities")], heading="Summer Activities"
+        ),
+    ]
 
     def get_template(self, request, *args, **kwargs):
         return "website/activities_page.html"
@@ -210,15 +198,15 @@ class DayPassesPage(MetadataPageMixin, Page):
 
     def get_template(self, request, *args, **kwargs):
         return "website/day_pass_page.html"
-    
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["day_passes"] = DayPassLink.objects.all()
         return context
 
-    
 
 # MODELS/Snippets BELOW HERE:
+
 
 class BoardMember(models.Model):
     name = models.CharField(max_length=255)
@@ -236,10 +224,11 @@ class BoardMember(models.Model):
         FieldPanel("role"),
         FieldPanel("profile_picture"),
     ]
-    
+
     def __str__(self):
         return self.name
-    
+
+
 class Coach(models.Model):
     name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
@@ -260,17 +249,22 @@ class Coach(models.Model):
     ]
 
     def get_next(self):
-        return Coach.objects.filter(name__gt=self.name).order_by('name').first()
+        return (
+            Coach.objects.filter(name__gt=self.name).order_by("name").first()
+        )
 
     def get_prev(self):
-        return Coach.objects.filter(name__lt=self.name).order_by('-name').first()
-    
+        return (
+            Coach.objects.filter(name__lt=self.name).order_by("-name").first()
+        )
+
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name_plural = "Coaches"
         ordering = ["name"]
+
 
 class DayPassLink(models.Model):
     background_image = models.ForeignKey(
@@ -294,8 +288,11 @@ class DayPassLink(models.Model):
     def __str__(self):
         return self.name
 
+
 class EventSession(Orderable):
-    event = ParentalKey(to="website.Event", on_delete=models.CASCADE, related_name="sessions")
+    event = ParentalKey(
+        to="website.Event", on_delete=models.CASCADE, related_name="sessions"
+    )
     date = models.DateField("Session date")
     start_time = models.TimeField("Session start time", null=True, blank=True)
     end_time = models.TimeField("Session end time", null=True, blank=True)
@@ -328,27 +325,28 @@ class Event(ClusterableModel):
     )
 
     panels = [
-            MultiFieldPanel(
-                [
-                    FieldRowPanel(
-                        [
-                            FieldPanel("name"),
-                            FieldPanel("pdf"),
-                        ],
-                    )
-                ],
-                heading="Event Media",
-            ),
-            InlinePanel("sessions", max_num=15, min_num=1, label="Event Date"),
-        ]
-    
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("name"),
+                        FieldPanel("pdf"),
+                    ],
+                )
+            ],
+            heading="Event Media",
+        ),
+        InlinePanel("sessions", max_num=15, min_num=1, label="Event Date"),
+    ]
+
     def __str__(self):
         return self.name
+
 
 @register_snippet
 class MapCategory(models.Model):
     name = models.CharField(max_length=65)
-    
+
     def __str__(self):
         return self.name
 
@@ -363,7 +361,7 @@ class Map(models.Model):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    
+
     panel = [
         FieldRowPanel(
             children=[
@@ -372,6 +370,6 @@ class Map(models.Model):
             ]
         )
     ]
-    
+
     def __str__(self):
         return self.title

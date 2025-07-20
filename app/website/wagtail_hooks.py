@@ -4,6 +4,7 @@ from wagtail.contrib.modeladmin.options import (
     modeladmin_register,
 )
 
+
 class BoardMemberAdmin(ModelAdmin):
     model = BoardMember
     menu_label = "Board Members"
@@ -12,8 +13,9 @@ class BoardMemberAdmin(ModelAdmin):
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("name", "role")
-    search_fields = ("name")
-    
+    search_fields = "name"
+
+
 class CoachAdmin(ModelAdmin):
     model = Coach
     menu_label = "Coaches"
@@ -22,7 +24,8 @@ class CoachAdmin(ModelAdmin):
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("name", "title")
-    search_fields = ("name")
+    search_fields = "name"
+
 
 class EventAdmin(ModelAdmin):
     model = Event
@@ -34,6 +37,7 @@ class EventAdmin(ModelAdmin):
     list_display = ("name",)
     search_fields = ("name",)
 
+
 class PasslinkAdmin(ModelAdmin):
     model = DayPassLink
     menu_label = "Day Passes"
@@ -42,7 +46,8 @@ class PasslinkAdmin(ModelAdmin):
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("name", "price")
-    search_fields = ("name")
+    search_fields = "name"
+
 
 class MapAdmin(ModelAdmin):
     model = Map
@@ -53,7 +58,8 @@ class MapAdmin(ModelAdmin):
     exclude_from_explorer = False
     list_display = ("title", "category")
     search_fields = ("title",)
-    
+
+
 modeladmin_register(BoardMemberAdmin)
 modeladmin_register(CoachAdmin)
 modeladmin_register(MapAdmin)
