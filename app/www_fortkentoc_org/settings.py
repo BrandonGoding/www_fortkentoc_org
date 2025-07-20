@@ -129,12 +129,18 @@ if ENVIRONMENT == "production":
     AWS_PRIVATE_MEDIA_LOCATION = "private-media"
     MEDIA_ROOT = "/%s/" % AWS_PUBLIC_MEDIA_LOCATION
     MEDIA_URL = "//%s/%s/" % (AWS_CLOUDFRONT_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
-    DEFAULT_FILE_STORAGE = "website.storage_backends.PublicMediaStorage"
+    STORAGES = {
+    "default": {
+        "BACKEND": "www_fortkentoc_org.storage_backends.PublicMediaStorage",
+        },
+    "staticfiles": {
+            "BACKEND": "www_fortkentoc_org.storage_backends.StaticStorage",
+        },
+    }
 
     STATICFILES_LOCATION = "static"
     STATIC_ROOT = "/%s/" % STATICFILES_LOCATION
     STATIC_URL = "//%s/%s/" % (AWS_CLOUDFRONT_DOMAIN, STATICFILES_LOCATION)
-    STATICFILES_STORAGE = "website.storage_backends.StaticStorage"
 else:
     STATIC_URL = "static/"
     MEDIA_URL = "media/"
