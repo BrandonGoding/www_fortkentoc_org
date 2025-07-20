@@ -15,50 +15,29 @@
         </div>
     </section>
 
-    {% if event_sessions %}
+    {% if events %}
 <section class="bg-white dark:bg-gray-900">
   <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
 {#  {% include 'website/partials/event_filters.html' %}#}
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
          
-        {% for item in event_sessions %}
-{% with event=item.event session=item.session %}
+        {% for event in events %}
 <article class="relative p-4 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-    {% if event.cancelled %}
-    <div class="absolute inset-0 bg-red-900 flex justify-center items-center opacity-40 rounded-lg">
-        <span class="text-white text-5xl font-bold rotate-45">CANCELLED</span>
-    </div>
-    {% endif %}
-
-    <div class="mb-2">
-        {% if event.tags %}
-            {% for tag in event.tags %}
-            <span class="text-xs font-semibold mr-1 px-2 py-0.5 rounded"
-                  style="background-color:{{ tag.tag_color.color_code.100 }};color:{{ tag.tag_color.color_code.800 }};">
-                {{ tag.label }}
-            </span>
-            {% endfor %}
-        {% endif %}
-    </div>
 
     <h2 class="my-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        {% if event.url %}<a href="{{ event.url }}">{% endif %}
-            {{ event.name }}
-        {% if event.url %}</a>{% endif %}
+        {{ event.name }}
     </h2>
 
-    {% with teaser=event.get_parent.specific.teaser %}
-        {% if teaser %}
-            <p class="mb-4 font-light text-gray-500 dark:text-gray-400">{{ teaser }}</p>
-        {% endif %}
-    {% endwith %}
-
     <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-        <strong>Event Date:</strong> {{ session.date|date:"F j, Y" }}<br>
+        <strong>Event Date(s):</strong> <br/>
+        {% for session in event.sessions.all %}
+        {{ session.date|date:"F j, Y" }}
         {% if session.start_time %}
-            <strong>Event Time:</strong> {{ session.start_time|time:"g:i A" }}
+            - <strong>Event Time:</strong> {{ session.start_time|time:"g:i A" }}
             {% if session.end_time %} – {{ session.end_time|time:"g:i A" }}{% endif %}
         {% endif %}
+        <br/>
+        {%endfor %}
     </div>
 
     {% if event.pdf %}
@@ -67,14 +46,7 @@
         </a>
     {% endif %}
 
-    {% if event.category %}
-        <span class="text-xs font-semibold mt-2 inline-block px-5 py-0.5 rounded"
-              style="background-color:{{ event.category.category_color.200 }};color:{{ event.category.category_color.900 }};">
-            {{ event.category.category.name }}
-        </span>
-    {% endif %}
 </article>
-{% endwith %}
 {% endfor %}
 
 

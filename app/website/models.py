@@ -68,19 +68,8 @@ class UpcomingListingPage(MetadataPageMixin, Page):
     
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-
-        today = date.today()
-        events = Event.objects.all()
-
-        session_items = []
-        for event in Event.objects.all():
-            for session in event.sessions.filter(date__gte=today).order_by("date", "start_time"):
-                session_items.append({
-                    "event": event,
-                    "session": session,
-                })
-
-        context["event_sessions"] = session_items
+        # TODO: Only show current events
+        context["events"] = Event.objects.all()
         return context
 
 

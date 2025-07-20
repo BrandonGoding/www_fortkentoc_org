@@ -5,8 +5,10 @@ beautifulsoup4==4.13.4
 boto3==1.39.9
 botocore==1.39.9
 certifi==2025.7.14
+cffi==1.17.1
 charset-normalizer==3.4.2
 colorama==0.4.6
+cryptography==45.0.5
 defusedxml==0.7.1
 Django==5.2.4
 django-appconf==1.1.0
@@ -32,6 +34,7 @@ openpyxl==3.1.5
 pillow==11.3.0
 pillow_heif==1.0.0
 pyasn1==0.6.1
+pycparser==2.22
 PyMySQL==1.1.1
 python-dateutil==2.9.0.post0
 python-decouple==3.8
