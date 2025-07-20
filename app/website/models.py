@@ -73,7 +73,7 @@ class UpcomingListingPage(MetadataPageMixin, Page):
         events = Event.objects.all()
 
         session_items = []
-        for event in []:
+        for event in Event.objects.all():
             for session in event.sessions.filter(date__gte=today).order_by("date", "start_time"):
                 session_items.append({
                     "event": event,
