@@ -273,13 +273,6 @@ class Coach(models.Model):
         ordering = ["name"]
 
 class DayPassLink(models.Model):
-    background_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
     url = models.URLField()
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
@@ -288,7 +281,6 @@ class DayPassLink(models.Model):
         FieldPanel("name"),
         FieldPanel("price"),
         FieldPanel("url"),
-        FieldPanel("background_image"),
     ]
 
     def __str__(self):
