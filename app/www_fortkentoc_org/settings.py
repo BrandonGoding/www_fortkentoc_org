@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     "wagtail.users",
     "wagtail.snippets",
     "wagtail.documents",
-    "wagtail.contrib.modeladmin",
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     "modelcluster",
     "taggit",
     "wagtailmetadata",
+    "wagtail_modeladmin",
 ]
 
 MIDDLEWARE = [

@@ -1,9 +1,5 @@
 from .models import Map, BoardMember, Coach, DayPassLink, Event
-from wagtail.contrib.modeladmin.options import (
-    ModelAdmin,
-    modeladmin_register,
-)
-
+from wagtail_modeladmin.options import ModelAdmin, modeladmin_register
 
 class BoardMemberAdmin(ModelAdmin):
     model = BoardMember
@@ -30,7 +26,7 @@ class CoachAdmin(ModelAdmin):
 class EventAdmin(ModelAdmin):
     model = Event
     menu_label = "Events"
-    menu_icon = "site"  # Choose an icon from https://docs.wagtail.org/en/stable/reference/icons.html
+    menu_icon = "site"
     menu_order = 200
     add_to_settings_menu = False
     exclude_from_explorer = False
@@ -52,7 +48,7 @@ class PasslinkAdmin(ModelAdmin):
 class MapAdmin(ModelAdmin):
     model = Map
     menu_label = "Maps"
-    menu_icon = "site"  # Choose an icon from https://docs.wagtail.org/en/stable/reference/icons.html
+    menu_icon = "site"
     menu_order = 200
     add_to_settings_menu = False
     exclude_from_explorer = False
