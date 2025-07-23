@@ -28,7 +28,7 @@ class HomePage(MetadataPageMixin, Page):
         "website.TrailsPage",
     ]
     main_title = models.CharField(max_length=100, blank=True, null=True)
-    main_content = models.TextField(blank=True)
+    main_content = RichTextField(blank=True)
     main_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -37,6 +37,7 @@ class HomePage(MetadataPageMixin, Page):
         related_name="+",
     )
     cta_text = models.CharField(max_length=100, blank=True, null=True)
+    cta_url = models.URLField(blank=True, null=True)
     cta_page = models.ForeignKey(
         "wagtailcore.Page",
         null=True,
@@ -54,6 +55,7 @@ class HomePage(MetadataPageMixin, Page):
             FieldPanel("main_image"),
             FieldPanel("cta_text"),
             FieldPanel("cta_page"),
+            FieldPanel("cta_url"),
         ]
     )
 
