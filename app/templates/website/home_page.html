@@ -38,8 +38,8 @@
               <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
                   {{ page.main_content|richtext }}
               </p>
-            {% if page.cta_text and page.cta_page %}
-            <a href="{% slugurl page.cta_page.slug %}"
+            {% if page.cta_text and page.cta_page or page.cta_text and page.cta_url %}
+            <a href="{%if page.cta_page %}{% slugurl page.cta_page.slug %}{%endif%}{% if page.cta_url %}{{ page.cta.url }}{% endif %}"
                    class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
               {{ page.cta_text }}
                 </a>
