@@ -44,6 +44,14 @@
               {{ page.cta_text }}
                 </a>
             {% endif %}
+
+ {% if page.cta_text_2 and page.cta_page_2 or page.cta_text_2 and page.cta_url_2 %}
+            <a href="{%if page.cta_page_2 %}{% slugurl page.cta_page_2.slug %}{%endif%}{% if page.cta_url_2 %}{{ page.cta_url_2 }}{% endif %}"
+                   class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+              {{ page.cta_text_2 }}
+                </a>
+            {% endif %}
+
           </div>
           <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
               {% image page.main_image width-500 class="object-cover object-center w-full h-full"  %}

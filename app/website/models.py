@@ -45,6 +45,15 @@ class HomePage(MetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
+    cta_text_2 = models.CharField(max_length=100, blank=True, null=True)
+    cta_url_2 = models.URLField(blank=True, null=True)
+    cta_page_2 = models.ForeignKey(
+        "wagtailcore.Page",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
 
     content_panels = (
         Page.content_panels
@@ -56,6 +65,9 @@ class HomePage(MetadataPageMixin, Page):
             FieldPanel("cta_text"),
             FieldPanel("cta_page"),
             FieldPanel("cta_url"),
+            FieldPanel("cta_text_2"),
+            FieldPanel("cta_page_2"),
+            FieldPanel("cta_url_2"),
         ]
     )
 
