@@ -6,6 +6,11 @@ app_name = "website"
 
 urlpatterns = [
     path(
+        "about-us/",
+        website_views.AboutUsTemplateView.as_view(),
+        name="about_us"
+        ),
+    path(
         "api/calendar-events/",
         website_views.calendar_events,
         name="calendar-events",
@@ -24,4 +29,5 @@ urlpatterns = [
         website_views.CoachDetailsView.as_view(),
         name="coach_modal",
     ),
+    
 ]

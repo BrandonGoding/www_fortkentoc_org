@@ -14,6 +14,15 @@ from website.constants import (
 from website.models import Coach, Event
 
 
+class AboutUsTemplateView(TemplateView):
+    template_name = "website/about_page.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['board_members'] = BoardMember.objects.all()
+        return context
+
+
 class ActivitiesDetailView(DetailView):
     template_name = "website/partials/activity_partial.html"
 
@@ -38,10 +47,6 @@ class CoachDetailsView(DetailView):
         context["next_coach"] = coach.get_next()
         context["prev_coach"] = coach.get_prev()
         return context
-
-
-class ProgramDates:
-    pass
 
 
 def empty_route(request):

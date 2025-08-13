@@ -105,24 +105,7 @@ class LegacyPage(MetadataPageMixin, Page):
     def get_template(self, request, *args, **kwargs):
         return self.template_name
 
-
-class AboutUsPage(MetadataPageMixin, Page):
-    parent_page_types = ["website.HomePage"]
-    subpage_types = []
-    max_count = 1
-
-    content_panels = (
-        Page.content_panels
-
-    )
-
-    def get_template(self, request, *args, **kwargs):
-        return "website/about_page.html"
     
-    def get_context(self, request, *args, **kwargs):
-        context = super().get_context(request, *args, **kwargs)
-        context['board_members'] = BoardMember.objects.all()
-        return context
     
 class TrailsPage(MetadataPageMixin, Page):
     parent_page_types = ["website.HomePage"]
