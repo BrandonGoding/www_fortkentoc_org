@@ -21,7 +21,6 @@ class HomePage(MetadataPageMixin, Page):
     subpage_types = [
         "website.UpcomingListingPage",
         "website.LegacyPage",
-        "website.AboutUsPage",
         "website.ProgramsPage",
         "website.ActivitiesPage",
         "website.DayPassesPage",
