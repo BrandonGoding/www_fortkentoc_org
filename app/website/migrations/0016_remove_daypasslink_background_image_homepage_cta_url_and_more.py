@@ -7,22 +7,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('website', '0015_alter_eventsession_event'),
+        ("website", "0015_alter_eventsession_event"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='daypasslink',
-            name='background_image',
+            model_name="daypasslink",
+            name="background_image",
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='cta_url',
+            model_name="homepage",
+            name="cta_url",
             field=models.URLField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='homepage',
-            name='main_content',
+            model_name="homepage",
+            name="main_content",
             field=wagtail.fields.RichTextField(blank=True),
         ),
     ]

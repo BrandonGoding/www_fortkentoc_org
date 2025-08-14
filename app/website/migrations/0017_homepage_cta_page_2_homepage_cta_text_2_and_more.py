@@ -7,24 +7,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0094_alter_page_locale'),
-        ('website', '0016_remove_daypasslink_background_image_homepage_cta_url_and_more'),
+        ("wagtailcore", "0094_alter_page_locale"),
+        (
+            "website",
+            "0016_remove_daypasslink_background_image_homepage_cta_url_and_more",
+        ),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='homepage',
-            name='cta_page_2',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.page'),
+            model_name="homepage",
+            name="cta_page_2",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailcore.page",
+            ),
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='cta_text_2',
+            model_name="homepage",
+            name="cta_text_2",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='cta_url_2',
+            model_name="homepage",
+            name="cta_url_2",
             field=models.URLField(blank=True, null=True),
         ),
     ]

@@ -130,10 +130,10 @@ if ENVIRONMENT == "production":
     MEDIA_ROOT = "/%s/" % AWS_PUBLIC_MEDIA_LOCATION
     MEDIA_URL = "//%s/%s/" % (AWS_CLOUDFRONT_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
     STORAGES = {
-    "default": {
-        "BACKEND": "www_fortkentoc_org.storage_backends.PublicMediaStorage",
+        "default": {
+            "BACKEND": "www_fortkentoc_org.storage_backends.PublicMediaStorage",
         },
-    "staticfiles": {
+        "staticfiles": {
             "BACKEND": "www_fortkentoc_org.storage_backends.StaticStorage",
         },
     }

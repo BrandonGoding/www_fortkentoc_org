@@ -1,6 +1,7 @@
 from .models import Map, BoardMember, Coach, DayPassLink, Event
 from wagtail_modeladmin.options import ModelAdmin, modeladmin_register
 
+
 class BoardMemberAdmin(ModelAdmin):
     model = BoardMember
     menu_label = "Board Members"

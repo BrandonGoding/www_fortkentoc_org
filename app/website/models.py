@@ -16,6 +16,7 @@ from wagtail.snippets.models import register_snippet
 import uuid
 from modelcluster.models import ClusterableModel
 
+
 # MODELS/Snippets BELOW HERE:
 class BoardMember(models.Model):
     name = models.CharField(max_length=255)
@@ -33,10 +34,11 @@ class BoardMember(models.Model):
         FieldPanel("role"),
         FieldPanel("profile_picture"),
     ]
-    
+
     def __str__(self):
         return self.name
-    
+
+
 class Coach(models.Model):
     name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
@@ -57,17 +59,22 @@ class Coach(models.Model):
     ]
 
     def get_next(self):
-        return Coach.objects.filter(name__gt=self.name).order_by('name').first()
+        return (
+            Coach.objects.filter(name__gt=self.name).order_by("name").first()
+        )
 
     def get_prev(self):
-        return Coach.objects.filter(name__lt=self.name).order_by('-name').first()
-    
+        return (
+            Coach.objects.filter(name__lt=self.name).order_by("-name").first()
+        )
+
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name_plural = "Coaches"
         ordering = ["name"]
+
 
 class DayPassLink(models.Model):
     url = models.URLField()
@@ -83,8 +90,11 @@ class DayPassLink(models.Model):
     def __str__(self):
         return self.name
 
+
 class EventSession(Orderable):
-    event = ParentalKey(to="website.Event", on_delete=models.CASCADE, related_name="sessions")
+    event = ParentalKey(
+        to="website.Event", on_delete=models.CASCADE, related_name="sessions"
+    )
     date = models.DateField("Session date")
     start_time = models.TimeField("Session start time", null=True, blank=True)
     end_time = models.TimeField("Session end time", null=True, blank=True)
@@ -116,27 +126,28 @@ class Event(ClusterableModel):
     )
 
     panels = [
-            MultiFieldPanel(
-                [
-                    FieldRowPanel(
-                        [
-                            FieldPanel("name"),
-                            FieldPanel("pdf"),
-                        ],
-                    )
-                ],
-                heading="Event Media",
-            ),
-            InlinePanel("sessions", max_num=15, min_num=1, label="Event Date"),
-        ]
-    
+        MultiFieldPanel(
+            [
+                FieldRowPanel(
+                    [
+                        FieldPanel("name"),
+                        FieldPanel("pdf"),
+                    ],
+                )
+            ],
+            heading="Event Media",
+        ),
+        InlinePanel("sessions", max_num=15, min_num=1, label="Event Date"),
+    ]
+
     def __str__(self):
         return self.name
+
 
 @register_snippet
 class MapCategory(models.Model):
     name = models.CharField(max_length=65)
-    
+
     def __str__(self):
         return self.name
 
@@ -151,7 +162,7 @@ class Map(models.Model):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    
+
     panel = [
         FieldRowPanel(
             children=[
@@ -160,6 +171,6 @@ class Map(models.Model):
             ]
         )
     ]
-    
+
     def __str__(self):
         return self.title

@@ -6,35 +6,35 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('website', '0018_delete_aboutuspage'),
+        ("website", "0018_delete_aboutuspage"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='SummerActivity',
+            name="SummerActivity",
         ),
         migrations.DeleteModel(
-            name='WinterActivity',
+            name="WinterActivity",
         ),
         migrations.DeleteModel(
-            name='Activity',
+            name="Activity",
         ),
         migrations.DeleteModel(
-            name='ActivitiesPage',
+            name="ActivitiesPage",
         ),
         migrations.DeleteModel(
-            name='DayPassesPage',
+            name="DayPassesPage",
         ),
         migrations.DeleteModel(
-            name='LegacyPage',
+            name="LegacyPage",
         ),
         migrations.DeleteModel(
-            name='ProgramsPage',
+            name="ProgramsPage",
         ),
         migrations.DeleteModel(
-            name='TrailsPage',
+            name="TrailsPage",
         ),
         migrations.DeleteModel(
-            name='UpcomingListingPage',
+            name="UpcomingListingPage",
         ),
     ]
