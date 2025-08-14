@@ -19,7 +19,7 @@
                    class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                     Learn More
                 </a>
-                <a href="{% slugurl "memberships" %}"
+                <a href="{% url "website:memberships" %}"
                    class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                     Become a Member
                 </a>
@@ -27,35 +27,130 @@
         </div>
     </section>
 
-  {% if page.main_content %}
-  <section class="bg-white dark:bg-gray-900">
-      <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-          <div class="mr-auto place-self-center lg:col-span-7">
-              <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">{{ page.main_title }}</h1>
-              <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-                  {{ page.main_content|richtext }}
-              </p>
-            {% if page.cta_text and page.cta_page or page.cta_text and page.cta_url %}
-            <a href="{%if page.cta_page %}{% slugurl page.cta_page.slug %}{%endif%}{% if page.cta_url %}{{ page.cta_url }}{% endif %}"
-                   class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-              {{ page.cta_text }}
-                </a>
-            {% endif %}
+  
 
- {% if page.cta_text_2 and page.cta_page_2 or page.cta_text_2 and page.cta_url_2 %}
-            <a href="{%if page.cta_page_2 %}{% slugurl page.cta_page_2.slug %}{%endif%}{% if page.cta_url_2 %}{{ page.cta_url_2 }}{% endif %}"
-                   class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-              {{ page.cta_text_2 }}
-                </a>
-            {% endif %}
+    <section class="relative overflow-hidden bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid items-center gap-10 lg:grid-cols-12">
+      <!-- Copy -->
+      <div class="lg:col-span-7">
+        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-600 shadow-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
+          <span class="inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+          Community Fundraiser
+        </div>
 
+        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl xl:text-6xl dark:text-white">
+          2025 BBQ and Band Fundraiser
+        </h1>
+
+        <div class="mt-6 space-y-3 text-gray-600 dark:text-gray-300">
+          <p class="flex items-start gap-3">
+            <!-- calendar icon -->
+            <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h1V3a1 1 0 0 1 1-1Zm13 8H4v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8ZM5 7a1 1 0 0 0-1 1v1h16V8a1 1 0 0 0-1-1H5Z"/></svg>
+            <span><b>Event:</b> FKOC BBQ &amp; Disc Golf Fundraiser — <b>Date:</b> Saturday, September 6, 2025</span>
+          </p>
+          <p class="flex items-start gap-3">
+            <!-- map pin -->
+            <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/></svg>
+            <span><b>Location:</b> Fort Kent Outdoor Center</span>
+          </p>
+          <p class="flex items-start gap-3">
+            <!-- ticket -->
+            <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h5a2 2 0 1 0 4 0h5a2 2 0 0 1 2 2v3a2 2 0 1 0 0 4v3a2 2 0 0 1-2 2h-5a2 2 0 1 0-4 0H5a2 2 0 0 1-2-2v-3a2 2 0 1 0 0-4V7Zm6 1h6v8H9V8Z"/></svg>
+            <span><b>Tickets:</b> $25 — from a board member or via the link below</span>
+          </p>
+          <p class="flex items-start gap-3">
+            <!-- mail -->
+            <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v.217l-10 6.25-10-6.25V6Zm0 2.383V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8.383l-9.445 5.898a2 2 0 0 1-2.11 0L2 8.383Z"/></svg>
+            <span><b>Contact:</b> <a class="underline hover:no-underline" href="mailto:info@fortkentoc.org">info@fortkentoc.org</a></span>
+          </p>
+        </div>
+
+        <!-- Schedule -->
+        <div class="mt-10 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+          <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Schedule</h2>
+          <ul class="space-y-4 text-gray-700 dark:text-gray-300">
+            <li class="flex gap-3">
+              <!-- disc -->
+              <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C7.03 3 3 6.03 3 9.75S7.03 16.5 12 16.5s9-3.03 9-6.75S16.97 3 12 3Zm0 2c3.866 0 7 2.239 7 4.75S15.866 14.5 12 14.5 5 12.261 5 9.75 8.134 5 12 5Zm0 2a6 6 0 0 0-6 2.75A6 6 0 0 0 12 12.5a6 6 0 0 0 6-2.75A6 6 0 0 0 12 7Z"/></svg>
+              <div>
+                <p class="font-medium">Disc Golf Tournament – Tee off at 12 PM</p>
+                <p class="text-sm">
+                  Register on UDisc &nbsp;•&nbsp; Pay entry fee:
+                  <a class="underline hover:no-underline" target="_blank" rel="noopener" href="https://buy.stripe.com/3cI4gy3849zDgLHbEa93y0q">Stripe payment link</a>
+                </p>
+              </div>
+            </li>
+            <li class="flex gap-3">
+              <!-- bar -->
+              <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3h16v2H4V3Zm2 4h12l-2 12H8L6 7Zm3 14h6v2H9v-2Z"/></svg>
+              <p><span class="font-medium">Cash Bar</span> — 4:30 PM to 8 PM</p>
+            </li>
+            <li class="flex gap-3">
+              <!-- bbq -->
+              <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 2h2v6a1 1 0 1 1-2 0V2Zm5 0h2v6a1 1 0 1 1-2 0V2Zm5 0h2v6a1 1 0 1 1-2 0V2ZM5 11h14v2h-2.126l-1.2 6H8.326l-1.2-6H5v-2Zm4.126 2 0.8 4h4.148l0.8-4H9.126Z"/></svg>
+              <div>
+                <p class="font-medium">BBQ Dinner — 5 PM to 6:30 PM</p>
+                <p class="text-sm">Includes BBQ chicken, baked beans, potato salad, slaw, cornbread, and dessert</p>
+              </div>
+            </li>
+            <li class="flex gap-3">
+              <!-- music -->
+              <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 3v10.555A3.999 3.999 0 1 1 16 16V7h-6v6.555A3.999 3.999 0 1 1 8 14V5h10Z"/></svg>
+              <p><span class="font-medium">Live Music by Boomer’ang</span> — 6 PM to 8 PM</p>
+            </li>
+          </ul>
+
+          <div class="mt-6 border-t border-gray-200 pt-6 text-gray-700 dark:border-gray-800 dark:text-gray-300">
+            <h3 class="mb-2 text-base font-semibold text-gray-900 dark:text-white">Extras</h3>
+            <ul class="list-disc space-y-1 pl-5 text-sm">
+              <li>50/50 Raffle</li>
+              <li>Take-out available</li>
+            </ul>
           </div>
-          <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-              {% image page.main_image width-500 class="object-cover object-center w-full h-full"  %}
-          </div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            href="https://buy.stripe.com/dRmbJ0eQMcLP8fb8rY93y0p"
+            target="_blank" rel="noopener"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-primary-600 px-5 py-3 font-medium text-white shadow-sm transition hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900"
+          >
+            <!-- ticket icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v2a2 2 0 1 0 0 4v2a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2a2 2 0 1 0 0-4V8Zm6 1h6v6H9V9Z"/></svg>
+            Purchase your Ticket
+          </a>
+
+          <a
+            href="https://buy.stripe.com/3cI4gy3849zDgLHbEa93y0q"
+            target="_blank" rel="noopener"
+            class="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-3 font-medium text-gray-900 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-700 dark:bg-gray-950 dark:text-white dark:hover:bg-gray-900 dark:focus:ring-gray-800"
+          >
+            <!-- disc icon -->
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C7.03 3 3 6.03 3 9.75S7.03 16.5 12 16.5s9-3.03 9-6.75S16.97 3 12 3Z"/></svg>
+            Pay Disc Golf Entry Fee
+          </a>
+        </div>
       </div>
-  </section>
-  {% endif %}
+
+      <!-- Image -->
+      <div class="lg:col-span-5">
+        <div class="mx-auto max-w-md overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-gray-900 lg:max-w-none">
+          <img
+            class="h-full w-full object-cover"
+            src="https://cdn.fortkentoc.org/media/images/ChatGPT_Image_Jul_23_2025_at_05_22_15_PM.width-500.png"
+            alt="BBQ & Band fundraiser promotional artwork"
+            width="500"
+            height="750"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     
     
