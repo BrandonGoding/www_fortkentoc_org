@@ -11,7 +11,7 @@ from django.views.generic import TemplateView, DetailView
 from website.constants import (
     ACTIVITIES,
 )
-from website.models import Coach, Event
+from website.models import Coach, Event, BoardMember
 
 
 class AboutUsTemplateView(TemplateView):
