@@ -16,57 +16,7 @@ from wagtail.snippets.models import register_snippet
 import uuid
 from modelcluster.models import ClusterableModel
 
-class HomePage(MetadataPageMixin, Page):
-    max_count = 1
-    subpage_types = [
-    ]
-    main_title = models.CharField(max_length=100, blank=True, null=True)
-    main_content = RichTextField(blank=True)
-    main_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    cta_text = models.CharField(max_length=100, blank=True, null=True)
-    cta_url = models.URLField(blank=True, null=True)
-    cta_page = models.ForeignKey(
-        "wagtailcore.Page",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-    cta_text_2 = models.CharField(max_length=100, blank=True, null=True)
-    cta_url_2 = models.URLField(blank=True, null=True)
-    cta_page_2 = models.ForeignKey(
-        "wagtailcore.Page",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
-    content_panels = (
-        Page.content_panels
-
-        + [
-            FieldPanel("main_title"),
-            FieldPanel("main_content"),
-            FieldPanel("main_image"),
-            FieldPanel("cta_text"),
-            FieldPanel("cta_page"),
-            FieldPanel("cta_url"),
-            FieldPanel("cta_text_2"),
-            FieldPanel("cta_page_2"),
-            FieldPanel("cta_url_2"),
-        ]
-    )
-
-
 # MODELS/Snippets BELOW HERE:
-
 class BoardMember(models.Model):
     name = models.CharField(max_length=255)
     role = models.CharField(max_length=255, null=True, blank=True)

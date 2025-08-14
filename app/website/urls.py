@@ -5,6 +5,7 @@ from website import views as website_views
 app_name = "website"
 
 urlpatterns = [
+    path("", website_views.HomePageTemplateView.as_view(), name="home"),
     path("activities/", website_views.ActivitesPageTemplateView.as_view() ,name="activities"),
     path(
         "about-us/",

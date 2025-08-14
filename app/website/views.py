@@ -14,6 +14,9 @@ from website.constants import (
 from website.models import Coach, Event, BoardMember, MapCategory, Event, DayPassLink
 
 
+class HomePageTemplateView(TemplateView):
+    template_name = "website/home_page.html"
+
 class ActivitesPageTemplateView(TemplateView):
     template_name = "website/activities_page.html"
 
