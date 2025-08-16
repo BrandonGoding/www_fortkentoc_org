@@ -1,6 +1,6 @@
 from .models import Map, BoardMember, Coach, DayPassLink, Event
 from wagtail_modeladmin.options import ModelAdmin, modeladmin_register
-
+from wagtail import hooks
 
 class BoardMemberAdmin(ModelAdmin):
     model = BoardMember
@@ -62,3 +62,14 @@ modeladmin_register(CoachAdmin)
 modeladmin_register(MapAdmin)
 modeladmin_register(PasslinkAdmin)
 modeladmin_register(EventAdmin)
+
+
+# Hide "Pages" (the Explorer) from the main sidebar
+@hooks.register("construct_main_menu")
+def hide_pages_menu_item(request, menu_items):
+    menu_items[:] = [item for item in menu_items if item.name != "explorer"]
+
+# Hide "Sites" from Settings
+@hooks.register("construct_settings_menu")
+def hide_sites_settings_item(request, menu_items):
+    menu_items[:] = [item for item in menu_items if getattr(item, "name", "") != "sites"]
