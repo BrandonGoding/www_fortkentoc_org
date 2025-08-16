@@ -9,7 +9,6 @@ from wagtail.admin.panels import (
 )
 from wagtail.fields import RichTextField
 from wagtail.models import Page, Orderable
-from .fields import TemplateChoiceWidget
 from wagtailmetadata.models import MetadataPageMixin
 from datetime import date
 from wagtail.snippets.models import register_snippet

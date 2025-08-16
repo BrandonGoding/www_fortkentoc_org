@@ -2,6 +2,7 @@ from .models import Map, BoardMember, Coach, DayPassLink, Event
 from wagtail_modeladmin.options import ModelAdmin, modeladmin_register
 from wagtail import hooks
 
+
 class BoardMemberAdmin(ModelAdmin):
     model = BoardMember
     menu_label = "Board Members"
@@ -69,7 +70,10 @@ modeladmin_register(EventAdmin)
 def hide_pages_menu_item(request, menu_items):
     menu_items[:] = [item for item in menu_items if item.name != "explorer"]
 
+
 # Hide "Sites" from Settings
 @hooks.register("construct_settings_menu")
 def hide_sites_settings_item(request, menu_items):
-    menu_items[:] = [item for item in menu_items if getattr(item, "name", "") != "sites"]
+    menu_items[:] = [
+        item for item in menu_items if getattr(item, "name", "") != "sites"
+    ]
