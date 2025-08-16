@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "website.apps.WebsiteConfig",
+    "billing.apps.BillingConfig",
     "compressor",
     "rest_framework",
     "storages",
@@ -167,3 +168,8 @@ WAGTAIL_SITE_NAME = "Fort Kent Outdoor Center"
 WAGTAILADMIN_BASE_URL = config("BASE_URL")
 BASE_URL = config("BASE_URL")
 WAGTAILDOCS_EXTENSIONS = ["pdf"]
+
+
+# Stripe
+STRIPE_API_KEY = config("STRIPE_API_KEY", "")
+STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", "")  # optional, for step 6

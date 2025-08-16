@@ -37,6 +37,7 @@
         <link rel="stylesheet" href="{% static 'src/output.css' %}">
     {% endcompress %}
 
+
 <style>
     .fade-me-out.htmx-swapping {
       opacity: 0;
@@ -306,6 +307,8 @@
     </div>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
+{% block extra_js %}
+{% endblock %}
 </body>
 
 </html>

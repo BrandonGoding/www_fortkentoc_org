@@ -1,0 +1,93 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n stripe_extras %}
+
+{% block titletag %}Stripe Buyers{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/4.0.1/css/fixedHeader.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css">
+<style>
+  .stripe-table-wrapper { max-width: 90%; overflow-x: auto; }
+  .truncate { max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  table.dataTable thead th { white-space: nowrap; }
+  .meta { color: #6b7280; font-size: 0.9em; }
+</style>
+{% endblock %}
+
+{% block content %}
+  {% include "wagtailadmin/shared/header.html" with title="BBQ Attendees" icon="user" %}
+
+  <section class="w-panel" style="margin-left:150px;">
+    <h2 class="w-panel__header">BBQ Attendees</h2>
+    <div class="w-panel__content">
+      <div class="stripe-table-wrapper">
+        <table id="buyers-table" class="listing display nowrap stripe" style="width:100%">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Quantity</th>
+              <th>Last Purchased</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in buyers %}
+            <tr>
+              <td class="truncate" title="{{ row.name }}">{{ row.name }}</td>
+              <td class="truncate" title="{{ row.email }}">{{ row.email }}</td>
+              <td data-order="{{ row.quantity }}">{{ row.quantity }}</td>
+              <td data-order="{{ row.last }}">{{ row.last|unix_to_datetime|date:"M, jS Y" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/4.0.1/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new DataTable('#buyers-table', {
+      responsive: true,
+      fixedHeader: true,
+      paging: true,
+      pageLength: 25,
+      lengthMenu: [25, 50, 100, 250],
+      order: [[3, 'desc']],
+      autoWidth: false,
+      searching: false,
+      columnDefs: [
+        { targets: 2, type: 'num' },
+        { targets: 3, type: 'num' },
+      ],
+      language: {
+        emptyTable: 'No buyers found in this window'
+      },
+      layout: {
+        topStart: {
+          buttons: [{
+            extend: 'csvHtml5',
+            text: 'Export CSV',                 // 👈 label
+            title: 'buyers-{{ product_id }}',   // CSV title (inside file)
+            filename: 'buyers-{{ product_id }}',// downloaded filename
+            titleAttr: 'Download CSV file'      // tooltip on hover
+          }]
+        }
+      }
+    });
+  });
+</script>
+
+
+{% endblock %}
