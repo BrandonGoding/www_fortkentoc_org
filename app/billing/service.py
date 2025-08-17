@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
-from typing import Generator, Iterable, Optional
+from typing import Generator, Iterable, Optional, Dict, Any
 
 import stripe
 from django.conf import settings
@@ -231,3 +231,150 @@ class StripeService:
             else:
                 created += 1
         return {"stripe_created": created, "stripe_updated": updated}
+
+    # ---------- Product/Price mappers ----------
+    def _map_stripe_product(self, sp: Dict[str, Any]) -> Dict[str, Any]:
+        return {
+            "stripe_product_id": sp["id"],
+            "name": (sp.get("name") or "").strip()[:255],
+            "description": sp.get("description") or "",
+            "active": bool(sp.get("active", True)),
+            "product_type": (sp.get("type") or "")[:20],  # "good" | "service" | ""
+            "shippable": bool(sp.get("shippable") or False),
+            "images": sp.get("images") or [],
+            "metadata": sp.get("metadata") or {},
+        }
+
+    def _map_stripe_price(self, pr: Dict[str, Any]) -> Dict[str, Any]:
+        recurring = pr.get("recurring") or {}
+        return {
+            "stripe_price_id": pr["id"],
+            "active": bool(pr.get("active", True)),
+            "currency": (pr.get("currency") or "usd")[:10],
+            "unit_amount": int(pr.get("unit_amount") or 0),
+            "type": (pr.get("type") or "one_time"),
+            "recurring_interval": (recurring.get("interval") or ""),
+            "recurring_interval_count": recurring.get("interval_count"),
+            "trial_period_days": recurring.get("trial_period_days"),
+            "tax_behavior": (pr.get("tax_behavior") or ""),
+            "livemode": bool(pr.get("livemode") or False),
+            "metadata": pr.get("metadata") or {},
+        }
+
+    # ---------- Upserts ----------
+    @transaction.atomic
+    def upsert_product_from_stripe(self, sp: Dict[str, Any]):
+        from billing.models import Product  # local import to avoid circulars
+
+        fields = self._map_stripe_product(sp)
+        obj, created = Product.objects.select_for_update().get_or_create(
+            stripe_product_id=sp["id"], defaults=fields
+        )
+        if not created:
+            dirty = False
+            for k, v in fields.items():
+                if getattr(obj, k) != v:
+                    setattr(obj, k, v)
+                    dirty = True
+            if dirty:
+                obj.save(update_fields=list(fields.keys()))
+        return obj, created
+
+    @transaction.atomic
+    def upsert_price_from_stripe(self, product_obj, pr: Dict[str, Any]):
+        from billing.models import Price  # local import
+
+        fields = self._map_stripe_price(pr)
+        obj, created = Price.objects.select_for_update().get_or_create(
+            stripe_price_id=pr["id"],
+            defaults={**fields, "product": product_obj},
+        )
+        if not created:
+            dirty = False
+            # keep the relation correct in case Stripe moved it (rare, but safe)
+            if obj.product_id != product_obj.id:
+                obj.product = product_obj
+                dirty = True
+            for k, v in fields.items():
+                if getattr(obj, k) != v:
+                    setattr(obj, k, v)
+                    dirty = True
+            if dirty:
+                # product may be in update_fields, so include it explicitly
+                obj.save(update_fields=["product", *list(fields.keys())])
+        return obj, created
+
+    # ---------- Iterators ----------
+    def iter_products(self, limit: int = 100, active: bool | None = None):
+        """
+        Yields Stripe products. If active is not None, filters by active state.
+        """
+        starting_after = None
+        while True:
+            params = {"limit": limit}
+            if active is not None:
+                params["active"] = active
+            page = stripe.Product.list(starting_after=starting_after, **params)
+            data = page.get("data", [])
+            if not data:
+                break
+            for obj in data:
+                yield obj
+            if not page.get("has_more"):
+                break
+            starting_after = data[-1]["id"]
+
+    def iter_prices_for_product(self, stripe_product_id: str, limit: int = 100, active: bool | None = None):
+        starting_after = None
+        while True:
+            params = {"product": stripe_product_id, "limit": limit}
+            if active is not None:
+                params["active"] = active
+            page = stripe.Price.list(starting_after=starting_after, **params)
+            data = page.get("data", [])
+            if not data:
+                break
+            for obj in data:
+                yield obj
+            if not page.get("has_more"):
+                break
+            starting_after = data[-1]["id"]
+
+    # ---------- Bulk sync ----------
+    def pull_catalog(self, active_only: bool = True, sync_prices: bool = True, dry_run: bool = False) -> dict:
+        """
+        Pull Products (and Prices) from Stripe into the local DB.
+        Returns summary stats.
+        """
+        from billing.models import Product, Price  # local import
+
+        prod_created = prod_updated = 0
+        price_created = price_updated = 0
+
+        for sp in self.iter_products(active=(True if active_only else None)):
+            if dry_run:
+                # Touch key fields to validate mapping
+                _ = sp["id"]; _ = sp.get("name"); _ = sp.get("active")
+            else:
+                prod_obj, was_created = self.upsert_product_from_stripe(sp)
+                if was_created:
+                    prod_created += 1
+                else:
+                    prod_updated += 1
+
+                if sync_prices:
+                    for pr in self.iter_prices_for_product(sp["id"], active=(True if active_only else None)):
+                        pobj, p_created = self.upsert_price_from_stripe(prod_obj, pr)
+                        if p_created:
+                            price_created += 1
+                        else:
+                            price_updated += 1
+
+        return {
+            "products_created": prod_created,
+            "products_updated": prod_updated,
+            "prices_created": price_created,
+            "prices_updated": price_updated,
+            "dry_run": dry_run,
+            "active_only": active_only,
+        }

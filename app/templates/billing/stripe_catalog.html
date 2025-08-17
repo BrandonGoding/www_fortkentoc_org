@@ -1,0 +1,149 @@
+{% extends "wagtailadmin/base.html" %}
+{% load stripe_extras %}
+{% block titletag %}Stripe Catalog{% endblock %}
+
+{% block content %}
+  {% include "wagtailadmin/shared/header.html" with title="Stripe Catalog" icon="tag" %}
+
+  <div class="nice-padding">
+
+    <form method="get" class="w-form" style="margin-bottom:1rem;">
+      <div class="w-field__wrapper" style="display:flex; gap:1rem; align-items:flex-end; flex-wrap:wrap;">
+        <div class="w-field">
+          <label class="w-label">Search</label>
+          <input class="w-input" type="text" name="q" value="{{ q }}" placeholder="name, description, Stripe IDs">
+        </div>
+
+        <div class="w-field">
+          <label class="w-label">Active</label>
+          <select class="w-select" name="active">
+            <option value="">Any</option>
+            <option value="yes" {% if active == "yes" %}selected{% endif %}>Yes</option>
+            <option value="no" {% if active == "no" %}selected{% endif %}>No</option>
+          </select>
+        </div>
+
+        <div class="w-field">
+          <label class="w-label">Type</label>
+          <select class="w-select" name="type">
+            <option value="">Any</option>
+            <option value="good" {% if ptype == "good" %}selected{% endif %}>good</option>
+            <option value="service" {% if ptype == "service" %}selected{% endif %}>service</option>
+          </select>
+        </div>
+
+        <div class="w-field">
+          <label class="w-label">Currency</label>
+          <input class="w-input" type="text" name="currency" value="{{ currency }}" placeholder="e.g. usd">
+        </div>
+
+        <div class="w-field">
+          <label class="w-label">Has prices</label>
+          <select class="w-select" name="has_prices">
+            <option value="">Any</option>
+            <option value="yes" {% if has_prices == "yes" %}selected{% endif %}>Yes</option>
+            <option value="no" {% if has_prices == "no" %}selected{% endif %}>No</option>
+          </select>
+        </div>
+
+        <div class="w-field">
+          <button class="button button-primary">Apply</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="mb-4" style="display:flex; gap:.5rem; flex-wrap:wrap;">
+      <span class="status-tag primary">Total: {{ stats.total }}</span>
+      <span class="status-tag success">Active: {{ stats.active }}</span>
+      <span class="status-tag warning">Inactive: {{ stats.inactive }}</span>
+      <span class="status-tag info">With prices: {{ stats.with_prices }}</span>
+      <span class="status-tag">Without prices: {{ stats.without_prices }}</span>
+    </div>
+
+    <table class="listing full-width">
+      <thead>
+        <tr>
+          <th style="width:28%;">Product</th>
+          <th style="width:12%;">Active</th>
+          <th style="width:15%;">Type</th>
+          <th style="width:15%;">Stripe Product ID</th>
+          <th style="width:30%;">Prices</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in products %}
+          <tr>
+            <td>
+              <div><strong>{{ p.name }}</strong></div>
+              {% if p.description %}<div style="opacity:.8;">{{ p.description|truncatechars:160 }}</div>{% endif %}
+            </td>
+            <td>
+              {% if p.active %}
+                <span class="status-tag success">Active</span>
+              {% else %}
+                <span class="status-tag warning">Inactive</span>
+              {% endif %}
+            </td>
+            <td>{{ p.product_type|default:"—" }}</td>
+            <td>
+              {% if p.stripe_product_id %}
+                <code>{{ p.stripe_product_id }}</code>
+              {% else %}—{% endif %}
+            </td>
+            <td>
+              {% if p.price_count == 0 %}
+                —
+              {% else %}
+                {% if p.price_count <= 3 %}
+                  {% for pr in p.prices.all %}
+                    <div style="margin-bottom:.25rem;">
+                      {{ pr.unit_amount|cents_to_dollars }} {{ pr.currency|upper }}
+                      {% if pr.type == "recurring" and pr.recurring_interval %}
+                        / {{ pr.recurring_interval_count|default:1 }} {{ pr.recurring_interval }}
+                      {% endif %}
+                      {% if not pr.active %}<span class="status-tag warning">inactive</span>{% endif %}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  <details>
+                    <summary>{{ p.price_count }} prices — show</summary>
+                    <div style="margin-top:.25rem;">
+                      {% for pr in p.prices.all %}
+                        <div style="margin-bottom:.25rem;">
+                          {{ pr.unit_amount|cents_to_dollars }} {{ pr.currency|upper }}
+                          {% if pr.type == "recurring" and pr.recurring_interval %}
+                            / {{ pr.recurring_interval_count|default:1 }} {{ pr.recurring_interval }}
+                          {% endif %}
+                          {% if not pr.active %}<span class="status-tag warning">inactive</span>{% endif %}
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </details>
+                {% endif %}
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5" style="text-align:center; padding:1.5rem; opacity:.7;">No products found.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% if is_paginated %}
+      <nav class="pagination" aria-label="Pagination" style="margin-top:1rem;">
+        <ul>
+          {% if page_obj.has_previous %}
+            <li class="prev"><a href="?page={{ page_obj.previous_page_number }}&q={{ q }}&active={{ active }}&type={{ ptype }}&currency={{ currency }}&has_prices={{ has_prices }}">Previous</a></li>
+          {% endif %}
+          <li class="current">Page {{ page_obj.number }} of {{ paginator.num_pages }}</li>
+          {% if page_obj.has_next %}
+            <li class="next"><a href="?page={{ page_obj.next_page_number }}&q={{ q }}&active={{ active }}&type={{ ptype }}&currency={{ currency }}&has_prices={{ has_prices }}">Next</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+
+  </div>
+{% endblock %}

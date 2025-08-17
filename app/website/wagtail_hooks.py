@@ -18,7 +18,7 @@ class CoachAdmin(ModelAdmin):
     model = Coach
     menu_label = "Coaches"
     menu_icon = "group"
-    menu_order = 199
+    menu_order = 200
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("name", "title")
@@ -29,7 +29,7 @@ class EventAdmin(ModelAdmin):
     model = Event
     menu_label = "Events"
     menu_icon = "site"
-    menu_order = 200
+    menu_order = 203
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("name",)
@@ -40,7 +40,7 @@ class PasslinkAdmin(ModelAdmin):
     model = DayPassLink
     menu_label = "Day Passes"
     menu_icon = "tag"
-    menu_order = 199
+    menu_order = 202
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("name", "price")
@@ -51,7 +51,7 @@ class MapAdmin(ModelAdmin):
     model = Map
     menu_label = "Maps"
     menu_icon = "site"
-    menu_order = 200
+    menu_order = 204
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ("title", "category")

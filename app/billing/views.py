@@ -10,12 +10,8 @@ from billing.utils import utc_ts_days_ago
 from billing.service import StripeService
 from billing.models import Customer
 from django.views.generic import ListView
-from django.db.models import Q, Count
-from billing.models import Customer
-
-
-# billing/views.py
-
+from django.db.models import Q, Count, Prefetch
+from billing.models import Customer, Product, Price
 
 class StripeCustomersListView(ListView):
     model = Customer
@@ -67,16 +63,75 @@ class StripeCustomersListView(ListView):
         return ctx
 
 
-# Optional stub — safe to keep
-@csrf_exempt
-def stripe_webhook(request):
-    payload = request.body
-    sig_header = request.META.get("HTTP_STRIPE_SIGNATURE")
-    secret = settings.STRIPE_WEBHOOK_SECRET
-    if not secret:
-        return HttpResponseBadRequest("Webhook secret not configured")
-    try:
-        stripe.Webhook.construct_event(payload, sig_header, secret)
-    except Exception as exc:
-        return HttpResponseBadRequest(str(exc))
-    return HttpResponse(status=200)
+class StripeCatalogListView(ListView):
+    """
+    Wagtail-admin list of Products with inline Prices.
+    """
+    model = Product
+    template_name = "billing/stripe_catalog.html"
+    context_object_name = "products"
+    paginate_by = 25
+    ordering = "-updated_at"
+
+    def get_queryset(self):
+        qs = (
+            Product.objects
+            .all()
+            .order_by(self.ordering)
+            .annotate(price_count=Count("prices"))
+            .prefetch_related(
+                Prefetch(
+                    "prices",
+                    queryset=Price.objects.order_by("-active", "currency", "unit_amount", "id"),
+                )
+            )
+        )
+
+        q = (self.request.GET.get("q") or "").strip()
+        if q:
+            qs = qs.filter(
+                Q(name__icontains=q) |
+                Q(description__icontains=q) |
+                Q(stripe_product_id__icontains=q) |
+                Q(prices__stripe_price_id__icontains=q)
+            ).distinct()
+
+        active = self.request.GET.get("active")
+        if active == "yes":
+            qs = qs.filter(active=True)
+        elif active == "no":
+            qs = qs.filter(active=False)
+
+        ptype = (self.request.GET.get("type") or "").strip()
+        if ptype:
+            qs = qs.filter(product_type__iexact=ptype)
+
+        currency = (self.request.GET.get("currency") or "").strip().lower()
+        if currency:
+            qs = qs.filter(prices__currency__iexact=currency).distinct()
+
+        has_prices = self.request.GET.get("has_prices")
+        if has_prices == "yes":
+            qs = qs.filter(price_count__gt=0)
+        elif has_prices == "no":
+            qs = qs.filter(price_count=0)
+
+        return qs
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx.update({
+            "q": self.request.GET.get("q", ""),
+            "active": self.request.GET.get("active", ""),
+            "ptype": self.request.GET.get("type", ""),
+            "currency": self.request.GET.get("currency", ""),
+            "has_prices": self.request.GET.get("has_prices", ""),
+            "stats": {
+                "total": Product.objects.count(),
+                "active": Product.objects.filter(active=True).count(),
+                "inactive": Product.objects.filter(active=False).count(),
+                "with_prices": Product.objects.annotate(pc=Count("prices")).filter(pc__gt=0).count(),
+                "without_prices": Product.objects.annotate(pc=Count("prices")).filter(pc=0).count(),
+            },
+        })
+        return ctx
