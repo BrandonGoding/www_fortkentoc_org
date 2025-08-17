@@ -58,7 +58,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "www_fortkentoc_org.urls"
 
-if DATABASE == "MYSQL" or ENVIRONMENT == "production":
+if DATABASE == "MYSQL":
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",

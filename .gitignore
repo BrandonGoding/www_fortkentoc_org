@@ -166,3 +166,4 @@ docker-compose.yml
 html/
 app/staticfiles/
 app/website/nordic_pulse.json
+fkoc.sql

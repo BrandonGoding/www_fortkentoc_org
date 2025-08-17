@@ -7,7 +7,7 @@ from . import views
 @hooks.register("register_admin_urls")
 def register_admin_urls():
     return [
-        path("stripe/buyers/", staff_member_required(views.stripe_buyers), name="stripe_buyers"),
+        path("stripe/buyers/", staff_member_required(views.StripeBuyerTemplateView.as_view()), name="stripe_buyers"),
     ]
 
 @hooks.register("register_admin_menu_item")
