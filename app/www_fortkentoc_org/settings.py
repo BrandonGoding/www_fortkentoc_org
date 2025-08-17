@@ -172,4 +172,6 @@ WAGTAILDOCS_EXTENSIONS = ["pdf"]
 
 # Stripe
 STRIPE_API_KEY = config("STRIPE_API_KEY", "")
-STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET", "")  # optional, for step 6
+STRIPE_WEBHOOK_SECRET = config(
+    "STRIPE_WEBHOOK_SECRET", ""
+)  # optional, for step 6

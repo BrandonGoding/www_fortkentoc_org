@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 
 register = template.Library()
 
+
 @register.filter
 def cents_to_dollars(value):
     """
@@ -16,6 +17,7 @@ def cents_to_dollars(value):
     except Exception:
         # If it's not an int-like value, just return as-is
         return value
+
 
 @register.filter
 def unix_to_datetime(value):

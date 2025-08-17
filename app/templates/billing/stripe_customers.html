@@ -1,0 +1,104 @@
+{# templates/billing/stripe_customers.html #}
+{% extends "wagtailadmin/base.html" %}
+
+{% block titletag %}Stripe Customers{% endblock %}
+
+{% block content %}
+  {% include "wagtailadmin/shared/header.html" with title="Stripe Customers" icon="user" %}
+
+  <div class="nice-padding">
+
+    <form method="get" class="w-form" style="margin-bottom:1rem;">
+      <div class="w-field__wrapper" style="display:flex; gap:1rem; align-items:flex-end; flex-wrap:wrap;">
+        <div class="w-field">
+          <label class="w-label">Search</label>
+          <input type="text" name="q" value="{{ q }}" class="w-input" placeholder="name or email">
+        </div>
+        <div class="w-field">
+          <label class="w-label">Has Stripe ID</label>
+          <select name="has_stripe" class="w-select">
+            <option value="">Any</option>
+            <option value="yes" {% if has_stripe == "yes" %}selected{% endif %}>Yes</option>
+            <option value="no" {% if has_stripe == "no" %}selected{% endif %}>No</option>
+          </select>
+        </div>
+        <div class="w-field">
+          <button class="button button-primary">Apply</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="mb-4" style="display:flex; gap:.5rem; flex-wrap:wrap;">
+      <span class="status-tag primary">Total: {{ stats.total|default:"0" }}</span>
+      <span class="status-tag success">With Stripe: {{ stats.with_stripe|default:"0" }}</span>
+      <span class="status-tag warning">Without Stripe: {{ stats.without_stripe|default:"0" }}</span>
+    </div>
+
+    <table class="listing full-width">
+      <thead>
+        <tr>
+          <th style="width:22%">Name</th>
+          <th style="width:28%">Email</th>
+          <th style="width:35%">Stripe Customer IDs</th>
+          <th style="width:15%">Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in customers %}
+          <tr>
+            <td>{{ c.name|default:"—" }}</td>
+            <td>{{ c.email|default:"—" }}</td>
+            <td>
+              {% with ids=c.stripe_customers.all %}
+                {% if ids %}
+                  {% if ids|length <= 3 %}
+                    {% for sc in ids %}
+                      <code style="display:inline-block; margin:0 .25rem .25rem 0;">{{ sc.stripe_customer_id }}</code>
+                    {% endfor %}
+                  {% else %}
+                    <details>
+                      <summary>{{ ids|length }} IDs — show</summary>
+                      <div style="margin-top:.25rem;">
+                        {% for sc in ids %}
+                          <div><code>{{ sc.stripe_customer_id }}</code></div>
+                        {% endfor %}
+                      </div>
+                    </details>
+                  {% endif %}
+                {% else %}
+                  —
+                {% endif %}
+              {% endwith %}
+            </td>
+            <td>{{ c.created_at|date:"Y-m-d H:i" }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4" style="text-align:center; padding:1.5rem; color:#6b7280;">No customers found.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% if is_paginated %}
+      <nav class="pagination" aria-label="Pagination" style="margin-top:1rem;">
+        <ul>
+          {% if page_obj.has_previous %}
+            <li class="prev">
+              <a href="?page={{ page_obj.previous_page_number }}&q={{ q }}&has_stripe={{ has_stripe }}">Previous</a>
+            </li>
+          {% endif %}
+          <li class="current">
+            Page {{ page_obj.number }} of {{ paginator.num_pages }}
+          </li>
+          {% if page_obj.has_next %}
+            <li class="next">
+              <a href="?page={{ page_obj.next_page_number }}&q={{ q }}&has_stripe={{ has_stripe }}">Next</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
+
+  </div>
+{% endblock %}
