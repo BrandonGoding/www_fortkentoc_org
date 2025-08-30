@@ -55,6 +55,8 @@ class DayPassesPage(TemplateView):
         context["day_passes"] = DayPassLink.objects.all()
         return context
 
+class EndowmentTemplateView(TemplateView):
+    template_name = "website/endowment.html"
 
 class TrailsTemplateView(TemplateView):
     template_name = "website/trails_page.html"

@@ -25,6 +25,9 @@ urlpatterns = [
         "day-passes/", website_views.DayPassesPage.as_view(), name="day-passes"
     ),
     path(
+        "endowment/", website_views.EndowmentTemplateView.as_view(), name="endowment"
+        ),
+    path(
         "event-calendar",
         TemplateView.as_view(template_name="website/event_calendar.html"),
         name="event-calendar",
