@@ -71,10 +71,11 @@
         <div class="flex flex-wrap justify-between items-end mx-auto max-w-screen-xl py-2.5">
             <div class="flex" style="margin-left:auto;">
                 <a href="{% url 'website:memberships' %}" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Become A Member</a>
-                <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:webcam_modal' %}"
+                <a href="{% url 'website:endowment' %}" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Endowment Fund</a>
+                {% comment %} <a href="#" hx-trigger="click" hx-target="body" hx-get="{% url 'website:webcam_modal' %}"
                    hx-swap="afterbegin"
                    class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Webcam</a>
-                <a href="{% url 'website:trails' %}" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Trail Maps</a>
+                <a href="{% url 'website:trails' %}" class="text-sm font-medium sm:mr-6 text-white hover:text-gray-300">Trail Maps</a> {% endcomment %}
             </div>
         </div>
     </nav>
@@ -133,6 +134,10 @@
                                 <li>
                                     <a href="{% url 'website:trails' %}"
                                        class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Trails</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'website:endowment' %}"
+                                       class="flex items-center py-2 px-4 w-full hover:text-primary-600 dark:hover:text-primary-500">Endowment</a>
                                 </li>
                                 <li>
                                     <a href="{% url 'website:policies-and-safety' %}"
