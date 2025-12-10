@@ -4,7 +4,7 @@
 {% block content %}
     <section
     {% image page.get_current_season_banner_image original as banner_image %}
-                style="background-image: url('{% if banner_image %}{{ banner_image.url }}{% else %}{% static 'banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg' %}{% endif %}');background-color:rgba(0,0,0,{{ page.get_current_season_opacity }});background-blend-mode: overlay;" class="bg-no-repeat bg-cover bg-center">
+                style="background-image: url('{% if banner_image %}{{ banner_image.url }}{% else %}{% static 'banner_images/fort_kent_outdoor_center_arena_during_biathlon.jpg' %}{% endif %}');background-color:rgba(0,0,0,.8);background-blend-mode: overlay;" class="bg-no-repeat bg-cover bg-center">
         <div class="relative py-8 px-4 mx-auto max-w-screen-xl text-white lg:py-16 xl:px-0 z-1">
             <div class="mb-6 max-w-screen-md lg:mb-0">
                 <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">
@@ -12,6 +12,150 @@
                 <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">Fully stocked with Skate & Classical ski equipment as well as snowshoes, our rental shop is open weekends and holidays from Noon - 3PM</p>
             </div>
         </div>
+    </section>
+    <section>
+    
+    <div class="max-w-4xl mx-auto my-6">
+  <div class="overflow-x-auto">
+    <table class="min-w-full border border-slate-300 text-sm md:text-base mx-auto">
+      <thead>
+        <tr class="text-center font-bold">
+          <th class="bg-purple-100 border-b border-slate-300 px-3 py-3 w-40">
+            AGE
+          </th>
+          <th class="bg-green-100 border-b border-l border-slate-300 px-3 py-3">
+            DAILY<br class="hidden md:block"> RENTALS
+          </th>
+          <th class="bg-pink-100 border-b border-l border-slate-300 px-3 py-3">
+            WEEKLY<br class="hidden md:block"> RENTALS
+          </th>
+          <th class="bg-amber-100 border-b border-l border-slate-300 px-3 py-3">
+            SEASONAL*
+            <div class="text-[0.7rem] font-normal mt-1">
+              *Requires Membership
+            </div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="text-center">
+        <!-- 6 & under row -->
+        <tr class="border-t border-slate-300">
+          <td class="bg-purple-50 px-3 py-4 font-semibold">
+            6 &amp; under
+            <div class="text-xs font-normal">
+              (with adult)
+            </div>
+          </td>
+          <td class="bg-green-50 px-3 py-4 font-semibold">
+            Free
+          </td>
+          <td class="bg-pink-50 px-3 py-4 font-semibold">
+            Free
+          </td>
+          <td class="bg-amber-50 px-3 py-4 font-semibold">
+            $50
+          </td>
+        </tr>
+
+        <!-- Youth row -->
+        <tr class="border-t border-slate-300">
+          <td class="bg-purple-50 px-3 py-4 font-semibold">
+            YOUTH (7–18)
+          </td>
+          <td class="bg-green-50 px-3 py-4">
+            <div class="space-y-2">
+              <div>
+                <div class="font-semibold">Ski Pkg</div>
+                <div class="text-lg font-bold">$10</div>
+              </div>
+              <div class="border-t border-dashed border-slate-300 pt-2">
+                <div class="font-semibold">Snowshoes</div>
+                <div class="text-lg font-bold">$5</div>
+              </div>
+            </div>
+          </td>
+          <td class="bg-pink-50 px-3 py-4">
+            <div class="space-y-2">
+              <div>
+                <div class="font-semibold">Ski Pkg</div>
+                <div class="text-lg font-bold">$30</div>
+              </div>
+              <div class="border-t border-dashed border-slate-300 pt-2">
+                <div class="font-semibold">Snowshoes</div>
+                <div class="text-lg font-bold">$15</div>
+              </div>
+            </div>
+          </td>
+          <td class="bg-amber-50 px-3 py-4">
+            <div class="space-y-2">
+              <div>
+                <div class="font-semibold">Ski Pkg</div>
+                <div class="text-lg font-bold">$80</div>
+              </div>
+              <div class="border-t border-dashed border-slate-300 pt-2">
+                <div class="font-semibold">Snowshoes</div>
+                <div class="text-lg font-bold">$25</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Adult row -->
+        <tr class="border-t border-slate-300">
+          <td class="bg-purple-50 px-3 py-4 font-semibold">
+            ADULT (19+)
+          </td>
+          <td class="bg-green-50 px-3 py-4">
+            <div class="space-y-2">
+              <div>
+                <div class="font-semibold">Ski Pkg</div>
+                <div class="text-lg font-bold">$20</div>
+              </div>
+              <div class="border-t border-dashed border-slate-300 pt-2">
+                <div class="font-semibold">Snowshoes</div>
+                <div class="text-lg font-bold">$15</div>
+              </div>
+            </div>
+          </td>
+          <td class="bg-pink-50 px-3 py-4">
+            <div class="space-y-2">
+              <div>
+                <div class="font-semibold">Ski Pkg</div>
+                <div class="text-lg font-bold">$50</div>
+              </div>
+              <div class="border-t border-dashed border-slate-300 pt-2">
+                <div class="font-semibold">Snowshoes</div>
+                <div class="text-lg font-bold">$25</div>
+              </div>
+            </div>
+          </td>
+          <td class="bg-amber-50 px-3 py-4">
+            <div class="space-y-2">
+              <div>
+                <div class="font-semibold">Ski Pkg</div>
+                <div class="text-lg font-bold">$120</div>
+              </div>
+              <div class="border-t border-dashed border-slate-300 pt-2">
+                <div class="font-semibold">Snowshoes</div>
+                <div class="text-lg font-bold">$50</div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mt-3 text-xs text-slate-600 italic text-center">
+    Ski Pkg includes skis, boots &amp; poles. Partial pkg is 50% of total pkg.
+  </p>
+        <div class="alert alert-info mt-6 text-center">
+            Click <a href="https://cdn.fortkentoc.org/media/documents/2026TimetobuyRentalandPass.pdf" title="link to pdf of rates" class="text-blue-700">HERE</a> to download a pdf to share our rates with friends, families, and co-workers.
+        </div>
+</div>
+
+    
     </section>
     <section class="bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
