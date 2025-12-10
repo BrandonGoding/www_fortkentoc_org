@@ -19,30 +19,13 @@
       <strong>Alternatively</strong> you can place your day pass fee in our donation box found at each of our trailheads.
     </p>
   
-   <div class="grid grid-cols-4 gap-4">
-  {% for trail_pass in day_passes %}
-    <a href="{{ trail_pass.url }}" target="_blank"
-       class=""> 
-      <!-- Text content -->
-      <div class="border w-1/4 p-2 flex flex-col">
-        <h3 class="text-lg font-semibold">{{ trail_pass.name }}</h3>
-        <strong class="text-xl">${{ trail_pass.price }}/day</strong>
-        <span class="">
-          PURCHASE
-        </span>
-      </div>
-    </a>
-  {% endfor %}
 </div>
-
-
-
-
-  </div>
+  <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+<stripe-pricing-table pricing-table-id="prctbl_1ScbCQCNUZB7PvDyamhwiHrY"
+publishable-key="pk_live_51K7Op9CNUZB7PvDyrt4Y4E7RoduQLDdUa8S0qfc2fZKdyHLcBbYXUAXAvS5UAzTWjGkIaCuxiTBLqFXYi01Xyb8N00CqrkdT6e">
+</stripe-pricing-table>
 </section>
-
-
-
+    
     <section class="bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
         <div class="mx-auto max-w-screen-sm text-center">
