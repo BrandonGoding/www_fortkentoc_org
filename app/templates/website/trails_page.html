@@ -8,14 +8,14 @@
                 <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-tight text-white md:text-5xl lg:text-6xl">
                     Trails at Fort Kent Outdoor Center</h1>
                 <p class="mb-6 font-light text-gray-300 lg:mb-8 md:text-lg lg:text-xl">Welcome to Fort Kent's Outdoor Center, where adventure awaits on our Nordic ski, snowshoe, mountain biking, and hiking trails. Explore the beauty of each season, from the thrill of winter sports to the tranquility of forested paths. Embrace the outdoors and discover the extraordinary landscapes that make our trails unforgettable.</p>
-                {% comment %} <a href="#interactive"
+                 <a href="#interactive"
                    class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                     Interactive Nordic Map
-                </a> {% endcomment %}
-{#                <a href=""#}
-{#                   class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">#}
-{#                    Downloadable Trail Maps#}
-{#                </a>#}
+                </a> 
+                <a href="#downloadable"
+                   class="inline-flex items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-900 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    Downloadable Trail Maps
+                </a>
             </div>
         </div>
     </section>
@@ -31,7 +31,7 @@
 </section>
 
 
-{% comment %} <section class="bg-gray-900">
+<section class="bg-gray-900">
     <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
         <div>
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Get The Latest Trail Conditions On Your Mobile Device</h2>
@@ -53,9 +53,9 @@
         </div>
         <img class="hidden mx-auto w-64 md:flex rounded" src="{% static 'website/img/luciskiing.png' %}" alt="dog skiing and looking at phone">
     </div>
-</section> {% endcomment %}
+</section> 
 
-        {% comment %} <section class="bg-white" id="conditions">
+         <section class="bg-white" id="conditions">
         <div class="py-8 px-4 flex mx-auto max-w-screen-xl sm:py-16 lg:px-6 justify-center items-center flex-col">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 text-center">Trail Conditions</h2>
                 <div class="relative w-full h-[calc(100vh-5rem)]">
@@ -77,10 +77,10 @@
     </iframe>
 </div>
             </div>
-    </section> {% endcomment %}
+    </section>
 
 {% for type in map_types %}
-<section class="bg-white dark:bg-gray-900">
+<section class="bg-white dark:bg-gray-900" {% if forloop.first %}id="downloadable"{% endif %}>
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 sm:text-center lg:py-16">
         <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">{{ type.name }}</h2>
         <div class="gap-4 mt-8 sm:grid sm:grid-cols-4 sm:mt-12">
@@ -94,5 +94,4 @@
     </div>
 </section>
 {% endfor %}
-
 {% endblock content %}
