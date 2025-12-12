@@ -1,11 +1,8 @@
-from datetime import datetime
-
 from django.http import (
     HttpResponse,
     JsonResponse,
 )
 from django.shortcuts import render, get_object_or_404
-from django.utils import timezone
 from django.views.generic import TemplateView, DetailView
 
 from website.constants import (
@@ -13,11 +10,9 @@ from website.constants import (
 )
 from website.models import (
     Coach,
-    Event,
     BoardMember,
     MapCategory,
     Event,
-    DayPassLink,
 )
 
 
@@ -52,11 +47,12 @@ class DayPassesPage(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["day_passes"] = DayPassLink.objects.all()
         return context
+
 
 class EndowmentTemplateView(TemplateView):
     template_name = "website/endowment.html"
+
 
 class TrailsTemplateView(TemplateView):
     template_name = "website/trails_page.html"

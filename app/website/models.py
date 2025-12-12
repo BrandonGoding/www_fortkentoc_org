@@ -75,21 +75,6 @@ class Coach(models.Model):
         ordering = ["name"]
 
 
-class DayPassLink(models.Model):
-    url = models.URLField()
-    name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("price"),
-        FieldPanel("url"),
-    ]
-
-    def __str__(self):
-        return self.name
-
-
 class EventSession(Orderable):
     event = ParentalKey(
         to="website.Event", on_delete=models.CASCADE, related_name="sessions"

@@ -1,4 +1,4 @@
-from .models import Map, BoardMember, Coach, DayPassLink, Event
+from .models import Map, BoardMember, Coach, Event
 from wagtail_modeladmin.options import ModelAdmin, modeladmin_register
 from wagtail import hooks
 
@@ -36,17 +36,6 @@ class EventAdmin(ModelAdmin):
     search_fields = ("name",)
 
 
-class PasslinkAdmin(ModelAdmin):
-    model = DayPassLink
-    menu_label = "Day Passes"
-    menu_icon = "tag"
-    menu_order = 202
-    add_to_settings_menu = False
-    exclude_from_explorer = False
-    list_display = ("name", "price")
-    search_fields = "name"
-
-
 class MapAdmin(ModelAdmin):
     model = Map
     menu_label = "Maps"
@@ -61,7 +50,6 @@ class MapAdmin(ModelAdmin):
 modeladmin_register(BoardMemberAdmin)
 modeladmin_register(CoachAdmin)
 modeladmin_register(MapAdmin)
-modeladmin_register(PasslinkAdmin)
 modeladmin_register(EventAdmin)
 
 
