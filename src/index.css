@@ -9,36 +9,27 @@
    ========================================================================== */
 
 :root {
-  /* Primary Palette - Maroon (from "Fort Kent" in logo) */
-  --color-primary: #1C64F2;
-  --color-primary-light: #FAFAF8;
-  --color-primary-dark: #1F2937;
-  --color-primary-alpha-10: rgba(35, 103, 139, 0.1);
-  --color-primary-alpha-95: rgba(56, 100, 141, 0.95);
+  /* Primary Palette - Navy Blue (from "Fort Kent" in logo) */
+  --color-primary: #1D4ED8;
+  --color-secondary:#1877f2;
+  --color-primary-light: #e5e7eb;
+  --color-primary-dark: #061b45;
+  --overlay-primary: rgba(6, 18, 50, 0.8);
+  --color-border: var(--color-primary-dark);
 
-  /* Secondary - Navy Blue (from "Outdoor Center" in logo) */
-  --color-navy: #1E3A5F;
-  --color-navy-light: #2A4D7A;
-  --color-navy-dark: #152942;
-
-  /* Highlight - Orange/Gold (from star in logo) */
-  --color-gold: #F7941D;
-  --color-gold-light: #FFAB3D;
-  --color-gold-dark: #E07D0A;
-
-  /* Legacy aliases for backward compatibility */
-  --color-muted-gold: var(--color-gold);
-  --color-muted-gold-light: var(--color-gold-light);
-  --color-muted-gold-dark: var(--color-gold-dark);
+  /* Highlight - Yellow/Gold (from star in logo) */
+  --color-gold: #fac227;
+  --color-gold-light: #ffb300;
+  --color-gold-dark: #c9851f;
 
   /* Background & Surface */
-  --color-snow-white: #FAFAF8;
-  --color-birch-cream: #F5F3EE;
-  --color-wool-gray: #E8E5DE;
+  --color-snow-white: #f8f9fa;
+  --color-wool-gray: #e0e6e8;
   --color-stone-gray: #6B6B6B;
 
   /* Text Colors */
   --color-text-primary: #2A2A28;
+  --color-text-headings: #063aa4;
   --color-text-secondary: #6B6B6B;
   --color-text-inverse: #FAFAF8;
   --color-text-muted: #8A8A88;
@@ -81,10 +72,10 @@
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
-  --space-4xl: 6rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 5rem;
+  --space-4xl: 7rem;
 
   /* Border Radius */
   --radius-sm: 6px;
@@ -131,7 +122,6 @@ body {
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
   color: var(--color-text-primary);
-  background-color: var(--color-snow-white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -160,7 +150,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 600;
   line-height: var(--leading-tight);
-  color: var(--color-text-primary);
+  color: var(--color-text-headings);
   margin: 0 0 var(--space-md) 0;
 }
 
@@ -241,15 +231,16 @@ a:focus-visible {
 }
 
 .section {
-  padding: var(--space-3xl) 0;
+  padding: var(--space-4xl) 0;
+
 }
 
 .section-alt {
-  background-color: var(--color-birch-cream);
+  background-color: var(--color-snow-white);
 }
 
 .section-dark {
-  background-color: var(--color-primary);
+  background-color: var(--color-primary-dark);
   color: var(--color-text-inverse);
 }
 
@@ -295,12 +286,12 @@ a:focus-visible {
 .text-right { text-align: right; }
 
 .text-pine { color: var(--color-primary); }
-.text-gold { color: var(--color-muted-gold); }
+.text-gold { color: var(--color-gold); }
 .text-muted { color: var(--color-text-secondary); }
 .text-inverse { color: var(--color-text-inverse); }
 
 .bg-pine { background-color: var(--color-primary); }
-.bg-cream { background-color: var(--color-birch-cream); }
+.bg-cream { background-color: var(--color-snow-white); }
 .bg-white { background-color: var(--color-snow-white); }
 
 .mt-0 { margin-top: 0; }

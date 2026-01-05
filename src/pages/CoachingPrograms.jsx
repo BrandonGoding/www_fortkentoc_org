@@ -199,9 +199,13 @@ function CoachingPrograms() {
               ))}
             </ul>
           </div>
+        </div>
+      </section>
 
-          {/* CTA */}
-          <div className="pg-cta">
+      {/* PG Program CTA Section */}
+      <section className="pg-cta-section">
+        <div className="pg-cta">
+          <div className="container">
             <h2>Space is Limited!</h2>
             <p>
               The PG Program will be limited to the first 5 athletes registered due to housing
@@ -213,7 +217,7 @@ function CoachingPrograms() {
                 href="https://drive.google.com/file/d/17QBqvZnmy7SJ0w_Bzpmnjaaoml3_xr-F/view?usp=drive_web"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-primary"
+                className="btn btn-accent"
               >
                 Program Application
               </a>

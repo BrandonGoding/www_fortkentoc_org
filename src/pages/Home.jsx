@@ -78,7 +78,7 @@ function Home() {
                 outdoor trail system, and recreational activities for members, athletes, and visitors.
               </p>
               <div className="hero-buttons">
-                <Link to="/about-us" className="btn btn-primary">Learn More</Link>
+                <Link to="/about-us" className="btn btn-primary-light">Learn More</Link>
                 <Link to="/memberships" className="btn btn-outline-light">Become a Member</Link>
               </div>
             </div>
@@ -109,13 +109,13 @@ function Home() {
                 <p>Join us in keeping this community gem thriving for generations to come.</p>
               </div>
               <div className="button-group">
-                <Link to="/endowment" className="btn btn-accent">
+                <Link to="/endowment" className="btn btn-primary">
                   <Icons.Info />
                   Learn More
                 </Link>
                 <a
                   href="https://buy.stripe.com/9AQ3g1dXm5cc1m83ch"
-                  className="btn btn-accent"
+                  className="btn btn-outline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -157,7 +157,7 @@ function Home() {
                   href="https://www.facebook.com/FortKentOutdoorCenter/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-facebook"
+                  className="btn btn-primary-light"
                 >
                   <Icons.Facebook />
                   Visit us on Facebook
@@ -173,9 +173,9 @@ function Home() {
                     href="https://www.facebook.com/FortKentOutdoorCenter/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn btn-outline-light btn-sm"
+                    className="btn btn-outline btn-sm"
                   >
-                    Open Facebook
+                    Visit our Facebook
                   </a>
                 </div>
               </div>
