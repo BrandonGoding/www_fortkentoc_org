@@ -3586,7 +3586,6 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-primary-light);
   background-color: rgba(43, 125, 185, 0.1);
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-sm);
@@ -3654,7 +3653,6 @@
   align-items: center;
   gap: var(--space-xs);
   font-size: var(--text-sm);
-  color: var(--color-primary-light);
   text-decoration: none;
   transition: all var(--transition-base);
   padding: var(--space-xs) var(--space-sm);
