@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import {useState, useCallback, useMemo} from 'react'
 import { Link } from 'react-router-dom'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -125,6 +125,8 @@ function EventCalendar() {
   const [error, setError] = useState(null)
   const [selectedEvent, setSelectedEvent] = useState(null)
 
+
+
   /**
    * Fetch events when the calendar date range changes.
    */
@@ -193,7 +195,21 @@ function EventCalendar() {
             <FullCalendar
               plugins={[dayGridPlugin]}
               initialView="dayGridMonth"
-              events={events}
+              events={async (info, successCallback, failureCallback) => {
+                const start = info.startStr.split('T')[0]
+                const end = info.endStr.split('T')[0]
+
+                try {
+                  const sessions = await fetchCalendarSessions({
+                    start: start,
+                    end: end,
+                  })
+
+                  successCallback(transformToCalendarEvents(sessions))
+                } catch (err) {
+                  failureCallback(err)
+                }
+              }}
               datesSet={handleDatesSet}
               eventClick={handleEventClick}
               headerToolbar={{
