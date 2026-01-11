@@ -5,7 +5,7 @@ import snowshoeMapThumb from '../assets/images/trails/maps-thumbnails/snowshoe-m
 import mtbikeMapThumb from '../assets/images/trails/maps-thumbnails/mtbike-trails.jpg'
 import discGolfMapThumb from '../assets/images/trails/maps-thumbnails/disc-golf.jpg'
 import nordicMapThumb from '../assets/images/trails/maps-thumbnails/nordic-ski.jpg'
-import biathlon25kmThumb from '../assets/images/trails/maps-thumbnails/biathlon-2-5km.jpg'
+import biathlon25kmThumb from '../assets/images/trails/maps/map-13.jpg'
 import biathlon4kmThumb from '../assets/images/trails/maps-thumbnails/biathlon-4km.jpg'
 import biathlon2kmThumb from '../assets/images/trails/maps-thumbnails/biathlon-2km.jpg'
 import biathlon3kmThumb from '../assets/images/trails/maps-thumbnails/biathlon-3km.jpg'
