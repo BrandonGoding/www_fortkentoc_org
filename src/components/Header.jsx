@@ -127,6 +127,7 @@ function Header() {
                 <ul className="nav-dropdown-list">
                   <li><Link to="/event-calendar" onClick={closeAll}>Calendar</Link></li>
                   <li><Link to="/upcoming-events" onClick={closeAll}>Upcoming Events</Link></li>
+                  <li><Link to="/womens-wellness-day" onClick={closeAll}>Women's Wellness Day</Link></li>
                 </ul>
               </div>
             </li>

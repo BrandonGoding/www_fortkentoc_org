@@ -14,6 +14,7 @@ import Rentals from './pages/Rentals'
 import Memberships from './pages/Memberships'
 import EventCalendar from './pages/EventCalendar'
 import UpcomingEvents from './pages/UpcomingEvents'
+import WomensWellnessDay from './pages/WomensWellnessDay'
 import Location from './pages/Location'
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="memberships" element={<Memberships />} />
         <Route path="event-calendar" element={<EventCalendar />} />
         <Route path="upcoming-events" element={<UpcomingEvents />} />
+        <Route path="womens-wellness-day" element={<WomensWellnessDay />} />
         <Route path="location" element={<Location />} />
       </Route>
     </Routes>
