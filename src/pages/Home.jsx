@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import endowmentImage from '../assets/images/home/endowment.png'
-import wellnessImage from '../assets/images/www_v3.png'
+import wellnessImage from '../assets/images/www_v4.jpg'
+
 
 // Icon components
 const Icons = {
@@ -81,45 +82,6 @@ function Home() {
               <div className="hero-buttons">
                 <Link to="/about-us" className="btn btn-primary-light">Learn More</Link>
                 <Link to="/memberships" className="btn btn-outline-light">Become a Member</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Women's Winter Wellness Day CTA */}
-      <section className="section section-wellness-cta">
-        <div className="container">
-          <div className="two-col-grid">
-            <div className="content-col">
-              <div className="badge badge-event">
-                <span className="badge-dot"></span>
-                Upcoming Event
-              </div>
-              <h2 className="section-title">Women's Winter Wellness Day</h2>
-              <p className="content-text">
-                Join us Saturday, March 7th for a day of skiing, snowshoeing, art, and socializing.
-                All abilities welcome! Lunch, snacks, trail passes, and equipment included.
-              </p>
-              <div className="wellness-cta-details">
-                <span className="wellness-cta-date">March 7, 2026</span>
-                <span className="wellness-cta-time">8:30 AM - 3:30 PM</span>
-                <span className="wellness-cta-price">Early Bird: $40 (through Feb 28)</span>
-              </div>
-              <div className="button-group">
-                <Link to="/womens-wellness-day" className="btn btn-primary">
-                  Register Now
-                  <Icons.ArrowRight />
-                </Link>
-              </div>
-            </div>
-            <div className="image-col">
-              <div className="image-card wellness-flyer-card">
-                <img
-                  src={wellnessImage}
-                  alt="Women's Winter Wellness Day Flyer"
-                  loading="lazy"
-                />
               </div>
             </div>
           </div>

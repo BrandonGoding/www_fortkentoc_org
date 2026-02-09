@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import wellnessFlyer from '../assets/images/www_v3.png'
+import wellnessFlyer from '../assets/images/www_v4.jpg'
+import wellnessPdf from '../assets/images/www_v4.pdf'
 
 const CheckIcon = () => (
   <svg className="benefit-icon" viewBox="0 0 20 20" fill="currentColor">
@@ -22,20 +23,37 @@ const included = [
   'All abilities welcome and celebrated'
 ]
 
-// Placeholder - Laura will send detailed schedule
 const schedule = [
-  { time: '8:30 AM', activity: 'Check-in & Welcome' },
-  { time: '9:00 AM', activity: 'Morning Activities Begin' },
-  { time: '12:00 PM', activity: 'Lunch' },
-  { time: '1:00 PM', activity: 'Afternoon Activities' },
+  { time: '8:30 AM', activity: 'Arrive, socialize, light refreshments' },
+  {
+    time: '9:00 AM',
+    activity: 'Morning Activities Begin',
+    details: [
+      'Groove Out Before You Glide with Kristen Moore, Maine Stage Dance',
+      'XC Skiing'
+    ]
+  },
+  { time: '11:30 AM', activity: 'Lunch' },
+  {
+    time: '12:30 PM',
+    activity: 'Afternoon Activities Begin',
+    details: [
+      'Art Activity with Jenna Jandreau, Rivertown Community Art Center',
+      'Snowshoeing'
+    ]
+  },
   { time: '3:30 PM', activity: 'Event Concludes' }
 ]
 
 // Placeholder - Laura will send detailed list
 const collectionItems = [
-  'Personal care items',
-  'Hygiene products',
-  'Additional items TBA'
+  'Cleaning supplies',
+  'Shampoos',
+  'Conditioners',
+  'Deodorant',
+  'Body wash',
+  'Children\'s body wash',
+  'Diapers (any size)'
 ]
 
 function WomensWellnessDay() {
@@ -101,11 +119,18 @@ function WomensWellnessDay() {
               </div>
             </div>
             <div className="image-col">
-              <img
-                src={wellnessFlyer}
-                alt="Women's Winter Wellness Day Flyer"
-                className="wellness-flyer-image"
-              />
+              <a href={wellnessPdf} target="_blank" rel="noopener noreferrer">
+                <img
+                  src={wellnessFlyer}
+                  alt="Women's Winter Wellness Day Flyer"
+                  className="wellness-flyer-image"
+                />
+              </a>
+              <p className="flyer-download-text">
+                <a href={wellnessPdf} target="_blank" rel="noopener noreferrer">
+                  Click to download and share PDF flyer
+                </a>
+              </p>
             </div>
           </div>
         </div>
@@ -150,14 +175,20 @@ function WomensWellnessDay() {
       <section className="section section-alt">
         <div className="container">
           <h2 className="section-title text-center">Schedule</h2>
-          <p className="section-intro text-center">
-            Detailed schedule coming soon!
-          </p>
           <div className="schedule-list">
             {schedule.map((item, index) => (
               <div key={index} className="schedule-item">
                 <span className="schedule-time">{item.time}</span>
-                <span className="schedule-activity">{item.activity}</span>
+                <div className="schedule-activity">
+                  <span className="schedule-activity-title">{item.activity}</span>
+                  {item.details && (
+                    <ul className="schedule-details">
+                      {item.details.map((detail, i) => (
+                        <li key={i}>{detail}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </div>
             ))}
           </div>
