@@ -88,6 +88,40 @@ function Home() {
         </div>
       </section>
 
+      {/* Women's Wellness Day CTA */}
+      <section className="section">
+        <div className="container">
+          <div className="two-col-grid">
+            <div className="image-col">
+              <div className="image-card">
+                <img
+                  src={wellnessImage}
+                  alt="Women's Winter Wellness Day"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div className="content-col">
+              <div className="badge badge-success">
+                <span className="badge-dot"></span>
+                Upcoming Event
+              </div>
+              <h2 className="section-title">Women's Winter Wellness Day</h2>
+              <p className="content-text">
+                Join us on <strong>March 7th, 2026</strong> for a day dedicated to wellness, community, and
+                outdoor adventure. Enjoy guided activities, wellness workshops, and more at the Fort Kent Outdoor Center.
+              </p>
+              <div className="button-group">
+                <Link to="/womens-wellness-day" className="btn btn-primary">
+                  <Icons.Info />
+                  More Info
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Endowment Section */}
       <section className="section section-gradient">
         <div className="container">

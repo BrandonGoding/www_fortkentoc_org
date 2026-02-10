@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { fetchEvents, groupEventsForUpcoming } from '../services/api'
+import wellnessImage from '../assets/images/www_v4.jpg'
 
 const PdfIcon = () => (
   <svg className="pdf-icon" viewBox="0 0 384 512" fill="currentColor">
@@ -59,8 +61,51 @@ function UpcomingEvents() {
         </div>
       </section>
 
+      {/* Featured Event */}
+      <section className="section section-gradient">
+        <div className="container">
+          <div className="two-col-grid">
+            <div className="image-col">
+              <div className="image-card">
+                <img
+                  src={wellnessImage}
+                  alt="Women's Winter Wellness Day"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div className="content-col">
+              <div className="badge badge-success">
+                <span className="badge-dot"></span>
+                Featured Event
+              </div>
+              <h2 className="section-title">Women's Winter Wellness Day</h2>
+              <p className="content-text">
+                Join us on <strong>Saturday, March 7th, 2026</strong> from <strong>8:30 AM - 3:30 PM</strong> for
+                a day dedicated to wellness, community, and outdoor adventure at the Fort Kent Outdoor Center.
+              </p>
+              <div className="button-group">
+                <Link to="/womens-wellness-day" className="btn btn-primary">
+                  More Info
+                </Link>
+                <button
+                  type="button"
+                  className="btn btn-outline"
+                  onClick={() => document.getElementById('events-list').scrollIntoView({ behavior: 'smooth' })}
+                >
+                  View All Events
+                  <svg className="icon-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" style={{ transform: 'rotate(90deg)' }}>
+                    <path fillRule="evenodd" clipRule="evenodd" d="M10.293 3.293a1 1 0 0 1 1.414 0l6 6a1 1 0 0 1 0 1.414l-6 6a1 1 0 0 1-1.414-1.414L14.586 11H3a1 1 0 1 1 0-2h11.586l-4.293-4.293a1 1 0 0 1 0-1.414z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Events Grid Section */}
-      <section className="section">
+      <section id="events-list" className="section">
         <div className="container">
           {error && (
             <div className="alert alert-warning" style={{ marginBottom: '2rem' }}>
