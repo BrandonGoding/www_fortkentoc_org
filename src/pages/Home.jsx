@@ -133,10 +133,6 @@ function Home() {
                   <Icons.Info />
                   Start Lists &amp; Results
                 </a>
-                <Link to="/upcoming-events" className="btn btn-outline">
-                  <Icons.ArrowRight />
-                  Event Details
-                </Link>
               </div>
             </div>
           </div>
