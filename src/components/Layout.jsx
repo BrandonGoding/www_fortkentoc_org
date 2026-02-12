@@ -29,6 +29,10 @@ function Layout() {
   return (
     <div className="app">
       <Header />
+      <div className="announcement-banner">
+        <div>Hosting 2026 Maine State High School Nordic Championship Feb 16–17</div>
+        <div>Trail access and parking may be limited — please use Red Barn Trailhead for recreational skiing</div>
+      </div>
       <main className="main-content">
         <Outlet />
       </main>

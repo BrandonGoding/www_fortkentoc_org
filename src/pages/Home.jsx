@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import endowmentImage from '../assets/images/home/endowment.png'
 import wellnessImage from '../assets/images/www_v4.jpg'
+import nordicLogo from '../assets/hsrace/MPA NORDIC_logo.png'
 
 
 // Icon components
@@ -82,6 +83,60 @@ function Home() {
               <div className="hero-buttons">
                 <Link to="/about-us" className="btn btn-primary-light">Learn More</Link>
                 <Link to="/memberships" className="btn btn-outline-light">Become a Member</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HS Nordic Championship CTA */}
+      <section className="section section-championship">
+        <div className="container">
+          <div className="two-col-grid">
+            <div className="image-col">
+              <div className="championship-logo">
+                <img
+                  src={nordicLogo}
+                  alt="2026 Maine State Nordic Skiing Championships logo"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div className="content-col">
+              <div className="badge badge-gold">
+                <span className="badge-dot"></span>
+                This Weekend
+              </div>
+              <h2 className="section-title">2026 Maine State High School Nordic Championship</h2>
+              <p className="content-text">
+                Fort Kent Outdoor Center is proud to host the <strong>2026 MPA State Nordic Skiing Championships</strong> on
+                {' '}<strong>February 16–17</strong>.
+              </p>
+              <ul className="championship-details">
+                <li><strong>Monday, Feb 16</strong> — 5km Classical (combined Class A, B, C). Girls start at 11:00 AM, Boys at 1:30 PM.</li>
+                <li><strong>Tuesday, Feb 17</strong> — 5km Freestyle Pursuit (combined Class A, B, C). Girls start at 9:30 AM, Boys at 11:00 AM.</li>
+              </ul>
+              <div className="championship-notice">
+                <Icons.Info />
+                <p>
+                  <strong>No spectator parking at the venue.</strong> Please park at Fort Kent Community High School
+                  (84 Pleasant Street) and use the spectator shuttle, departing every 30 minutes.
+                </p>
+              </div>
+              <div className="button-group">
+                <a
+                  href="https://zone4.ca/event/2026/ZJyd7k/"
+                  className="btn btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icons.Info />
+                  Start Lists &amp; Results
+                </a>
+                <Link to="/upcoming-events" className="btn btn-outline">
+                  <Icons.ArrowRight />
+                  Event Details
+                </Link>
               </div>
             </div>
           </div>
