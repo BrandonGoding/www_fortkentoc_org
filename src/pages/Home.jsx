@@ -1,9 +1,10 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useWebcam } from '../components/WebcamContext'
 
 import endowmentImage from '../assets/images/home/endowment.png'
 import wellnessImage from '../assets/images/www_v4.jpg'
 import nordicLogo from '../assets/hsrace/MPA NORDIC_logo.png'
+import biathlonImage from '../assets/images/programs/east-region-biathlon.jpg'
 
 
 // Icon components
@@ -66,7 +67,7 @@ const Icons = {
 }
 
 function Home() {
-  const [webcamModalOpen, setWebcamModalOpen] = useState(false)
+  const { openWebcam } = useWebcam()
 
   return (
     <div className="home-page">
@@ -83,56 +84,6 @@ function Home() {
               <div className="hero-buttons">
                 <Link to="/about-us" className="btn btn-primary-light">Learn More</Link>
                 <Link to="/memberships" className="btn btn-outline-light">Become a Member</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* HS Nordic Championship CTA */}
-      <section className="section section-championship">
-        <div className="container">
-          <div className="two-col-grid">
-            <div className="image-col">
-              <div className="championship-logo">
-                <img
-                  src={nordicLogo}
-                  alt="2026 Maine State Nordic Skiing Championships logo"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-            <div className="content-col">
-              <div className="badge badge-gold">
-                <span className="badge-dot"></span>
-                This Weekend
-              </div>
-              <h2 className="section-title">2026 Maine State High School Nordic Championship</h2>
-              <p className="content-text">
-                Fort Kent Outdoor Center is proud to host the <strong>2026 MPA State Nordic Skiing Championships</strong> on
-                {' '}<strong>February 16–17</strong>.
-              </p>
-              <ul className="championship-details">
-                <li><strong>Monday, Feb 16</strong> — 5km Classical (combined Class A, B, C). Girls start at 11:00 AM, Boys at 1:30 PM.</li>
-                <li><strong>Tuesday, Feb 17</strong> — 5km Freestyle Pursuit (combined Class A, B, C). Girls start at 9:30 AM, Boys at 11:00 AM.</li>
-              </ul>
-              <div className="championship-notice">
-                <Icons.Info />
-                <p>
-                  <strong>No spectator parking at the venue.</strong> Please park at Fort Kent Community High School
-                  (84 Pleasant Street) and use the spectator shuttle, departing every 30 minutes.
-                </p>
-              </div>
-              <div className="button-group">
-                <a
-                  href="https://zone4.ca/event/2026/ZJyd7k/"
-                  className="btn btn-primary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Icons.Info />
-                  Start Lists &amp; Results
-                </a>
               </div>
             </div>
           </div>
@@ -173,6 +124,54 @@ function Home() {
         </div>
       </section>
 
+      {/* Eastern Regional Biathlon Cup #2 CTA */}
+      <section className="section section-gradient">
+        <div className="container">
+          <div className="two-col-grid">
+            <div className="content-col">
+              <div className="badge badge-success">
+                <span className="badge-dot"></span>
+                Upcoming Event
+              </div>
+              <h2 className="section-title">2026 Eastern Regional Biathlon Cup #2</h2>
+              <p className="content-text">
+                Join us <strong>March 28–29, 2026</strong> at the Fort Kent Outdoor Center for two
+                days of competitive biathlon racing. Saturday features Sprint races and Sunday
+                brings the Mass Start. Open to all USBA and Biathlon Canada members in good standing.
+              </p>
+              <p className="content-text">
+                Registration closes <strong>March 25 at 7:00 PM EST</strong>. Entry fees are $30 (U13/15)
+                and $40 (all other classes). Late registrations (March 23–25) incur a $20 surcharge.
+              </p>
+              <div className="button-group">
+                <a
+                  href="https://zone4.ca/event/2026/BiathlonCup2"
+                  className="btn btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icons.Clipboard />
+                  Register Now
+                </a>
+                <Link to="/eastern-regional-biathlon" className="btn btn-outline">
+                  <Icons.Info />
+                  Event Details
+                </Link>
+              </div>
+            </div>
+            <div className="image-col">
+              <div className="image-card">
+                <img
+                  src={biathlonImage}
+                  alt="Eastern Regional Biathlon Cup at Fort Kent Outdoor Center"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Endowment Section */}
       <section className="section section-gradient">
         <div className="container">
@@ -191,7 +190,7 @@ function Home() {
                 <p>
                   Our goal is to raise <strong>$2.4 million</strong> to sustain year-round operations, athlete
                   development, and community programs. Thanks to generous donors, we've already secured over
-                  <strong> 58% of the goal</strong>.
+                  <strong> 65% of the goal</strong>.
                 </p>
                 <p>Join us in keeping this community gem thriving for generations to come.</p>
               </div>
@@ -298,7 +297,7 @@ function Home() {
               <button
                 type="button"
                 className="webcam-card"
-                onClick={() => setWebcamModalOpen(true)}
+                onClick={openWebcam}
               >
                 <div className="webcam-image-wrapper">
                   <img
@@ -361,27 +360,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Webcam Modal */}
-      {webcamModalOpen && (
-        <div className="modal-overlay" onClick={() => setWebcamModalOpen(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              className="modal-close-btn"
-              onClick={() => setWebcamModalOpen(false)}
-              aria-label="Close modal"
-            >
-              <Icons.Close />
-            </button>
-            <img
-              src="https://www.fortkentoc.org/webcam/image.jpg"
-              alt="FKOC webcam view of the stadium - full size"
-              className="modal-image"
-            />
-            <p className="modal-caption">Stadium webcam - Updated every minute</p>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

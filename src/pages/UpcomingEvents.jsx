@@ -2,6 +2,23 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchEvents, groupEventsForUpcoming } from '../services/api'
 import wellnessImage from '../assets/images/www_v4.jpg'
+import biathlonPdf from '../assets/2026EasternRegional2INVITATIONforMarch.pdf'
+
+const staticEvents = [
+  {
+    id: 'static-biathlon-2026',
+    title: '2026 Eastern Regional Biathlon Cup #2',
+    description: 'Two days of competitive biathlon racing — Sprint on Saturday, Mass Start on Sunday. Open to all USBA and Biathlon Canada members.',
+    category: { name: 'Races & Competitions' },
+    flyerUrl: biathlonPdf,
+    link: '/eastern-regional-biathlon',
+    dates: [
+      { date: 'March 27, 2026', time: '12:00 PM - 4:00 PM', rawDate: '2026-03-27' },
+      { date: 'March 28, 2026', time: '8:00 AM - 12:00 PM', rawDate: '2026-03-28' },
+      { date: 'March 29, 2026', time: '8:00 AM - 12:00 PM', rawDate: '2026-03-29' },
+    ],
+  },
+]
 
 const PdfIcon = () => (
   <svg className="pdf-icon" viewBox="0 0 384 512" fill="currentColor">
@@ -16,26 +33,32 @@ function UpcomingEvents() {
 
   useEffect(() => {
     async function loadEvents() {
+      let groupedEvents = []
+
       try {
         setLoading(true)
         setError(null)
 
-        // Fetch events including past ones to show complete event info
         const data = await fetchEvents({ includePast: false })
-        const groupedEvents = groupEventsForUpcoming(data)
+        groupedEvents = groupEventsForUpcoming(data)
+      } catch (err) {
+        console.error('Failed to fetch events:', err)
+        setError('Failed to load some events. Showing locally-listed events.')
+      } finally {
+        // Always merge static events, even if API failed
+        const apiTitles = new Set(groupedEvents.map(e => e.title.toLowerCase()))
+        const uniqueStatic = staticEvents.filter(
+          e => !apiTitles.has(e.title.toLowerCase())
+        )
+        const allEvents = [...groupedEvents, ...uniqueStatic]
 
-        // Sort by first upcoming date
-        groupedEvents.sort((a, b) => {
+        allEvents.sort((a, b) => {
           const dateA = a.dates[0]?.rawDate || ''
           const dateB = b.dates[0]?.rawDate || ''
           return dateA.localeCompare(dateB)
         })
 
-        setEvents(groupedEvents)
-      } catch (err) {
-        console.error('Failed to fetch events:', err)
-        setError('Failed to load events. Please try again later.')
-      } finally {
+        setEvents(allEvents)
         setLoading(false)
       }
     }
@@ -146,6 +169,11 @@ function UpcomingEvents() {
                       </div>
                     ))}
                   </div>
+                  {event.link && (
+                    <Link to={event.link} className="btn btn-primary btn-sm" style={{ marginBottom: 'var(--space-sm)' }}>
+                      More Info
+                    </Link>
+                  )}
                   {event.flyerUrl && (
                     <a
                       href={event.flyerUrl}

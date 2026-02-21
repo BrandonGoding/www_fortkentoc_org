@@ -2,7 +2,46 @@ import {useState, useCallback, useMemo} from 'react'
 import { Link } from 'react-router-dom'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import { fetchCalendarSessions, transformToCalendarEvents } from '../services/api'
+import { fetchCalendarSessions, transformToCalendarEvents, getCategoryColor } from '../services/api'
+
+const staticCalendarEvents = [
+  {
+    id: 'static-biathlon-training',
+    title: 'Eastern Regional Biathlon - Official Training',
+    start: '2026-03-27T12:00:00',
+    end: '2026-03-27T16:00:00',
+    color: getCategoryColor('races-competitions'),
+    extendedProps: {
+      description: 'Official training for the 2026 Eastern Regional Biathlon Cup #2.',
+      categoryName: 'Races & Competitions',
+      categorySlug: 'races-competitions',
+    },
+  },
+  {
+    id: 'static-biathlon-sprint',
+    title: 'Eastern Regional Biathlon - Sprint',
+    start: '2026-03-28T08:00:00',
+    end: '2026-03-28T12:00:00',
+    color: getCategoryColor('races-competitions'),
+    extendedProps: {
+      description: 'Sprint race day for the 2026 Eastern Regional Biathlon Cup #2. Bib pick-up at 8 AM, race start at 10 AM.',
+      categoryName: 'Races & Competitions',
+      categorySlug: 'races-competitions',
+    },
+  },
+  {
+    id: 'static-biathlon-mass-start',
+    title: 'Eastern Regional Biathlon - Mass Start',
+    start: '2026-03-29T08:00:00',
+    end: '2026-03-29T12:00:00',
+    color: getCategoryColor('races-competitions'),
+    extendedProps: {
+      description: 'Mass Start race day for the 2026 Eastern Regional Biathlon Cup #2. Bib pick-up at 8 AM, race start at 10 AM.',
+      categoryName: 'Races & Competitions',
+      categorySlug: 'races-competitions',
+    },
+  },
+]
 
 /**
  * Format a datetime string for display.
@@ -195,20 +234,28 @@ function EventCalendar() {
             <FullCalendar
               plugins={[dayGridPlugin]}
               initialView="dayGridMonth"
-              events={async (info, successCallback, failureCallback) => {
+              events={async (info, successCallback) => {
                 const start = info.startStr.split('T')[0]
                 const end = info.endStr.split('T')[0]
 
+                let apiEvents = []
                 try {
                   const sessions = await fetchCalendarSessions({
                     start: start,
                     end: end,
                   })
-
-                  successCallback(transformToCalendarEvents(sessions))
+                  apiEvents = transformToCalendarEvents(sessions)
                 } catch (err) {
-                  failureCallback(err)
+                  console.error('Failed to fetch calendar events:', err)
                 }
+
+                const rangeStart = new Date(start)
+                const rangeEnd = new Date(end)
+                const staticInRange = staticCalendarEvents.filter(e => {
+                  const eventDate = new Date(e.start)
+                  return eventDate >= rangeStart && eventDate <= rangeEnd
+                })
+                successCallback([...apiEvents, ...staticInRange])
               }}
               datesSet={handleDatesSet}
               eventClick={handleEventClick}

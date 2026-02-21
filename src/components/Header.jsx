@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../assets/fkoc-logo.jpeg'
+import { useWebcam } from './WebcamContext'
 
 function Header() {
+  const { openWebcam } = useWebcam()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState(null)
 
@@ -128,6 +130,7 @@ function Header() {
                   <li><Link to="/event-calendar" onClick={closeAll}>Calendar</Link></li>
                   <li><Link to="/upcoming-events" onClick={closeAll}>Upcoming Events</Link></li>
                   <li><Link to="/womens-wellness-day" onClick={closeAll}>Women's Wellness Day</Link></li>
+                  <li><Link to="/eastern-regional-biathlon" onClick={closeAll}>Eastern Regional Biathlon</Link></li>
                 </ul>
               </div>
             </li>
@@ -137,8 +140,15 @@ function Header() {
               <Link to="/location" className="nav-link" onClick={closeAll}>Location</Link>
             </li>
 
-            {/* Donate button - mobile */}
+            {/* Action buttons - mobile */}
             <li className="nav-item nav-item-donate-mobile">
+              <button
+                type="button"
+                className="btn btn-webcam"
+                onClick={() => { openWebcam(); closeAll() }}
+              >
+                Live Webcam
+              </button>
               <a
                 href="https://buy.stripe.com/9AQ3g1dXm5cc1m83ch"
                 className="btn btn-donate"
@@ -151,15 +161,24 @@ function Header() {
           </ul>
         </div>
 
-        {/* Donate button - desktop */}
-        <a
-          href="https://buy.stripe.com/9AQ3g1dXm5cc1m83ch"
-          className="btn btn-accent nav-donate-desktop"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Donate
-        </a>
+        {/* Action buttons - desktop */}
+        <div className="nav-actions-desktop">
+          <button
+            type="button"
+            className="btn btn-webcam-desktop"
+            onClick={openWebcam}
+          >
+            Live Webcam
+          </button>
+          <a
+            href="https://buy.stripe.com/9AQ3g1dXm5cc1m83ch"
+            className="btn btn-accent"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Donate
+          </a>
+        </div>
       </div>
     </nav>
   )

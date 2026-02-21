@@ -78,9 +78,9 @@ function Endowment() {
                   <div className="progress-label">Pledged</div>
                   <div className="progress-amount">$1.4M</div>
                   <div className="progress-bar">
-                    <div className="progress-fill progress-fill-green" style={{ width: '58%' }} />
+                    <div className="progress-fill progress-fill-green" style={{ width: '65%' }} />
                   </div>
-                  <div className="progress-percent">58% of goal</div>
+                  <div className="progress-percent">65% of goal</div>
                 </div>
                 <div className="progress-card">
                   <div className="progress-label">Deposited</div>

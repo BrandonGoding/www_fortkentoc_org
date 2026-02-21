@@ -969,27 +969,82 @@
   color: var(--color-snow-white);
 }
 
-/* Desktop donate button - right side of nav */
-.nav-donate-desktop {
+/* Desktop action buttons - right side of nav */
+.nav-actions-desktop {
   display: none;
   order: 2;
   margin-left: auto;
+  align-items: center;
+  gap: var(--space-sm);
 }
 
 @media (min-width: 1024px) {
-  .nav-donate-desktop {
-    display: inline-flex;
+  .nav-actions-desktop {
+    display: flex;
   }
 }
 
-/* Mobile donate button - inside mobile menu */
+/* Webcam button */
+.btn-webcam-desktop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  background-color: var(--color-primary);
+  color: var(--color-snow-white);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-webcam-desktop:hover {
+  background-color: var(--color-primary-dark, #1a3a5c);
+  color: var(--color-snow-white);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-webcam {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-primary);
+  color: var(--color-snow-white);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-webcam:hover {
+  background-color: var(--color-primary-dark, #1a3a5c);
+  color: var(--color-snow-white);
+}
+
+/* Mobile action buttons - inside mobile menu */
 .nav-item-donate-mobile {
   padding: var(--space-md) 0;
   border-top: 1px solid var(--color-wool-gray);
   margin-top: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
 }
 
-.nav-item-donate-mobile .btn-donate {
+.nav-item-donate-mobile .btn-donate,
+.nav-item-donate-mobile .btn-webcam {
+  display: flex;
+  justify-content: center;
   width: 100%;
 }
 
@@ -4635,4 +4690,71 @@ button.webcam-card {
   font-weight: 600;
   font-size: var(--text-sm);
   letter-spacing: 0.025em;
+}
+
+/* ==========================================================================
+   Eastern Regional Biathlon Page
+   ========================================================================== */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-lg);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.contact-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+.contact-name {
+  color: var(--color-snow-white);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-xs);
+}
+
+.contact-role {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.contact-email {
+  color: var(--color-snow-white);
+  text-decoration: underline;
+  font-size: var(--text-sm);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.contact-phone {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--text-sm);
+}
+
+.classes-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.classes-table th {
+  background-color: var(--color-primary);
+  color: var(--color-snow-white);
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  font-weight: 600;
+}
+
+.classes-table td {
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.classes-table tbody tr:hover {
+  background-color: var(--color-wool-gray);
 }
